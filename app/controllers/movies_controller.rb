@@ -44,8 +44,8 @@ class MoviesController < ApplicationController
       @movie = Movie.find(params[:id])
     end
 
-    # # Only allow a trusted parameter "white list" through.
-    # def movie_params
-    #   params.require(:movie).permit(:title, :rating, :genre, :year_released, :plot, :director, :actors, :poster, :rotten_tomatoes_score)
-    # end
+    # Only allow a trusted parameter "white list" through.
+    def movie_params
+      params.require(:movie).permit(:title, :rating, :genre, :year_released, :plot, :director, :actors, :poster, :rotten_tomatoes_score)
+    end
 end
