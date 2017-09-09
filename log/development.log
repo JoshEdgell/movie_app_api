@@ -1,0 +1,810 @@
+[1m[35m (6.0ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+[1m[35m (3.4ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+[1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(6652800596385700680)[0m
+[1m[35m (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateMovies (20170908001042)
+[1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+[1m[35m (4.3ms)[0m  [1m[35mCREATE TABLE "movies" ("id" bigserial primary key, "title" character varying, "rating" character varying, "genre" character varying, "year_released" integer, "plot" text, "director" character varying, "actors" character varying, "poster" character varying, "rotten_tomatoes_score" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+[1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170908001042"]]
+[1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateUsers (20170908001243)
+[1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+[1m[35m (3.4ms)[0m  [1m[35mCREATE TABLE "users" ("id" bigserial primary key, "username" character varying, "first_name" character varying, "last_name" character varying, "age" integer, "gender" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+[1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170908001243"]]
+[1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+[1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+[1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+[1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2017-09-08 00:15:11.227164"], ["updated_at", "2017-09-08 00:15:11.227164"]]
+[1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+[1m[35m (0.3ms)[0m  [1m[34mSELECT pg_advisory_unlock(6652800596385700680)[0m
+[1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+[1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(6652800596385700680)[0m
+[1m[35m (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateReviews (20170908001753)
+[1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+[1m[35m (9.6ms)[0m  [1m[35mCREATE TABLE "reviews" ("id" bigserial primary key, "user_id" bigint, "movie_id" bigint, "review_text" text, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, CONSTRAINT "fk_rails_74a66bd6c5"
+FOREIGN KEY ("user_id")
+REFERENCES "users" ("id")
+, CONSTRAINT "fk_rails_6ad75a4852"
+FOREIGN KEY ("movie_id")
+REFERENCES "movies" ("id")
+)[0m
+[1m[35m (0.8ms)[0m  [1m[35mCREATE  INDEX  "index_reviews_on_user_id" ON "reviews"  ("user_id")[0m
+[1m[35m (0.8ms)[0m  [1m[35mCREATE  INDEX  "index_reviews_on_movie_id" ON "reviews"  ("movie_id")[0m
+[1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170908001753"]]
+[1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+[1m[36mActiveRecord::InternalMetadata Load (0.5ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+[1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+[1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+[1m[35m (0.3ms)[0m  [1m[34mSELECT pg_advisory_unlock(6652800596385700680)[0m
+[1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+[1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(6652800596385700680)[0m
+[1m[35m (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateFavorites (20170908002204)
+[1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+[1m[35m (5.2ms)[0m  [1m[35mCREATE TABLE "favorites" ("id" bigserial primary key, "user_id" bigint, "movie_id" bigint, "recommended" boolean, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, CONSTRAINT "fk_rails_d15744e438"
+FOREIGN KEY ("user_id")
+REFERENCES "users" ("id")
+, CONSTRAINT "fk_rails_2f96619ba3"
+FOREIGN KEY ("movie_id")
+REFERENCES "movies" ("id")
+)[0m
+[1m[35m (0.8ms)[0m  [1m[35mCREATE  INDEX  "index_favorites_on_user_id" ON "favorites"  ("user_id")[0m
+[1m[35m (0.8ms)[0m  [1m[35mCREATE  INDEX  "index_favorites_on_movie_id" ON "favorites"  ("movie_id")[0m
+[1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170908002204"]]
+[1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+[1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+[1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+[1m[35m (0.1ms)[0m  [1m[35mCOMMIT[0m
+[1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(6652800596385700680)[0m
+[1m[35m (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+[1m[35m (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+[1m[35m (1.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+[1m[35m (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+[1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+[1m[35mSQL (1.2ms)[0m  [1m[32mINSERT INTO "movies" ("title", "rating", "genre", "year_released", "plot", "director", "actors", "poster", "rotten_tomatoes_score", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING "id"[0m  [["title", "Amber Hybrid Beer"], ["rating", "83 IBU"], ["genre", "Dwarf cat, or Dwelf"], ["year_released", 1444], ["plot", "Salvia twee xoxo bitters austin park next level. Pork belly plaid offal. Twee ramps polaroid pug synth 90's tacos listicle. Heirloom 8-bit blue bottle banjo pitchfork cray. Small batch chambray poutine single-origin coffee kombucha meggings."], ["director", "Quence"], ["actors", "Estelle Costanza"], ["poster", "https://www.movieposter.com/posters/archive/main/88/MPW-44013"], ["rotten_tomatoes_score", "4.4%"], ["created_at", "2017-09-08 14:32:22.992612"], ["updated_at", "2017-09-08 14:32:22.992612"]]
+[1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+[1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+[1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "movies" ("title", "rating", "genre", "year_released", "plot", "director", "actors", "poster", "rotten_tomatoes_score", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING "id"[0m  [["title", "Smoke-flavored"], ["rating", "97 IBU"], ["genre", "Ragamuffin"], ["year_released", 1294], ["plot", "Vegan sustainable food truck roof church-key chartreuse. Organic cronut echo shoreditch +1 occupy vinegar lo-fi. Austin mlkshk muggle magic. Franzen carry chartreuse. Street pabst selfies kale chips vinyl yolo etsy."], ["director", "Daemon I Blackfyre"], ["actors", "George Costanza"], ["poster", "https://www.movieposter.com/posters/archive/main/88/MPW-44013"], ["rotten_tomatoes_score", "4.0%"], ["created_at", "2017-09-08 14:32:22.997234"], ["updated_at", "2017-09-08 14:32:22.997234"]]
+[1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+[1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+[1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "movies" ("title", "rating", "genre", "year_released", "plot", "director", "actors", "poster", "rotten_tomatoes_score", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING "id"[0m  [["title", "Light Hybrid Beer"], ["rating", "98 IBU"], ["genre", "Abyssinian"], ["year_released", 8031], ["plot", "3 wolf moon everyday mixtape bitters. Mumblecore lomo intelligentsia ramps raw denim. Direct trade green juice hella. Mumblecore beard pitchfork drinking. Heirloom kombucha banh mi chillwave leggings put a bird on it."], ["director", "Daryn Hornwood"], ["actors", "George Costanza"], ["poster", "https://www.movieposter.com/posters/archive/main/88/MPW-44013"], ["rotten_tomatoes_score", "6.9%"], ["created_at", "2017-09-08 14:32:22.999716"], ["updated_at", "2017-09-08 14:32:22.999716"]]
+[1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+[1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+[1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "movies" ("title", "rating", "genre", "year_released", "plot", "director", "actors", "poster", "rotten_tomatoes_score", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING "id"[0m  [["title", "Fruit Beer"], ["rating", "80 IBU"], ["genre", "Russian Blue"], ["year_released", 3456], ["plot", "Truffaut wayfarers vhs park direct trade cornhole small batch. Yr pug craft beer poutine xoxo shabby chic health. Church-key kale chips cray small batch flexitarian venmo forage. Put a bird on it brooklyn typewriter. Tattooed vegan 3 wolf moon kogi roof irony."], ["director", "Harmen Uller"], ["actors", "George Costanza"], ["poster", "https://www.movieposter.com/posters/archive/main/88/MPW-44013"], ["rotten_tomatoes_score", "6.3%"], ["created_at", "2017-09-08 14:32:23.002739"], ["updated_at", "2017-09-08 14:32:23.002739"]]
+[1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+[1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+[1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "movies" ("title", "rating", "genre", "year_released", "plot", "director", "actors", "poster", "rotten_tomatoes_score", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING "id"[0m  [["title", "Belgian Strong Ale"], ["rating", "15 IBU"], ["genre", "Asian"], ["year_released", 9780], ["plot", "Polaroid 3 wolf moon squid you probably haven't heard of them. Biodiesel selfies phlogiston raw denim. Sartorial messenger bag viral cardigan readymade flexitarian whatever. Microdosing echo waistcoat flexitarian health."], ["director", "Franklyn Fowler"], ["actors", "Jerry Seinfeld"], ["poster", "https://www.movieposter.com/posters/archive/main/88/MPW-44013"], ["rotten_tomatoes_score", "4.5%"], ["created_at", "2017-09-08 14:32:23.005329"], ["updated_at", "2017-09-08 14:32:23.005329"]]
+[1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+[1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+[1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "movies" ("title", "rating", "genre", "year_released", "plot", "director", "actors", "poster", "rotten_tomatoes_score", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING "id"[0m  [["title", "India Pale Ale"], ["rating", "38 IBU"], ["genre", "Oregon Rex"], ["year_released", 1310], ["plot", "3 wolf moon you probably haven't heard of them pour-over portland cliche kickstarter. Lomo deep v bushwick. Diy crucifix photo booth food truck fanny pack."], ["director", "Orell"], ["actors", "Elaine Benes"], ["poster", "https://www.movieposter.com/posters/archive/main/88/MPW-44013"], ["rotten_tomatoes_score", "7.5%"], ["created_at", "2017-09-08 14:32:23.008540"], ["updated_at", "2017-09-08 14:32:23.008540"]]
+[1m[35m (0.7ms)[0m  [1m[35mCOMMIT[0m
+[1m[35m (0.6ms)[0m  [1m[35mBEGIN[0m
+[1m[35mSQL (1.2ms)[0m  [1m[32mINSERT INTO "movies" ("title", "rating", "genre", "year_released", "plot", "director", "actors", "poster", "rotten_tomatoes_score", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING "id"[0m  [["title", "Amber Hybrid Beer"], ["rating", "97 IBU"], ["genre", "Siamese"], ["year_released", 5790], ["plot", "Meggings green juice cray mustache phlogiston pour-over dreamcatcher goth. Meh pbr&b neutra food truck bicycle rights before they sold out. Tumblr chicharrones yolo."], ["director", "Colin Florent"], ["actors", "Frank Costanza"], ["poster", "https://www.movieposter.com/posters/archive/main/88/MPW-44013"], ["rotten_tomatoes_score", "9.5%"], ["created_at", "2017-09-08 14:32:23.013241"], ["updated_at", "2017-09-08 14:32:23.013241"]]
+[1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+[1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+[1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "movies" ("title", "rating", "genre", "year_released", "plot", "director", "actors", "poster", "rotten_tomatoes_score", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING "id"[0m  [["title", "Wood-aged Beer"], ["rating", "21 IBU"], ["genre", "Arabian Mau"], ["year_released", 7526], ["plot", "Pork belly knausgaard fixie vinyl loko butcher plaid. Occupy mumblecore skateboard five dollar toast quinoa godard. Retro hammock wes anderson direct trade. Sartorial intelligentsia xoxo church-key kitsch. Flexitarian aesthetic semiotics."], ["director", "Emmon Frey"], ["actors", "Morty Seinfeld"], ["poster", "https://www.movieposter.com/posters/archive/main/88/MPW-44013"], ["rotten_tomatoes_score", "9.0%"], ["created_at", "2017-09-08 14:32:23.018348"], ["updated_at", "2017-09-08 14:32:23.018348"]]
+[1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+[1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+[1m[35mSQL (0.8ms)[0m  [1m[32mINSERT INTO "movies" ("title", "rating", "genre", "year_released", "plot", "director", "actors", "poster", "rotten_tomatoes_score", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING "id"[0m  [["title", "English Brown Ale"], ["rating", "48 IBU"], ["genre", "Balinese"], ["year_released", 5194], ["plot", "Actually vinyl wes anderson meggings fixie. Tacos crucifix asymmetrical flexitarian godard swag keytar. Blue bottle bushwick park seitan."], ["director", "Edgerran Oakheart"], ["actors", "Elaine Benes"], ["poster", "https://www.movieposter.com/posters/archive/main/88/MPW-44013"], ["rotten_tomatoes_score", "5.0%"], ["created_at", "2017-09-08 14:32:23.021020"], ["updated_at", "2017-09-08 14:32:23.021020"]]
+[1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+[1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+[1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "movies" ("title", "rating", "genre", "year_released", "plot", "director", "actors", "poster", "rotten_tomatoes_score", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING "id"[0m  [["title", "Merican Ale"], ["rating", "49 IBU"], ["genre", "British Semipi-longhair"], ["year_released", 7891], ["plot", "Cornhole neutra fashion axe asymmetrical letterpress squid ramps scenester. Crucifix single-origin coffee blog leggings keytar biodiesel next level. Listicle taxidermy farm-to-table."], ["director", "Guyne"], ["actors", "Estelle Costanza"], ["poster", "https://www.movieposter.com/posters/archive/main/88/MPW-44013"], ["rotten_tomatoes_score", "9.2%"], ["created_at", "2017-09-08 14:32:23.026163"], ["updated_at", "2017-09-08 14:32:23.026163"]]
+[1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+[1m[35m (0.3ms)[0m  [1m[34mSELECT pg_try_advisory_lock(6652800596385700680)[0m
+[1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+[1m[36mActiveRecord::InternalMetadata Load (0.5ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+[1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+[1m[35m (1.2ms)[0m  [1m[35mCOMMIT[0m
+[1m[35m (2.3ms)[0m  [1m[34mSELECT pg_advisory_unlock(6652800596385700680)[0m
+[1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+[1m[35m (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+[1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+[1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "movies" ("title", "rating", "genre", "year_released", "plot", "director", "actors", "poster", "rotten_tomatoes_score", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING "id"[0m  [["title", "German Wheat And Rye Beer"], ["rating", "17 IBU"], ["genre", "Asian"], ["year_released", 6059], ["plot", "Tofu pug franzen. Park next level cred wes anderson mumblecore schlitz. Migas pitchfork chicharrones fashion axe actually."], ["director", "Mazdhan zo Loraq"], ["actors", "Estelle Costanza"], ["poster", "https://www.movieposter.com/posters/archive/main/88/MPW-44013"], ["rotten_tomatoes_score", "9.3%"], ["created_at", "2017-09-08 14:32:48.585218"], ["updated_at", "2017-09-08 14:32:48.585218"]]
+[1m[35m (1.6ms)[0m  [1m[35mCOMMIT[0m
+[1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+[1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "movies" ("title", "rating", "genre", "year_released", "plot", "director", "actors", "poster", "rotten_tomatoes_score", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING "id"[0m  [["title", "Vegetable Beer"], ["rating", "26 IBU"], ["genre", "Foldex Cat"], ["year_released", 7420], ["plot", "Meggings cliche cred chillwave. Microdosing flexitarian literally fashion axe. Celiac goth phlogiston keytar franzen vegan park cronut. Banjo sriracha shabby chic food truck knausgaard cliche keytar. Flexitarian salvia sustainable umami."], ["director", "Lucion Lannister"], ["actors", "Kramer"], ["poster", "https://www.movieposter.com/posters/archive/main/88/MPW-44013"], ["rotten_tomatoes_score", "8.7%"], ["created_at", "2017-09-08 14:32:48.590845"], ["updated_at", "2017-09-08 14:32:48.590845"]]
+[1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+[1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+[1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "movies" ("title", "rating", "genre", "year_released", "plot", "director", "actors", "poster", "rotten_tomatoes_score", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING "id"[0m  [["title", "Strong Ale"], ["rating", "74 IBU"], ["genre", "Kurilian Bobtail"], ["year_released", 4549], ["plot", "Loko wolf chicharrones shoreditch ugh cornhole. Sustainable +1 heirloom authentic swag marfa. Cleanse poutine kinfolk pabst. Tattooed drinking street shoreditch."], ["director", "Marghaz zo Loraq"], ["actors", "George Costanza"], ["poster", "https://www.movieposter.com/posters/archive/main/88/MPW-44013"], ["rotten_tomatoes_score", "5.4%"], ["created_at", "2017-09-08 14:32:48.593982"], ["updated_at", "2017-09-08 14:32:48.593982"]]
+[1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+[1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+[1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "movies" ("title", "rating", "genre", "year_released", "plot", "director", "actors", "poster", "rotten_tomatoes_score", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING "id"[0m  [["title", "English Brown Ale"], ["rating", "75 IBU"], ["genre", "Devon Rex"], ["year_released", 5585], ["plot", "Chia yolo ugh hella leggings gluten-free. Pbr&b waistcoat shoreditch vinegar taxidermy tacos direct trade. Mixtape shabby chic wolf pug."], ["director", "Runcel Hightower"], ["actors", "Elaine Benes"], ["poster", "https://www.movieposter.com/posters/archive/main/88/MPW-44013"], ["rotten_tomatoes_score", "7.1%"], ["created_at", "2017-09-08 14:32:48.596917"], ["updated_at", "2017-09-08 14:32:48.596917"]]
+[1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+[1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+[1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "movies" ("title", "rating", "genre", "year_released", "plot", "director", "actors", "poster", "rotten_tomatoes_score", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING "id"[0m  [["title", "Amber Hybrid Beer"], ["rating", "55 IBU"], ["genre", "Sokoke"], ["year_released", 8227], ["plot", "Migas stumptown typewriter. Tofu seitan pug. Iphone swag truffaut. Kombucha cornhole drinking whatever pbr&b tilde beard."], ["director", "Kirth Vance"], ["actors", "Estelle Costanza"], ["poster", "https://www.movieposter.com/posters/archive/main/88/MPW-44013"], ["rotten_tomatoes_score", "3.7%"], ["created_at", "2017-09-08 14:32:48.599405"], ["updated_at", "2017-09-08 14:32:48.599405"]]
+[1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+[1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+[1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "movies" ("title", "rating", "genre", "year_released", "plot", "director", "actors", "poster", "rotten_tomatoes_score", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING "id"[0m  [["title", "Porter"], ["rating", "59 IBU"], ["genre", "Abyssinian"], ["year_released", 8193], ["plot", "Small batch shabby chic everyday portland. Master wolf everyday swag flannel literally. Meh put a bird on it chambray 8-bit intelligentsia. Chicharrones humblebrag 90's semiotics next level."], ["director", "Dale Seaworth"], ["actors", "George Costanza"], ["poster", "https://www.movieposter.com/posters/archive/main/88/MPW-44013"], ["rotten_tomatoes_score", "6.1%"], ["created_at", "2017-09-08 14:32:48.602038"], ["updated_at", "2017-09-08 14:32:48.602038"]]
+[1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+[1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+[1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "movies" ("title", "rating", "genre", "year_released", "plot", "director", "actors", "poster", "rotten_tomatoes_score", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING "id"[0m  [["title", "Wood-aged Beer"], ["rating", "71 IBU"], ["genre", "Turkish Angora"], ["year_released", 2065], ["plot", "Selvage artisan kale chips yolo pug microdosing cronut xoxo. Lumbersexual neutra goth. Shoreditch lomo gentrify. Cliche fashion axe fixie master lomo xoxo vinyl cornhole. Cleanse pitchfork salvia keytar 90's vinegar."], ["director", "Denestan"], ["actors", "Frank Costanza"], ["poster", "https://www.movieposter.com/posters/archive/main/88/MPW-44013"], ["rotten_tomatoes_score", "4.3%"], ["created_at", "2017-09-08 14:32:48.604406"], ["updated_at", "2017-09-08 14:32:48.604406"]]
+[1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+[1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+[1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "movies" ("title", "rating", "genre", "year_released", "plot", "director", "actors", "poster", "rotten_tomatoes_score", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING "id"[0m  [["title", "Amber Hybrid Beer"], ["rating", "59 IBU"], ["genre", "Kurilian Bobtail, or Kuril Islands Bobtail"], ["year_released", 8571], ["plot", "Pork belly put a bird on it paleo master swag blog. Bitters loko brooklyn before they sold out farm-to-table. Neutra tumblr knausgaard polaroid 8-bit banjo authentic."], ["director", "Porridge"], ["actors", "Elaine Benes"], ["poster", "https://www.movieposter.com/posters/archive/main/88/MPW-44013"], ["rotten_tomatoes_score", "3.4%"], ["created_at", "2017-09-08 14:32:48.607069"], ["updated_at", "2017-09-08 14:32:48.607069"]]
+[1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+[1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+[1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "movies" ("title", "rating", "genre", "year_released", "plot", "director", "actors", "poster", "rotten_tomatoes_score", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING "id"[0m  [["title", "German Wheat And Rye Beer"], ["rating", "49 IBU"], ["genre", "Mekong Bobtail"], ["year_released", 9664], ["plot", "Pbr&b pabst taxidermy. Art party trust fund single-origin coffee food truck pork belly whatever dreamcatcher sartorial. Health tattooed asymmetrical."], ["director", "Kyra"], ["actors", "Elaine Benes"], ["poster", "https://www.movieposter.com/posters/archive/main/88/MPW-44013"], ["rotten_tomatoes_score", "4.7%"], ["created_at", "2017-09-08 14:32:48.609507"], ["updated_at", "2017-09-08 14:32:48.609507"]]
+[1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+[1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+[1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "movies" ("title", "rating", "genre", "year_released", "plot", "director", "actors", "poster", "rotten_tomatoes_score", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING "id"[0m  [["title", "Stout"], ["rating", "24 IBU"], ["genre", "American Bobtail"], ["year_released", 2147], ["plot", "Swag gastropub vice offal. Hammock tousled tofu church-key. Leggings before they sold out wayfarers dreamcatcher cornhole kinfolk."], ["director", "Melisandre"], ["actors", "Frank Costanza"], ["poster", "https://www.movieposter.com/posters/archive/main/88/MPW-44013"], ["rotten_tomatoes_score", "6.8%"], ["created_at", "2017-09-08 14:32:48.613797"], ["updated_at", "2017-09-08 14:32:48.613797"]]
+[1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+[1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+[1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+[1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "movies" ("title", "rating", "genre", "year_released", "plot", "director", "actors", "poster", "rotten_tomatoes_score", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING "id"[0m  [["title", "Dark Lager"], ["rating", "39 IBU"], ["genre", "Ojos Azules"], ["year_released", 1971], ["plot", "Cold-pressed tote bag austin hella 8-bit. Diy wayfarers chambray. Photo booth tumblr celiac echo paleo chambray. Normcore stumptown pbr&b pour-over. Marfa crucifix drinking polaroid."], ["director", "Robin Ryger"], ["actors", "Morty Seinfeld"], ["poster", "https://www.movieposter.com/posters/archive/main/88/MPW-44013"], ["rotten_tomatoes_score", "3.8%"], ["created_at", "2017-09-08 14:33:15.833631"], ["updated_at", "2017-09-08 14:33:15.833631"]]
+[1m[35m (1.7ms)[0m  [1m[35mCOMMIT[0m
+[1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+[1m[35mSQL (0.8ms)[0m  [1m[32mINSERT INTO "movies" ("title", "rating", "genre", "year_released", "plot", "director", "actors", "poster", "rotten_tomatoes_score", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING "id"[0m  [["title", "Sour Ale"], ["rating", "54 IBU"], ["genre", "Scottish Fold"], ["year_released", 5310], ["plot", "Cardigan retro forage. Beard five dollar toast craft beer. Swag pabst crucifix offal lumbersexual keytar."], ["director", "Cressen"], ["actors", "Frank Costanza"], ["poster", "https://www.movieposter.com/posters/archive/main/88/MPW-44013"], ["rotten_tomatoes_score", "8.9%"], ["created_at", "2017-09-08 14:33:15.838432"], ["updated_at", "2017-09-08 14:33:15.838432"]]
+[1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+[1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+[1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "movies" ("title", "rating", "genre", "year_released", "plot", "director", "actors", "poster", "rotten_tomatoes_score", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING "id"[0m  [["title", "Vegetable Beer"], ["rating", "54 IBU"], ["genre", "Serrade petit"], ["year_released", 6186], ["plot", "Meggings master chambray portland humblebrag. Migas taxidermy vegan semiotics keffiyeh offal farm-to-table freegan. Cleanse post-ironic roof yr quinoa. Jean shorts try-hard tattooed hashtag waistcoat cleanse. Etsy paleo kitsch distillery farm-to-table trust fund freegan biodiesel."], ["director", "Wylla Manderly"], ["actors", "Estelle Costanza"], ["poster", "https://www.movieposter.com/posters/archive/main/88/MPW-44013"], ["rotten_tomatoes_score", "7.9%"], ["created_at", "2017-09-08 14:33:15.841805"], ["updated_at", "2017-09-08 14:33:15.841805"]]
+[1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+[1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+[1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "movies" ("title", "rating", "genre", "year_released", "plot", "director", "actors", "poster", "rotten_tomatoes_score", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING "id"[0m  [["title", "Bock"], ["rating", "19 IBU"], ["genre", "Kurilian Bobtail"], ["year_released", 8867], ["plot", "Synth tote bag trust fund organic readymade viral. Trust fund lomo hella marfa. Artisan craft beer heirloom umami meh muggle magic yolo offal. Distillery gastropub hella."], ["director", "Humfrey Hardyng"], ["actors", "Morty Seinfeld"], ["poster", "https://www.movieposter.com/posters/archive/main/88/MPW-44013"], ["rotten_tomatoes_score", "3.7%"], ["created_at", "2017-09-08 14:33:15.844751"], ["updated_at", "2017-09-08 14:33:15.844751"]]
+[1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+[1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+[1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "movies" ("title", "rating", "genre", "year_released", "plot", "director", "actors", "poster", "rotten_tomatoes_score", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING "id"[0m  [["title", "India Pale Ale"], ["rating", "47 IBU"], ["genre", "Mekong Bobtail"], ["year_released", 1692], ["plot", "Irony taxidermy crucifix cliche. Selfies biodiesel squid venmo asymmetrical xoxo godard. Keffiyeh marfa swag five dollar toast jean shorts farm-to-table. Kitsch cornhole cleanse knausgaard post-ironic."], ["director", "Ulmer"], ["actors", "Kramer"], ["poster", "https://www.movieposter.com/posters/archive/main/88/MPW-44013"], ["rotten_tomatoes_score", "8.2%"], ["created_at", "2017-09-08 14:33:15.847205"], ["updated_at", "2017-09-08 14:33:15.847205"]]
+[1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+[1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+[1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "movies" ("title", "rating", "genre", "year_released", "plot", "director", "actors", "poster", "rotten_tomatoes_score", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING "id"[0m  [["title", "Stout"], ["rating", "59 IBU"], ["genre", "Singapura"], ["year_released", 5269], ["plot", "Mlkshk banh mi locavore next level brunch. Flannel sartorial retro. Mumblecore keffiyeh biodiesel quinoa vice shabby chic semiotics authentic. Authentic roof diy. Literally cold-pressed selfies hammock kale chips freegan gluten-free brooklyn."], ["director", "Haegon Blackfyre"], ["actors", "Frank Costanza"], ["poster", "https://www.movieposter.com/posters/archive/main/88/MPW-44013"], ["rotten_tomatoes_score", "5.4%"], ["created_at", "2017-09-08 14:33:15.850178"], ["updated_at", "2017-09-08 14:33:15.850178"]]
+[1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+[1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+[1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "movies" ("title", "rating", "genre", "year_released", "plot", "director", "actors", "poster", "rotten_tomatoes_score", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING "id"[0m  [["title", "Light Lager"], ["rating", "51 IBU"], ["genre", "Arabian Mau"], ["year_released", 5000], ["plot", "Echo pinterest kickstarter. Ramps park franzen yr viral. Brooklyn xoxo kickstarter polaroid tattooed. Yr skateboard sustainable kickstarter street."], ["director", "Draqaz"], ["actors", "Estelle Costanza"], ["poster", "https://www.movieposter.com/posters/archive/main/88/MPW-44013"], ["rotten_tomatoes_score", "2.5%"], ["created_at", "2017-09-08 14:33:15.852902"], ["updated_at", "2017-09-08 14:33:15.852902"]]
+[1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+[1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+[1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "movies" ("title", "rating", "genre", "year_released", "plot", "director", "actors", "poster", "rotten_tomatoes_score", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING "id"[0m  [["title", "Bock"], ["rating", "99 IBU"], ["genre", "Maine Coon"], ["year_released", 5713], ["plot", "Blog post-ironic vhs kogi aesthetic biodiesel yr five dollar toast. Microdosing kale chips kinfolk vhs. 8-bit diy austin."], ["director", "Perra Frey"], ["actors", "Estelle Costanza"], ["poster", "https://www.movieposter.com/posters/archive/main/88/MPW-44013"], ["rotten_tomatoes_score", "5.2%"], ["created_at", "2017-09-08 14:33:15.855052"], ["updated_at", "2017-09-08 14:33:15.855052"]]
+[1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+[1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+[1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "movies" ("title", "rating", "genre", "year_released", "plot", "director", "actors", "poster", "rotten_tomatoes_score", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING "id"[0m  [["title", "Strong Ale"], ["rating", "17 IBU"], ["genre", "Selkirk Rex"], ["year_released", 2672], ["plot", "Before they sold out park tousled knausgaard biodiesel everyday. Fixie meh gastropub chambray. Asymmetrical lomo keytar fixie organic fashion axe."], ["director", "Norbert Vance"], ["actors", "Jerry Seinfeld"], ["poster", "https://www.movieposter.com/posters/archive/main/88/MPW-44013"], ["rotten_tomatoes_score", "5.5%"], ["created_at", "2017-09-08 14:33:15.859259"], ["updated_at", "2017-09-08 14:33:15.859259"]]
+[1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+[1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+[1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "movies" ("title", "rating", "genre", "year_released", "plot", "director", "actors", "poster", "rotten_tomatoes_score", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING "id"[0m  [["title", "Wood-aged Beer"], ["rating", "50 IBU"], ["genre", "Serrade petit"], ["year_released", 7552], ["plot", "Forage lo-fi ennui polaroid. Direct trade messenger bag actually literally pour-over plaid. Listicle leggings cold-pressed."], ["director", "Jothos Slynt"], ["actors", "Morty Seinfeld"], ["poster", "https://www.movieposter.com/posters/archive/main/88/MPW-44013"], ["rotten_tomatoes_score", "6.0%"], ["created_at", "2017-09-08 14:33:15.862177"], ["updated_at", "2017-09-08 14:33:15.862177"]]
+[1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+[1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+[1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+[1m[35m (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+[1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+[1m[35mSQL (1.0ms)[0m  [1m[32mINSERT INTO "movies" ("title", "rating", "genre", "year_released", "plot", "director", "actors", "poster", "rotten_tomatoes_score", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING "id"[0m  [["title", "English Pale Ale"], ["rating", "65 IBU"], ["genre", "Bengal"], ["year_released", 5175], ["plot", "Viral listicle shoreditch blog retro vinegar. Slow-carb heirloom beard cray. Umami artisan jean shorts food truck waistcoat. Keytar marfa locavore pbr&b selvage williamsburg authentic before they sold out."], ["director", "Hother Umber"], ["actors", "Newman"], ["poster", "https://www.movieposter.com/posters/archive/main/88/MPW-44013"], ["rotten_tomatoes_score", "9.8%"], ["created_at", "2017-09-08 14:34:02.996248"], ["updated_at", "2017-09-08 14:34:02.996248"]]
+[1m[35m (1.9ms)[0m  [1m[35mCOMMIT[0m
+[1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+[1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "movies" ("title", "rating", "genre", "year_released", "plot", "director", "actors", "poster", "rotten_tomatoes_score", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING "id"[0m  [["title", "Merican Ale"], ["rating", "16 IBU"], ["genre", "Colorpoint Shorthair"], ["year_released", 4933], ["plot", "Cronut umami hammock. Normcore pug echo whatever pork belly austin. Viral farm-to-table keytar echo. Viral tacos narwhal five dollar toast tattooed pinterest photo booth. Godard microdosing tilde viral food truck selfies."], ["director", "Aegon V Targaryen"], ["actors", "Elaine Benes"], ["poster", "https://www.movieposter.com/posters/archive/main/88/MPW-44013"], ["rotten_tomatoes_score", "3.6%"], ["created_at", "2017-09-08 14:34:03.003830"], ["updated_at", "2017-09-08 14:34:03.003830"]]
+[1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+[1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+[1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "movies" ("title", "rating", "genre", "year_released", "plot", "director", "actors", "poster", "rotten_tomatoes_score", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING "id"[0m  [["title", "Belgian Strong Ale"], ["rating", "12 IBU"], ["genre", "LaPerm"], ["year_released", 2975], ["plot", "Literally lo-fi everyday mumblecore. Godard tousled 90's. Deep v biodiesel taxidermy. Dreamcatcher letterpress everyday."], ["director", "Artys Arryn"], ["actors", "Jerry Seinfeld"], ["poster", "https://www.movieposter.com/posters/archive/main/88/MPW-44013"], ["rotten_tomatoes_score", "8.1%"], ["created_at", "2017-09-08 14:34:03.006471"], ["updated_at", "2017-09-08 14:34:03.006471"]]
+[1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+[1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+[1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "movies" ("title", "rating", "genre", "year_released", "plot", "director", "actors", "poster", "rotten_tomatoes_score", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING "id"[0m  [["title", "Vegetable Beer"], ["rating", "25 IBU"], ["genre", "Napoleon"], ["year_released", 3398], ["plot", "Marfa semiotics truffaut austin heirloom jean shorts loko you probably haven't heard of them. Small batch meggings loko shabby chic pop-up deep v disrupt hoodie. Bicycle rights distillery scenester whatever yuccie gentrify venmo. Church-key humblebrag chartreuse neutra trust fund heirloom narwhal intelligentsia."], ["director", "Coratt"], ["actors", "Jerry Seinfeld"], ["poster", "https://www.movieposter.com/posters/archive/main/88/MPW-44013"], ["rotten_tomatoes_score", "8.5%"], ["created_at", "2017-09-08 14:34:03.009267"], ["updated_at", "2017-09-08 14:34:03.009267"]]
+[1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+[1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+[1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "movies" ("title", "rating", "genre", "year_released", "plot", "director", "actors", "poster", "rotten_tomatoes_score", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING "id"[0m  [["title", "Bock"], ["rating", "37 IBU"], ["genre", "Balinese"], ["year_released", 9137], ["plot", "Park carry squid. Put a bird on it sustainable wolf. Pinterest pour-over umami +1 irony godard asymmetrical. 90's lo-fi pour-over flexitarian flannel yr ramps. Five dollar toast pug aesthetic artisan paleo vhs."], ["director", "Maron Martell"], ["actors", "Estelle Costanza"], ["poster", "https://www.movieposter.com/posters/archive/main/88/MPW-44013"], ["rotten_tomatoes_score", "2.7%"], ["created_at", "2017-09-08 14:34:03.012097"], ["updated_at", "2017-09-08 14:34:03.012097"]]
+[1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+[1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+[1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "movies" ("title", "rating", "genre", "year_released", "plot", "director", "actors", "poster", "rotten_tomatoes_score", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING "id"[0m  [["title", "Smoke-flavored"], ["rating", "44 IBU"], ["genre", "Aegean"], ["year_released", 8947], ["plot", "Venmo tofu brooklyn stumptown dreamcatcher brunch scenester. Chicharrones brooklyn mumblecore waistcoat. Wolf kinfolk thundercats master pitchfork meggings listicle."], ["director", "Harlon Greyjoy"], ["actors", "Frank Costanza"], ["poster", "https://www.movieposter.com/posters/archive/main/88/MPW-44013"], ["rotten_tomatoes_score", "5.6%"], ["created_at", "2017-09-08 14:34:03.014507"], ["updated_at", "2017-09-08 14:34:03.014507"]]
+[1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+[1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+[1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "movies" ("title", "rating", "genre", "year_released", "plot", "director", "actors", "poster", "rotten_tomatoes_score", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING "id"[0m  [["title", "Scottish And Irish Ale"], ["rating", "55 IBU"], ["genre", "Serrade petit"], ["year_released", 5378], ["plot", "Hoodie kinfolk pitchfork. Biodiesel cardigan neutra pour-over. Blog master schlitz crucifix. Kale chips chambray bitters sriracha semiotics gentrify farm-to-table."], ["director", "Aemond Targaryen"], ["actors", "Kramer"], ["poster", "https://www.movieposter.com/posters/archive/main/88/MPW-44013"], ["rotten_tomatoes_score", "2.1%"], ["created_at", "2017-09-08 14:34:03.017262"], ["updated_at", "2017-09-08 14:34:03.017262"]]
+[1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+[1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+[1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "movies" ("title", "rating", "genre", "year_released", "plot", "director", "actors", "poster", "rotten_tomatoes_score", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING "id"[0m  [["title", "Vegetable Beer"], ["rating", "79 IBU"], ["genre", "Exotic Shorthair"], ["year_released", 1625], ["plot", "Literally flannel craft beer kombucha. Umami cred you probably haven't heard of them locavore vinegar butcher. Art party hammock dreamcatcher carry. Echo small batch viral vhs waistcoat bespoke deep v authentic."], ["director", "Zhoe Blanetree"], ["actors", "Newman"], ["poster", "https://www.movieposter.com/posters/archive/main/88/MPW-44013"], ["rotten_tomatoes_score", "6.9%"], ["created_at", "2017-09-08 14:34:03.020552"], ["updated_at", "2017-09-08 14:34:03.020552"]]
+[1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+[1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+[1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "movies" ("title", "rating", "genre", "year_released", "plot", "director", "actors", "poster", "rotten_tomatoes_score", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING "id"[0m  [["title", "Sour Ale"], ["rating", "47 IBU"], ["genre", "Bengal"], ["year_released", 6602], ["plot", "Butcher pabst literally franzen. Paleo ennui trust fund narwhal pinterest poutine normcore waistcoat. Sustainable green juice meggings health paleo banjo."], ["director", "Melly"], ["actors", "Morty Seinfeld"], ["poster", "https://www.movieposter.com/posters/archive/main/88/MPW-44013"], ["rotten_tomatoes_score", "6.1%"], ["created_at", "2017-09-08 14:34:03.023144"], ["updated_at", "2017-09-08 14:34:03.023144"]]
+[1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+[1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+[1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "movies" ("title", "rating", "genre", "year_released", "plot", "director", "actors", "poster", "rotten_tomatoes_score", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING "id"[0m  [["title", "Belgian And French Ale"], ["rating", "75 IBU"], ["genre", "Chausie"], ["year_released", 6300], ["plot", "Distillery try-hard yr. Kogi banh mi squid asymmetrical. Bicycle rights organic sartorial hammock vinyl vinegar whatever keffiyeh. Fixie everyday bespoke chia normcore 3 wolf moon. Put a bird on it yuccie heirloom."], ["director", "Margot Lannister"], ["actors", "Estelle Costanza"], ["poster", "https://www.movieposter.com/posters/archive/main/88/MPW-44013"], ["rotten_tomatoes_score", "2.4%"], ["created_at", "2017-09-08 14:34:03.025412"], ["updated_at", "2017-09-08 14:34:03.025412"]]
+[1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+[1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+[1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+[1m[35m (1.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+[1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+[1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "movies" ("title", "rating", "genre", "year_released", "plot", "director", "actors", "poster", "rotten_tomatoes_score", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING "id"[0m  [["title", "Sour Ale"], ["rating", "53 IBU"], ["genre", "Sokoke"], ["year_released", 9882], ["plot", "Bitters artisan pop-up 3 wolf moon dreamcatcher kogi. Beard yr occupy mustache literally. Drinking forage marfa quinoa. Yuccie mustache vinegar. Beard freegan bushwick offal."], ["director", "Vaellyn"], ["actors", "Jerry Seinfeld"], ["poster", "https://www.movieposter.com/posters/archive/main/88/MPW-44013"], ["rotten_tomatoes_score", "3.4%"], ["created_at", "2017-09-08 14:34:28.471878"], ["updated_at", "2017-09-08 14:34:28.471878"]]
+[1m[35m (1.7ms)[0m  [1m[35mCOMMIT[0m
+[1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+[1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "movies" ("title", "rating", "genre", "year_released", "plot", "director", "actors", "poster", "rotten_tomatoes_score", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING "id"[0m  [["title", "Merican Ale"], ["rating", "13 IBU"], ["genre", "Himalayan, or Colorpoint Persian"], ["year_released", 4377], ["plot", "Asymmetrical 3 wolf moon meditation hashtag single-origin coffee. Yr franzen tumblr vinegar marfa iphone. Loko park bespoke blue bottle skateboard cleanse cred direct trade. Cardigan small batch try-hard helvetica gastropub. Listicle health pork belly slow-carb locavore."], ["director", "Jeyne Lydden"], ["actors", "Jerry Seinfeld"], ["poster", "https://www.movieposter.com/posters/archive/main/88/MPW-44013"], ["rotten_tomatoes_score", "5.8%"], ["created_at", "2017-09-08 14:34:28.477460"], ["updated_at", "2017-09-08 14:34:28.477460"]]
+[1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+[1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+[1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "movies" ("title", "rating", "genre", "year_released", "plot", "director", "actors", "poster", "rotten_tomatoes_score", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING "id"[0m  [["title", "Bock"], ["rating", "75 IBU"], ["genre", "Korat"], ["year_released", 8988], ["plot", "Mlkshk kinfolk street pbr&b cleanse scenester franzen. Ethical semiotics lumbersexual butcher flannel umami keytar. Chartreuse messenger bag dreamcatcher hammock chambray farm-to-table street. Austin yr put a bird on it pabst offal waistcoat ethical."], ["director", "Serwyn of the Mirror Shield"], ["actors", "Frank Costanza"], ["poster", "https://www.movieposter.com/posters/archive/main/88/MPW-44013"], ["rotten_tomatoes_score", "4.6%"], ["created_at", "2017-09-08 14:34:28.480916"], ["updated_at", "2017-09-08 14:34:28.480916"]]
+[1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+[1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+[1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "movies" ("title", "rating", "genre", "year_released", "plot", "director", "actors", "poster", "rotten_tomatoes_score", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING "id"[0m  [["title", "Dark Lager"], ["rating", "59 IBU"], ["genre", "Kurilian Bobtail"], ["year_released", 1077], ["plot", "Normcore deep v meditation kombucha. Vegan forage shabby chic pug wolf. Artisan blue bottle beard occupy venmo ramps pour-over street. Tilde master small batch hella gluten-free."], ["director", "Rob"], ["actors", "George Costanza"], ["poster", "https://www.movieposter.com/posters/archive/main/88/MPW-44013"], ["rotten_tomatoes_score", "6.5%"], ["created_at", "2017-09-08 14:34:28.484364"], ["updated_at", "2017-09-08 14:34:28.484364"]]
+[1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+[1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+[1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "movies" ("title", "rating", "genre", "year_released", "plot", "director", "actors", "poster", "rotten_tomatoes_score", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING "id"[0m  [["title", "Amber Hybrid Beer"], ["rating", "21 IBU"], ["genre", "Sokoke"], ["year_released", 1642], ["plot", "Pickled direct trade freegan pabst bicycle rights lo-fi occupy. 90's selvage typewriter. Migas health cred."], ["director", "Lucos"], ["actors", "Estelle Costanza"], ["poster", "https://www.movieposter.com/posters/archive/main/88/MPW-44013"], ["rotten_tomatoes_score", "9.1%"], ["created_at", "2017-09-08 14:34:28.488448"], ["updated_at", "2017-09-08 14:34:28.488448"]]
+[1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+[1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+[1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "movies" ("title", "rating", "genre", "year_released", "plot", "director", "actors", "poster", "rotten_tomatoes_score", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING "id"[0m  [["title", "Scottish And Irish Ale"], ["rating", "71 IBU"], ["genre", "Persian (Modern Persian Cat)"], ["year_released", 8520], ["plot", "Blue bottle hella farm-to-table salvia banjo shabby chic cronut. Migas schlitz loko sriracha hoodie twee. Paleo kombucha try-hard food truck put a bird on it. Listicle bitters green juice single-origin coffee vice tumblr organic raw denim. Bitters street slow-carb pour-over ramps thundercats wolf."], ["director", "Barre"], ["actors", "George Costanza"], ["poster", "https://www.movieposter.com/posters/archive/main/88/MPW-44013"], ["rotten_tomatoes_score", "5.9%"], ["created_at", "2017-09-08 14:34:28.491463"], ["updated_at", "2017-09-08 14:34:28.491463"]]
+[1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+[1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+[1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "movies" ("title", "rating", "genre", "year_released", "plot", "director", "actors", "poster", "rotten_tomatoes_score", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING "id"[0m  [["title", "Sour Ale"], ["rating", "67 IBU"], ["genre", "Ukrainian Levkoy"], ["year_released", 1031], ["plot", "Pickled shoreditch scenester food truck. Chicharrones brooklyn hammock ramps photo booth hella next level cold-pressed. Cliche distillery art party thundercats. Godard put a bird on it chia sartorial hoodie offal irony roof. Synth vice typewriter kitsch."], ["director", "Jocelyn Swyft"], ["actors", "Newman"], ["poster", "https://www.movieposter.com/posters/archive/main/88/MPW-44013"], ["rotten_tomatoes_score", "4.3%"], ["created_at", "2017-09-08 14:34:28.494717"], ["updated_at", "2017-09-08 14:34:28.494717"]]
+[1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+[1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+[1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "movies" ("title", "rating", "genre", "year_released", "plot", "director", "actors", "poster", "rotten_tomatoes_score", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING "id"[0m  [["title", "English Brown Ale"], ["rating", "93 IBU"], ["genre", "LaPerm"], ["year_released", 6854], ["plot", "Post-ironic listicle health shabby chic whatever. Park semiotics small batch pinterest lomo mustache keffiyeh vegan. Tousled 90's drinking. Helvetica put a bird on it art party cornhole polaroid bitters. Loko bicycle rights echo everyday +1 occupy sartorial aesthetic."], ["director", "Oswell Kettleblack"], ["actors", "Morty Seinfeld"], ["poster", "https://www.movieposter.com/posters/archive/main/88/MPW-44013"], ["rotten_tomatoes_score", "2.9%"], ["created_at", "2017-09-08 14:34:28.497942"], ["updated_at", "2017-09-08 14:34:28.497942"]]
+[1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+[1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+[1m[35mSQL (2.3ms)[0m  [1m[32mINSERT INTO "movies" ("title", "rating", "genre", "year_released", "plot", "director", "actors", "poster", "rotten_tomatoes_score", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING "id"[0m  [["title", "Porter"], ["rating", "15 IBU"], ["genre", "Ragamuffin"], ["year_released", 5665], ["plot", "Slow-carb mustache pabst truffaut letterpress. Lumbersexual truffaut typewriter 90's distillery twee farm-to-table vegan. Actually wayfarers schlitz."], ["director", "Anguy"], ["actors", "Frank Costanza"], ["poster", "https://www.movieposter.com/posters/archive/main/88/MPW-44013"], ["rotten_tomatoes_score", "9.4%"], ["created_at", "2017-09-08 14:34:28.500319"], ["updated_at", "2017-09-08 14:34:28.500319"]]
+[1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+[1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+[1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "movies" ("title", "rating", "genre", "year_released", "plot", "director", "actors", "poster", "rotten_tomatoes_score", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING "id"[0m  [["title", "Sour Ale"], ["rating", "51 IBU"], ["genre", "Balinese"], ["year_released", 5364], ["plot", "Goth crucifix pork belly cleanse hella. Jean shorts wolf farm-to-table selvage typewriter. Microdosing 3 wolf moon put a bird on it butcher before they sold out neutra taxidermy banh mi. Tumblr celiac crucifix. Put a bird on it salvia green juice."], ["director", "Lysono Maar"], ["actors", "Elaine Benes"], ["poster", "https://www.movieposter.com/posters/archive/main/88/MPW-44013"], ["rotten_tomatoes_score", "9.2%"], ["created_at", "2017-09-08 14:34:28.505477"], ["updated_at", "2017-09-08 14:34:28.505477"]]
+[1m[35m (0.7ms)[0m  [1m[35mCOMMIT[0m
+[1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+[1m[35mSQL (1.0ms)[0m  [1m[32mINSERT INTO "users" ("username", "first_name", "last_name", "age", "gender", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["username", "taurean.green"], ["first_name", "Rosario"], ["last_name", "Funk"], ["age", 66], ["gender", "Female"], ["created_at", "2017-09-08 14:34:28.522941"], ["updated_at", "2017-09-08 14:34:28.522941"]]
+[1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+[1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+[1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "users" ("username", "first_name", "last_name", "age", "gender", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["username", "ian"], ["first_name", "Alana"], ["last_name", "Denesik"], ["age", 68], ["gender", "Male"], ["created_at", "2017-09-08 14:34:28.527140"], ["updated_at", "2017-09-08 14:34:28.527140"]]
+[1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+[1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+[1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "users" ("username", "first_name", "last_name", "age", "gender", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["username", "webster"], ["first_name", "Emilia"], ["last_name", "Hahn"], ["age", 15], ["gender", "Male"], ["created_at", "2017-09-08 14:34:28.529161"], ["updated_at", "2017-09-08 14:34:28.529161"]]
+[1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+[1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+[1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "users" ("username", "first_name", "last_name", "age", "gender", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["username", "cyrus_ullrich"], ["first_name", "Fernando"], ["last_name", "Luettgen"], ["age", 20], ["gender", "Male"], ["created_at", "2017-09-08 14:34:28.531213"], ["updated_at", "2017-09-08 14:34:28.531213"]]
+[1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+[1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+[1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "users" ("username", "first_name", "last_name", "age", "gender", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["username", "ignacio_bayer"], ["first_name", "Jacey"], ["last_name", "Schiller"], ["age", 12], ["gender", "Female"], ["created_at", "2017-09-08 14:34:28.533161"], ["updated_at", "2017-09-08 14:34:28.533161"]]
+[1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+[1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+[1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "users" ("username", "first_name", "last_name", "age", "gender", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["username", "zita.herman"], ["first_name", "Carlie"], ["last_name", "Barrows"], ["age", 48], ["gender", "Female"], ["created_at", "2017-09-08 14:34:28.535539"], ["updated_at", "2017-09-08 14:34:28.535539"]]
+[1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+[1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+[1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "users" ("username", "first_name", "last_name", "age", "gender", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["username", "myriam"], ["first_name", "Randall"], ["last_name", "Brown"], ["age", 39], ["gender", "Female"], ["created_at", "2017-09-08 14:34:28.537711"], ["updated_at", "2017-09-08 14:34:28.537711"]]
+[1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+[1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+[1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "users" ("username", "first_name", "last_name", "age", "gender", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["username", "sven_tremblay"], ["first_name", "Laney"], ["last_name", "Schmidt"], ["age", 36], ["gender", "Male"], ["created_at", "2017-09-08 14:34:28.540234"], ["updated_at", "2017-09-08 14:34:28.540234"]]
+[1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+[1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+[1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "users" ("username", "first_name", "last_name", "age", "gender", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["username", "hugh.maggio"], ["first_name", "Desiree"], ["last_name", "Nolan"], ["age", 91], ["gender", "Male"], ["created_at", "2017-09-08 14:34:28.542799"], ["updated_at", "2017-09-08 14:34:28.542799"]]
+[1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+[1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+[1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "users" ("username", "first_name", "last_name", "age", "gender", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["username", "miracle"], ["first_name", "Jimmie"], ["last_name", "Pfeffer"], ["age", 11], ["gender", "Male"], ["created_at", "2017-09-08 14:34:28.547736"], ["updated_at", "2017-09-08 14:34:28.547736"]]
+[1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+[1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[1m[36mMovie Load (0.3ms)[0m  [1m[34mSELECT  "movies".* FROM "movies" WHERE "movies"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Started GET "/" for 127.0.0.1 at 2017-09-08 10:37:21 -0400
+[1m[35m (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Rails::WelcomeController#index as HTML
+Rendering /Users/joshedgell/.rbenv/versions/2.4.1/lib/ruby/gems/2.4.0/gems/railties-5.1.3/lib/rails/templates/rails/welcome/index.html.erb
+Rendered /Users/joshedgell/.rbenv/versions/2.4.1/lib/ruby/gems/2.4.0/gems/railties-5.1.3/lib/rails/templates/rails/welcome/index.html.erb (5.5ms)
+Completed 200 OK in 14ms (Views: 11.4ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/favicon.ico" for 127.0.0.1 at 2017-09-08 10:37:22 -0400
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+
+actionpack (5.1.3) lib/action_dispatch/middleware/debug_exceptions.rb:63:in `call'
+actionpack (5.1.3) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.1.3) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.1.3) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.1.3) lib/active_support/tagged_logging.rb:69:in `block in tagged'
+activesupport (5.1.3) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.1.3) lib/active_support/tagged_logging.rb:69:in `tagged'
+railties (5.1.3) lib/rails/rack/logger.rb:24:in `call'
+actionpack (5.1.3) lib/action_dispatch/middleware/remote_ip.rb:79:in `call'
+actionpack (5.1.3) lib/action_dispatch/middleware/request_id.rb:25:in `call'
+rack (2.0.3) lib/rack/runtime.rb:22:in `call'
+activesupport (5.1.3) lib/active_support/cache/strategy/local_cache_middleware.rb:27:in `call'
+actionpack (5.1.3) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.1.3) lib/action_dispatch/middleware/static.rb:125:in `call'
+rack (2.0.3) lib/rack/sendfile.rb:111:in `call'
+rack-cors (1.0.1) lib/rack/cors.rb:93:in `call'
+railties (5.1.3) lib/rails/engine.rb:522:in `call'
+puma (3.10.0) lib/puma/configuration.rb:225:in `call'
+puma (3.10.0) lib/puma/server.rb:605:in `handle_request'
+puma (3.10.0) lib/puma/server.rb:437:in `process_client'
+puma (3.10.0) lib/puma/server.rb:301:in `block in run'
+puma (3.10.0) lib/puma/thread_pool.rb:120:in `block in spawn_thread'
+Started GET "/users" for 127.0.0.1 at 2017-09-08 10:37:25 -0400
+Processing by UsersController#index as HTML
+[1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+[1m[36mReview Load (1.7ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."user_id" = $1[0m  [["user_id", 1]]
+[1m[36mFavorite Load (2.2ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."user_id" = $1[0m  [["user_id", 1]]
+[1m[36mReview Load (0.6ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."user_id" = $1[0m  [["user_id", 2]]
+[1m[36mFavorite Load (0.3ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."user_id" = $1[0m  [["user_id", 2]]
+[1m[36mReview Load (0.3ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."user_id" = $1[0m  [["user_id", 3]]
+[1m[36mFavorite Load (0.3ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."user_id" = $1[0m  [["user_id", 3]]
+[1m[36mReview Load (0.2ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."user_id" = $1[0m  [["user_id", 4]]
+[1m[36mFavorite Load (0.2ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."user_id" = $1[0m  [["user_id", 4]]
+[1m[36mReview Load (0.2ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."user_id" = $1[0m  [["user_id", 5]]
+[1m[36mFavorite Load (0.3ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."user_id" = $1[0m  [["user_id", 5]]
+[1m[36mReview Load (0.3ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."user_id" = $1[0m  [["user_id", 6]]
+[1m[36mFavorite Load (0.5ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."user_id" = $1[0m  [["user_id", 6]]
+[1m[36mReview Load (0.2ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."user_id" = $1[0m  [["user_id", 7]]
+[1m[36mFavorite Load (0.1ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."user_id" = $1[0m  [["user_id", 7]]
+[1m[36mReview Load (0.2ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."user_id" = $1[0m  [["user_id", 8]]
+[1m[36mFavorite Load (0.9ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."user_id" = $1[0m  [["user_id", 8]]
+[1m[36mReview Load (3.1ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."user_id" = $1[0m  [["user_id", 9]]
+[1m[36mFavorite Load (0.1ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."user_id" = $1[0m  [["user_id", 9]]
+[1m[36mReview Load (0.4ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."user_id" = $1[0m  [["user_id", 10]]
+[1m[36mFavorite Load (0.2ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."user_id" = $1[0m  [["user_id", 10]]
+Completed 200 OK in 118ms (Views: 0.1ms | ActiveRecord: 22.1ms)
+
+
+Started GET "/movies" for 127.0.0.1 at 2017-09-08 10:37:37 -0400
+Processing by MoviesController#index as HTML
+[1m[36mMovie Load (1.2ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+[1m[36mReview Load (0.4ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 1]]
+[1m[36mFavorite Load (0.2ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 1]]
+[1m[36mReview Load (0.2ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 2]]
+[1m[36mFavorite Load (0.2ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 2]]
+[1m[36mReview Load (0.2ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 3]]
+[1m[36mFavorite Load (0.2ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 3]]
+[1m[36mReview Load (0.3ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 4]]
+[1m[36mFavorite Load (0.2ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 4]]
+[1m[36mReview Load (0.2ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 5]]
+[1m[36mFavorite Load (0.2ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 5]]
+[1m[36mReview Load (0.2ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 6]]
+[1m[36mFavorite Load (0.3ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 6]]
+[1m[36mReview Load (0.1ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 7]]
+[1m[36mFavorite Load (0.2ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 7]]
+[1m[36mReview Load (0.9ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 8]]
+[1m[36mFavorite Load (0.9ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 8]]
+[1m[36mReview Load (0.2ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 9]]
+[1m[36mFavorite Load (0.2ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 9]]
+[1m[36mReview Load (0.2ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 10]]
+[1m[36mFavorite Load (0.2ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 10]]
+[1m[36mReview Load (0.3ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 11]]
+[1m[36mFavorite Load (0.5ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 11]]
+[1m[36mReview Load (1.1ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 12]]
+[1m[36mFavorite Load (3.6ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 12]]
+[1m[36mReview Load (0.2ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 13]]
+[1m[36mFavorite Load (0.1ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 13]]
+[1m[36mReview Load (0.2ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 14]]
+[1m[36mFavorite Load (0.2ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 14]]
+[1m[36mReview Load (0.1ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 15]]
+[1m[36mFavorite Load (0.2ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 15]]
+[1m[36mReview Load (0.1ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 16]]
+[1m[36mFavorite Load (0.2ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 16]]
+[1m[36mReview Load (0.2ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 17]]
+[1m[36mFavorite Load (0.2ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 17]]
+[1m[36mReview Load (0.2ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 18]]
+[1m[36mFavorite Load (0.2ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 18]]
+[1m[36mReview Load (0.2ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 19]]
+[1m[36mFavorite Load (0.3ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 19]]
+[1m[36mReview Load (0.1ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 20]]
+[1m[36mFavorite Load (0.2ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 20]]
+[1m[36mReview Load (0.2ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 21]]
+[1m[36mFavorite Load (0.2ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 21]]
+[1m[36mReview Load (0.2ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 22]]
+[1m[36mFavorite Load (0.2ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 22]]
+[1m[36mReview Load (0.2ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 23]]
+[1m[36mFavorite Load (0.2ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 23]]
+[1m[36mReview Load (0.3ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 24]]
+[1m[36mFavorite Load (3.0ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 24]]
+[1m[36mReview Load (0.3ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 25]]
+[1m[36mFavorite Load (3.9ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 25]]
+[1m[36mReview Load (0.3ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 26]]
+[1m[36mFavorite Load (0.2ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 26]]
+[1m[36mReview Load (0.2ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 27]]
+[1m[36mFavorite Load (0.3ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 27]]
+[1m[36mReview Load (0.2ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 28]]
+[1m[36mFavorite Load (0.2ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 28]]
+[1m[36mReview Load (1.3ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 29]]
+[1m[36mFavorite Load (0.3ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 29]]
+[1m[36mReview Load (0.2ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 30]]
+[1m[36mFavorite Load (0.2ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 30]]
+[1m[36mReview Load (1.0ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 31]]
+[1m[36mFavorite Load (1.1ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 31]]
+[1m[36mReview Load (0.7ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 32]]
+[1m[36mFavorite Load (1.9ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 32]]
+[1m[36mReview Load (0.2ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 33]]
+[1m[36mFavorite Load (0.2ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 33]]
+[1m[36mReview Load (0.2ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 34]]
+[1m[36mFavorite Load (0.2ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 34]]
+[1m[36mReview Load (0.2ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 35]]
+[1m[36mFavorite Load (0.3ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 35]]
+[1m[36mReview Load (0.2ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 36]]
+[1m[36mFavorite Load (0.2ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 36]]
+[1m[36mReview Load (0.2ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 37]]
+[1m[36mFavorite Load (0.2ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 37]]
+[1m[36mReview Load (0.1ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 38]]
+[1m[36mFavorite Load (0.3ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 38]]
+[1m[36mReview Load (0.2ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 39]]
+[1m[36mFavorite Load (0.2ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 39]]
+[1m[36mReview Load (0.2ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 40]]
+[1m[36mFavorite Load (0.2ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 40]]
+[1m[36mReview Load (0.9ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 41]]
+[1m[36mFavorite Load (0.3ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 41]]
+[1m[36mReview Load (0.2ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 42]]
+[1m[36mFavorite Load (0.2ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 42]]
+[1m[36mReview Load (0.3ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 43]]
+[1m[36mFavorite Load (0.3ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 43]]
+[1m[36mReview Load (0.3ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 44]]
+[1m[36mFavorite Load (0.2ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 44]]
+[1m[36mReview Load (0.2ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 45]]
+[1m[36mFavorite Load (0.1ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 45]]
+[1m[36mReview Load (0.2ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 46]]
+[1m[36mFavorite Load (0.2ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 46]]
+[1m[36mReview Load (0.3ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 47]]
+[1m[36mFavorite Load (0.3ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 47]]
+[1m[36mReview Load (0.2ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 48]]
+[1m[36mFavorite Load (0.2ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 48]]
+[1m[36mReview Load (0.2ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 49]]
+[1m[36mFavorite Load (0.2ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 49]]
+[1m[36mReview Load (0.2ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 50]]
+[1m[36mFavorite Load (0.7ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 50]]
+Completed 200 OK in 315ms (Views: 0.1ms | ActiveRecord: 45.1ms)
+
+
+[1m[35m (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+[1m[35m (0.3ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+[1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+[1m[35m (0.3ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+[1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+[1m[35m (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+[1m[35m (192.6ms)[0m  [1m[35mDROP DATABASE IF EXISTS "movie_app_api_development"[0m
+[1m[35m (189.7ms)[0m  [1m[35mDROP DATABASE IF EXISTS "movie_app_api_test"[0m
+[1m[35m (4.5ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+[1m[35m (2.7ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+[1m[35m (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+[1m[35m (0.3ms)[0m  [1m[34mSELECT pg_try_advisory_lock(6652800596385700680)[0m
+[1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateMovies (20170908001042)
+[1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+[1m[35m (5.0ms)[0m  [1m[35mCREATE TABLE "movies" ("id" bigserial primary key, "title" character varying, "rating" character varying, "genre" character varying, "year_released" integer, "plot" text, "director" character varying, "actors" character varying, "poster" character varying, "rotten_tomatoes_score" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+[1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170908001042"]]
+[1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateUsers (20170908001243)
+[1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+[1m[35m (3.9ms)[0m  [1m[35mCREATE TABLE "users" ("id" bigserial primary key, "username" character varying, "first_name" character varying, "last_name" character varying, "age" integer, "gender" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+[1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170908001243"]]
+[1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateReviews (20170908001753)
+[1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+[1m[35m (4.8ms)[0m  [1m[35mCREATE TABLE "reviews" ("id" bigserial primary key, "user_id" bigint, "movie_id" bigint, "review_text" text, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, CONSTRAINT "fk_rails_74a66bd6c5"
+FOREIGN KEY ("user_id")
+REFERENCES "users" ("id")
+, CONSTRAINT "fk_rails_6ad75a4852"
+FOREIGN KEY ("movie_id")
+REFERENCES "movies" ("id")
+)[0m
+[1m[35m (0.9ms)[0m  [1m[35mCREATE  INDEX  "index_reviews_on_user_id" ON "reviews"  ("user_id")[0m
+[1m[35m (0.8ms)[0m  [1m[35mCREATE  INDEX  "index_reviews_on_movie_id" ON "reviews"  ("movie_id")[0m
+[1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170908001753"]]
+[1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateFavorites (20170908002204)
+[1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+[1m[35m (6.8ms)[0m  [1m[35mCREATE TABLE "favorites" ("id" bigserial primary key, "user_id" bigint, "movie_id" bigint, "recommended" boolean, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, CONSTRAINT "fk_rails_d15744e438"
+FOREIGN KEY ("user_id")
+REFERENCES "users" ("id")
+, CONSTRAINT "fk_rails_2f96619ba3"
+FOREIGN KEY ("movie_id")
+REFERENCES "movies" ("id")
+)[0m
+[1m[35m (0.9ms)[0m  [1m[35mCREATE  INDEX  "index_favorites_on_user_id" ON "favorites"  ("user_id")[0m
+[1m[35m (0.9ms)[0m  [1m[35mCREATE  INDEX  "index_favorites_on_movie_id" ON "favorites"  ("movie_id")[0m
+[1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170908002204"]]
+[1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+[1m[36mActiveRecord::InternalMetadata Load (0.5ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+[1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+[1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2017-09-08 14:38:25.308106"], ["updated_at", "2017-09-08 14:38:25.308106"]]
+[1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+[1m[35m (0.3ms)[0m  [1m[34mSELECT pg_advisory_unlock(6652800596385700680)[0m
+[1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+[1m[35m (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+[1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+[1m[35mSQL (0.9ms)[0m  [1m[32mINSERT INTO "movies" ("title", "rating", "genre", "year_released", "plot", "director", "actors", "poster", "rotten_tomatoes_score", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING "id"[0m  [["title", "Belgian And French Ale"], ["rating", "39 IBU"], ["genre", "Persian (Modern Persian Cat)"], ["year_released", 5716], ["plot", "Pop-up 8-bit normcore venmo. Tousled tattooed street loko muggle magic locavore. Austin muggle magic park bitters chartreuse. 3 wolf moon cold-pressed pop-up mustache tumblr sartorial. Hella raw denim chia cray kombucha kinfolk."], ["director", "Humfrey Hardyng"], ["actors", "George Costanza"], ["poster", "https://www.movieposter.com/posters/archive/main/88/MPW-44013"], ["rotten_tomatoes_score", "2.4%"], ["created_at", "2017-09-08 14:38:33.336577"], ["updated_at", "2017-09-08 14:38:33.336577"]]
+[1m[35m (1.7ms)[0m  [1m[35mCOMMIT[0m
+[1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+[1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "movies" ("title", "rating", "genre", "year_released", "plot", "director", "actors", "poster", "rotten_tomatoes_score", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING "id"[0m  [["title", "Amber Hybrid Beer"], ["rating", "48 IBU"], ["genre", "LaPerm"], ["year_released", 4333], ["plot", "Aesthetic cray fingerstache 90's thundercats tote bag. Fixie flannel +1 semiotics selfies paleo schlitz. Lumbersexual sustainable scenester meditation helvetica humblebrag."], ["director", "Jayne Bracken"], ["actors", "Newman"], ["poster", "https://www.movieposter.com/posters/archive/main/88/MPW-44013"], ["rotten_tomatoes_score", "4.1%"], ["created_at", "2017-09-08 14:38:33.342523"], ["updated_at", "2017-09-08 14:38:33.342523"]]
+[1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+[1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+[1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "movies" ("title", "rating", "genre", "year_released", "plot", "director", "actors", "poster", "rotten_tomatoes_score", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING "id"[0m  [["title", "Pilsner"], ["rating", "98 IBU"], ["genre", "Javanese"], ["year_released", 7347], ["plot", "Marfa 90's schlitz. Yr irony mustache. Neutra bitters direct trade kombucha."], ["director", "Damion Lannister"], ["actors", "Jerry Seinfeld"], ["poster", "https://www.movieposter.com/posters/archive/main/88/MPW-44013"], ["rotten_tomatoes_score", "6.8%"], ["created_at", "2017-09-08 14:38:33.346492"], ["updated_at", "2017-09-08 14:38:33.346492"]]
+[1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+[1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+[1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "movies" ("title", "rating", "genre", "year_released", "plot", "director", "actors", "poster", "rotten_tomatoes_score", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING "id"[0m  [["title", "Scottish And Irish Ale"], ["rating", "47 IBU"], ["genre", "Singapura"], ["year_released", 2810], ["plot", "Irony cray chambray. Listicle narwhal shabby chic deep v vinyl green juice. Gluten-free dreamcatcher fanny pack."], ["director", "Dickon Manwoody"], ["actors", "George Costanza"], ["poster", "https://www.movieposter.com/posters/archive/main/88/MPW-44013"], ["rotten_tomatoes_score", "9.9%"], ["created_at", "2017-09-08 14:38:33.349251"], ["updated_at", "2017-09-08 14:38:33.349251"]]
+[1m[35m (1.2ms)[0m  [1m[35mCOMMIT[0m
+[1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+[1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "movies" ("title", "rating", "genre", "year_released", "plot", "director", "actors", "poster", "rotten_tomatoes_score", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING "id"[0m  [["title", "German Wheat And Rye Beer"], ["rating", "79 IBU"], ["genre", "Birman"], ["year_released", 4544], ["plot", "Biodiesel stumptown tumblr asymmetrical meggings freegan put a bird on it church-key. Green juice readymade keffiyeh you probably haven't heard of them. Pug marfa try-hard brooklyn heirloom hammock intelligentsia. Beard brooklyn banh mi direct trade muggle magic tacos kogi cray. Kickstarter fanny pack seitan skateboard gentrify."], ["director", "Mallor"], ["actors", "Kramer"], ["poster", "https://www.movieposter.com/posters/archive/main/88/MPW-44013"], ["rotten_tomatoes_score", "9.7%"], ["created_at", "2017-09-08 14:38:33.353294"], ["updated_at", "2017-09-08 14:38:33.353294"]]
+[1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+[1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+[1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "movies" ("title", "rating", "genre", "year_released", "plot", "director", "actors", "poster", "rotten_tomatoes_score", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING "id"[0m  [["title", "Bock"], ["rating", "90 IBU"], ["genre", "Sokoke"], ["year_released", 1005], ["plot", "Mustache direct trade venmo vinegar single-origin coffee. Echo poutine marfa beard venmo. 8-bit craft beer franzen sustainable godard everyday biodiesel."], ["director", "Dancy"], ["actors", "Frank Costanza"], ["poster", "https://www.movieposter.com/posters/archive/main/88/MPW-44013"], ["rotten_tomatoes_score", "3.0%"], ["created_at", "2017-09-08 14:38:33.356521"], ["updated_at", "2017-09-08 14:38:33.356521"]]
+[1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+[1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+[1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "movies" ("title", "rating", "genre", "year_released", "plot", "director", "actors", "poster", "rotten_tomatoes_score", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING "id"[0m  [["title", "Belgian And French Ale"], ["rating", "46 IBU"], ["genre", "Ojos Azules"], ["year_released", 8486], ["plot", "Salvia schlitz ethical seitan distillery flexitarian chillwave. Chillwave fashion axe fixie. Vegan vinegar pickled ugh messenger bag scenester."], ["director", "Pate"], ["actors", "Jerry Seinfeld"], ["poster", "https://www.movieposter.com/posters/archive/main/88/MPW-44013"], ["rotten_tomatoes_score", "8.0%"], ["created_at", "2017-09-08 14:38:33.359353"], ["updated_at", "2017-09-08 14:38:33.359353"]]
+[1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+[1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+[1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "movies" ("title", "rating", "genre", "year_released", "plot", "director", "actors", "poster", "rotten_tomatoes_score", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING "id"[0m  [["title", "Smoke-flavored"], ["rating", "84 IBU"], ["genre", "Tonkinese"], ["year_released", 4185], ["plot", "Ramps fashion axe yr chillwave pickled kale chips. Yr kogi poutine. Jean shorts cray austin five dollar toast franzen swag biodiesel. Art party meditation brooklyn deep v lumbersexual. Wes anderson +1 pickled small batch chambray."], ["director", "Beron Blacktyde"], ["actors", "Newman"], ["poster", "https://www.movieposter.com/posters/archive/main/88/MPW-44013"], ["rotten_tomatoes_score", "2.0%"], ["created_at", "2017-09-08 14:38:33.361855"], ["updated_at", "2017-09-08 14:38:33.361855"]]
+[1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+[1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+[1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "movies" ("title", "rating", "genre", "year_released", "plot", "director", "actors", "poster", "rotten_tomatoes_score", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING "id"[0m  [["title", "Merican Ale"], ["rating", "78 IBU"], ["genre", "Javanese"], ["year_released", 5030], ["plot", "Pabst pickled small batch. Tilde fixie photo booth ethical offal gluten-free pug five dollar toast. Austin locavore meggings hella."], ["director", "Ronald Connington"], ["actors", "Morty Seinfeld"], ["poster", "https://www.movieposter.com/posters/archive/main/88/MPW-44013"], ["rotten_tomatoes_score", "3.7%"], ["created_at", "2017-09-08 14:38:33.364778"], ["updated_at", "2017-09-08 14:38:33.364778"]]
+[1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+[1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+[1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "movies" ("title", "rating", "genre", "year_released", "plot", "director", "actors", "poster", "rotten_tomatoes_score", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING "id"[0m  [["title", "Stout"], ["rating", "34 IBU"], ["genre", "PerFold Cat (Experimental Breed - WCF)"], ["year_released", 6066], ["plot", "Occupy pabst tumblr celiac fanny pack. Cray freegan art party umami. Celiac vinyl roof gastropub kickstarter photo booth tousled tilde."], ["director", "Jodge"], ["actors", "Newman"], ["poster", "https://www.movieposter.com/posters/archive/main/88/MPW-44013"], ["rotten_tomatoes_score", "8.5%"], ["created_at", "2017-09-08 14:38:33.367576"], ["updated_at", "2017-09-08 14:38:33.367576"]]
+[1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+[1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+[1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "users" ("username", "first_name", "last_name", "age", "gender", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["username", "armando.cummings"], ["first_name", "Dane"], ["last_name", "Brakus"], ["age", 30], ["gender", "Male"], ["created_at", "2017-09-08 14:38:33.388219"], ["updated_at", "2017-09-08 14:38:33.388219"]]
+[1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+[1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+[1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "users" ("username", "first_name", "last_name", "age", "gender", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["username", "daren_dare"], ["first_name", "Einar"], ["last_name", "Balistreri"], ["age", 48], ["gender", "Female"], ["created_at", "2017-09-08 14:38:33.391700"], ["updated_at", "2017-09-08 14:38:33.391700"]]
+[1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+[1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+[1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "users" ("username", "first_name", "last_name", "age", "gender", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["username", "coralie"], ["first_name", "Jacquelyn"], ["last_name", "Bartell"], ["age", 64], ["gender", "Female"], ["created_at", "2017-09-08 14:38:33.394130"], ["updated_at", "2017-09-08 14:38:33.394130"]]
+[1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+[1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+[1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "users" ("username", "first_name", "last_name", "age", "gender", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["username", "christian"], ["first_name", "Robin"], ["last_name", "Swaniawski"], ["age", 13], ["gender", "Female"], ["created_at", "2017-09-08 14:38:33.396395"], ["updated_at", "2017-09-08 14:38:33.396395"]]
+[1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+[1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+[1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "users" ("username", "first_name", "last_name", "age", "gender", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["username", "lorenz"], ["first_name", "Tania"], ["last_name", "Funk"], ["age", 53], ["gender", "Female"], ["created_at", "2017-09-08 14:38:33.398554"], ["updated_at", "2017-09-08 14:38:33.398554"]]
+[1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+[1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+[1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "users" ("username", "first_name", "last_name", "age", "gender", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["username", "bernita_welch"], ["first_name", "Kendra"], ["last_name", "Stanton"], ["age", 54], ["gender", "Female"], ["created_at", "2017-09-08 14:38:33.400968"], ["updated_at", "2017-09-08 14:38:33.400968"]]
+[1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+[1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+[1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "users" ("username", "first_name", "last_name", "age", "gender", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["username", "annie"], ["first_name", "Kareem"], ["last_name", "Hane"], ["age", 65], ["gender", "Female"], ["created_at", "2017-09-08 14:38:33.403590"], ["updated_at", "2017-09-08 14:38:33.403590"]]
+[1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+[1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+[1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "users" ("username", "first_name", "last_name", "age", "gender", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["username", "ashley_erdman"], ["first_name", "Jamil"], ["last_name", "Swaniawski"], ["age", 42], ["gender", "Female"], ["created_at", "2017-09-08 14:38:33.406341"], ["updated_at", "2017-09-08 14:38:33.406341"]]
+[1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+[1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+[1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "users" ("username", "first_name", "last_name", "age", "gender", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["username", "magnus_mertz"], ["first_name", "Mandy"], ["last_name", "O'Conner"], ["age", 87], ["gender", "Female"], ["created_at", "2017-09-08 14:38:33.408504"], ["updated_at", "2017-09-08 14:38:33.408504"]]
+[1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+[1m[35m (0.6ms)[0m  [1m[35mBEGIN[0m
+[1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "users" ("username", "first_name", "last_name", "age", "gender", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["username", "wilburn.goodwin"], ["first_name", "Walker"], ["last_name", "Wiegand"], ["age", 72], ["gender", "Female"], ["created_at", "2017-09-08 14:38:33.412803"], ["updated_at", "2017-09-08 14:38:33.412803"]]
+[1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+Started GET "/movies" for 127.0.0.1 at 2017-09-08 10:38:44 -0400
+[1m[35m (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by MoviesController#index as HTML
+[1m[36mMovie Load (0.6ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+[1m[36mReview Load (0.6ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 1]]
+[1m[36mFavorite Load (0.5ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 1]]
+[1m[36mReview Load (0.3ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 2]]
+[1m[36mFavorite Load (0.6ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 2]]
+[1m[36mReview Load (1.2ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 3]]
+[1m[36mFavorite Load (0.3ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 3]]
+[1m[36mReview Load (0.3ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 4]]
+[1m[36mFavorite Load (0.4ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 4]]
+[1m[36mReview Load (0.4ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 5]]
+[1m[36mFavorite Load (0.3ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 5]]
+[1m[36mReview Load (0.3ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 6]]
+[1m[36mFavorite Load (0.3ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 6]]
+[1m[36mReview Load (7.6ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 7]]
+[1m[36mFavorite Load (1.2ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 7]]
+[1m[36mReview Load (0.2ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 8]]
+[1m[36mFavorite Load (0.8ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 8]]
+[1m[36mReview Load (0.8ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 9]]
+[1m[36mFavorite Load (0.2ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 9]]
+[1m[36mReview Load (0.2ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 10]]
+[1m[36mFavorite Load (0.3ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 10]]
+Completed 200 OK in 142ms (Views: 0.3ms | ActiveRecord: 25.9ms)
+
+
+Started GET "/" for 127.0.0.1 at 2017-09-08 16:01:28 -0400
+[1m[35m (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Rails::WelcomeController#index as HTML
+Rendering /Users/joshedgell/.rbenv/versions/2.4.1/lib/ruby/gems/2.4.0/gems/railties-5.1.3/lib/rails/templates/rails/welcome/index.html.erb
+Rendered /Users/joshedgell/.rbenv/versions/2.4.1/lib/ruby/gems/2.4.0/gems/railties-5.1.3/lib/rails/templates/rails/welcome/index.html.erb (3.3ms)
+Completed 200 OK in 10ms (Views: 7.4ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/favicon.ico" for 127.0.0.1 at 2017-09-08 16:01:29 -0400
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+
+actionpack (5.1.3) lib/action_dispatch/middleware/debug_exceptions.rb:63:in `call'
+actionpack (5.1.3) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.1.3) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.1.3) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.1.3) lib/active_support/tagged_logging.rb:69:in `block in tagged'
+activesupport (5.1.3) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.1.3) lib/active_support/tagged_logging.rb:69:in `tagged'
+railties (5.1.3) lib/rails/rack/logger.rb:24:in `call'
+actionpack (5.1.3) lib/action_dispatch/middleware/remote_ip.rb:79:in `call'
+actionpack (5.1.3) lib/action_dispatch/middleware/request_id.rb:25:in `call'
+rack (2.0.3) lib/rack/runtime.rb:22:in `call'
+activesupport (5.1.3) lib/active_support/cache/strategy/local_cache_middleware.rb:27:in `call'
+actionpack (5.1.3) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.1.3) lib/action_dispatch/middleware/static.rb:125:in `call'
+rack (2.0.3) lib/rack/sendfile.rb:111:in `call'
+rack-cors (1.0.1) lib/rack/cors.rb:93:in `call'
+railties (5.1.3) lib/rails/engine.rb:522:in `call'
+puma (3.10.0) lib/puma/configuration.rb:225:in `call'
+puma (3.10.0) lib/puma/server.rb:605:in `handle_request'
+puma (3.10.0) lib/puma/server.rb:437:in `process_client'
+puma (3.10.0) lib/puma/server.rb:301:in `block in run'
+puma (3.10.0) lib/puma/thread_pool.rb:120:in `block in spawn_thread'
+Started GET "/movies" for 127.0.0.1 at 2017-09-08 16:01:35 -0400
+Processing by MoviesController#index as HTML
+[1m[36mMovie Load (0.6ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+[1m[36mReview Load (0.4ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 1]]
+[1m[36mFavorite Load (0.4ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 1]]
+[1m[36mReview Load (0.3ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 2]]
+[1m[36mFavorite Load (0.2ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 2]]
+[1m[36mReview Load (0.3ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 3]]
+[1m[36mFavorite Load (0.2ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 3]]
+[1m[36mReview Load (0.2ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 4]]
+[1m[36mFavorite Load (0.2ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 4]]
+[1m[36mReview Load (0.3ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 5]]
+[1m[36mFavorite Load (0.3ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 5]]
+[1m[36mReview Load (0.3ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 6]]
+[1m[36mFavorite Load (0.2ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 6]]
+[1m[36mReview Load (0.2ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 7]]
+[1m[36mFavorite Load (0.1ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 7]]
+[1m[36mReview Load (0.2ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 8]]
+[1m[36mFavorite Load (0.1ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 8]]
+[1m[36mReview Load (0.2ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 9]]
+[1m[36mFavorite Load (0.2ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 9]]
+[1m[36mReview Load (0.1ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 10]]
+[1m[36mFavorite Load (0.2ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 10]]
+Completed 200 OK in 104ms (Views: 0.1ms | ActiveRecord: 19.3ms)
+
+
+Started POST "/movies" for 127.0.0.1 at 2017-09-08 16:10:42 -0400
+Processing by MoviesController#create as HTML
+Parameters: {"title"=>"Raiders of the Lost Ark", "rating"=>"PG", "genre"=>"Action, Adventure", "year_released"=>"1981", "plot"=>"Archaeologist and adventurer Indiana Jones is hired by the U.S. government to find the Ark of the Covenant before the Nazis.", "director"=>"Steven Spielberg", "actors"=>"Harrison Ford, Karen Allen, Paul Freeman, Ronald Lacey", "poster"=>"https://images-na.ssl-images-amazon.com/images/M/MV5BMjA0ODEzMTc1Nl5BMl5BanBnXkFtZTcwODM2MjAxNA@@._V1_SX300.jpg", "rotten_tomatoes_score"=>"94%", "movie"=>{"title"=>"Raiders of the Lost Ark", "rating"=>"PG", "genre"=>"Action, Adventure", "year_released"=>"1981", "plot"=>"Archaeologist and adventurer Indiana Jones is hired by the U.S. government to find the Ark of the Covenant before the Nazis.", "director"=>"Steven Spielberg", "actors"=>"Harrison Ford, Karen Allen, Paul Freeman, Ronald Lacey", "poster"=>"https://images-na.ssl-images-amazon.com/images/M/MV5BMjA0ODEzMTc1Nl5BMl5BanBnXkFtZTcwODM2MjAxNA@@._V1_SX300.jpg", "rotten_tomatoes_score"=>"94%"}}
+Completed 500 Internal Server Error in 100ms (ActiveRecord: 0.0ms)
+
+
+
+NameError (undefined local variable or method `movie_params' for #<MoviesController:0x007f91870e30d8>
+Did you mean?  movie_path):
+
+app/controllers/movies_controller.rb:18:in `create'
+Started GET "/movies" for 127.0.0.1 at 2017-09-08 16:11:33 -0400
+Processing by MoviesController#index as HTML
+[1m[36mMovie Load (0.7ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+[1m[36mReview Load (0.7ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 1]]
+[1m[36mFavorite Load (0.6ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 1]]
+[1m[36mReview Load (0.8ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 2]]
+[1m[36mFavorite Load (0.3ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 2]]
+[1m[36mReview Load (0.3ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 3]]
+[1m[36mFavorite Load (0.2ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 3]]
+[1m[36mReview Load (0.3ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 4]]
+[1m[36mFavorite Load (0.3ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 4]]
+[1m[36mReview Load (0.4ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 5]]
+[1m[36mFavorite Load (0.4ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 5]]
+[1m[36mReview Load (0.4ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 6]]
+[1m[36mFavorite Load (0.4ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 6]]
+[1m[36mReview Load (0.2ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 7]]
+[1m[36mFavorite Load (0.2ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 7]]
+[1m[36mReview Load (0.2ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 8]]
+[1m[36mFavorite Load (0.2ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 8]]
+[1m[36mReview Load (0.2ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 9]]
+[1m[36mFavorite Load (0.2ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 9]]
+[1m[36mReview Load (0.2ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 10]]
+[1m[36mFavorite Load (0.3ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 10]]
+Completed 200 OK in 39ms (Views: 0.2ms | ActiveRecord: 7.7ms)
+
+
+Started GET "/favicon.ico" for 127.0.0.1 at 2017-09-08 16:11:33 -0400
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+
+actionpack (5.1.3) lib/action_dispatch/middleware/debug_exceptions.rb:63:in `call'
+actionpack (5.1.3) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.1.3) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.1.3) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.1.3) lib/active_support/tagged_logging.rb:69:in `block in tagged'
+activesupport (5.1.3) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.1.3) lib/active_support/tagged_logging.rb:69:in `tagged'
+railties (5.1.3) lib/rails/rack/logger.rb:24:in `call'
+actionpack (5.1.3) lib/action_dispatch/middleware/remote_ip.rb:79:in `call'
+actionpack (5.1.3) lib/action_dispatch/middleware/request_id.rb:25:in `call'
+rack (2.0.3) lib/rack/runtime.rb:22:in `call'
+activesupport (5.1.3) lib/active_support/cache/strategy/local_cache_middleware.rb:27:in `call'
+actionpack (5.1.3) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.1.3) lib/action_dispatch/middleware/static.rb:125:in `call'
+rack (2.0.3) lib/rack/sendfile.rb:111:in `call'
+rack-cors (1.0.1) lib/rack/cors.rb:93:in `call'
+railties (5.1.3) lib/rails/engine.rb:522:in `call'
+puma (3.10.0) lib/puma/configuration.rb:225:in `call'
+puma (3.10.0) lib/puma/server.rb:605:in `handle_request'
+puma (3.10.0) lib/puma/server.rb:437:in `process_client'
+puma (3.10.0) lib/puma/server.rb:301:in `block in run'
+puma (3.10.0) lib/puma/thread_pool.rb:120:in `block in spawn_thread'
+Started POST "/movies" for 127.0.0.1 at 2017-09-08 16:14:28 -0400
+Processing by MoviesController#create as */*
+Parameters: {"movies"=>{"title"=>"Josh's Movie", "rating"=>"R", "genre"=>"Action", "year_released"=>"1992", "plot"=>"Lorem Ipsum", "director"=>"Lisa Edgell", "actors"=>"Josh Edgell, David Edgell", "poster"=>"https://i.pinimg.com/736x/fd/5e/66/fd5e662dce1a3a8cd192a5952fa64f02--classic-poster-classic-movies-posters.jpg", "rotten_tomatoes_score"=>"98%"}}
+Completed 500 Internal Server Error in 97ms (ActiveRecord: 0.0ms)
+
+
+
+NameError (undefined local variable or method `movie_params' for #<MoviesController:0x007f91845461f0>
+Did you mean?  movie_path):
+
+app/controllers/movies_controller.rb:18:in `create'
+Started POST "/movies" for 127.0.0.1 at 2017-09-08 16:17:25 -0400
+Processing by MoviesController#create as HTML
+Parameters: {"title"=>"Ghostbusters", "rating"=>"PG", "genre"=>"Action, Adventure, Comedy", "year_released"=>"1984", "plot"=>"Three former parapsychology professors set up shop as a unique ghost removal service.", "director"=>"Ivan Reitman", "actors"=>"Bill Murray, Dan Aykroyd, Sigourney Weaver, Harold Ramis", "poster"=>"https://images-na.ssl-images-amazon.com/images/M/MV5BMTkxMjYyNzgwMl5BMl5BanBnXkFtZTgwMTE3MjYyMTE@._V1_SX300.jpg", "rotten_tomatoes_score"=>"97%", "movie"=>{"title"=>"Ghostbusters", "rating"=>"PG", "genre"=>"Action, Adventure, Comedy", "year_released"=>"1984", "plot"=>"Three former parapsychology professors set up shop as a unique ghost removal service.", "director"=>"Ivan Reitman", "actors"=>"Bill Murray, Dan Aykroyd, Sigourney Weaver, Harold Ramis", "poster"=>"https://images-na.ssl-images-amazon.com/images/M/MV5BMTkxMjYyNzgwMl5BMl5BanBnXkFtZTgwMTE3MjYyMTE@._V1_SX300.jpg", "rotten_tomatoes_score"=>"97%"}}
+Completed 500 Internal Server Error in 94ms (ActiveRecord: 0.0ms)
+
+
+
+NameError (undefined local variable or method `movie_params' for #<MoviesController:0x007f91860b2a60>
+Did you mean?  movie_path):
+
+app/controllers/movies_controller.rb:18:in `create'
+Started POST "/movies" for 127.0.0.1 at 2017-09-08 16:17:52 -0400
+Processing by MoviesController#create as HTML
+Parameters: {"title"=>"Ghostbusters", "rating"=>"PG", "genre"=>"Action, Adventure, Comedy", "year_released"=>"1984", "plot"=>"Three former parapsychology professors set up shop as a unique ghost removal service.", "director"=>"Ivan Reitman", "actors"=>"Bill Murray, Dan Aykroyd, Sigourney Weaver, Harold Ramis", "poster"=>"https://images-na.ssl-images-amazon.com/images/M/MV5BMTkxMjYyNzgwMl5BMl5BanBnXkFtZTgwMTE3MjYyMTE@._V1_SX300.jpg", "rotten_tomatoes_score"=>"97%", "movie"=>{"title"=>"Ghostbusters", "rating"=>"PG", "genre"=>"Action, Adventure, Comedy", "year_released"=>"1984", "plot"=>"Three former parapsychology professors set up shop as a unique ghost removal service.", "director"=>"Ivan Reitman", "actors"=>"Bill Murray, Dan Aykroyd, Sigourney Weaver, Harold Ramis", "poster"=>"https://images-na.ssl-images-amazon.com/images/M/MV5BMTkxMjYyNzgwMl5BMl5BanBnXkFtZTgwMTE3MjYyMTE@._V1_SX300.jpg", "rotten_tomatoes_score"=>"97%"}}
+Completed 500 Internal Server Error in 105ms (ActiveRecord: 0.0ms)
+
+
+
+NameError (undefined local variable or method `movie_params' for #<MoviesController:0x007f9187664458>
+Did you mean?  movie_path):
+
+app/controllers/movies_controller.rb:18:in `create'
+Started POST "/movies" for 127.0.0.1 at 2017-09-08 16:20:40 -0400
+Processing by MoviesController#create as */*
+Parameters: {"movies"=>{"title"=>"Josh's Movie", "rating"=>"R", "genre"=>"Action", "year_released"=>"1992", "plot"=>"Lorem Ipsum", "director"=>"Lisa Edgell", "actors"=>"Josh Edgell, David Edgell", "poster"=>"https://i.pinimg.com/736x/fd/5e/66/fd5e662dce1a3a8cd192a5952fa64f02--classic-poster-classic-movies-posters.jpg", "rotten_tomatoes_score"=>"98%"}}
+Completed 400 Bad Request in 7ms (ActiveRecord: 0.0ms)
+
+
+
+ActionController::ParameterMissing (param is missing or the value is empty: movie):
+
+app/controllers/movies_controller.rb:49:in `movie_params'
+app/controllers/movies_controller.rb:18:in `create'
+Started POST "/movies" for 127.0.0.1 at 2017-09-08 16:21:29 -0400
+Processing by MoviesController#create as */*
+Parameters: {"movie"=>{"title"=>"Josh's Movie", "rating"=>"R", "genre"=>"Action", "year_released"=>"1992", "plot"=>"Lorem Ipsum", "director"=>"Lisa Edgell", "actors"=>"Josh Edgell, David Edgell", "poster"=>"https://i.pinimg.com/736x/fd/5e/66/fd5e662dce1a3a8cd192a5952fa64f02--classic-poster-classic-movies-posters.jpg", "rotten_tomatoes_score"=>"98%"}}
+[1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+[1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "movies" ("title", "rating", "genre", "year_released", "plot", "director", "actors", "poster", "rotten_tomatoes_score", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING "id"[0m  [["title", "Josh's Movie"], ["rating", "R"], ["genre", "Action"], ["year_released", 1992], ["plot", "Lorem Ipsum"], ["director", "Lisa Edgell"], ["actors", "Josh Edgell, David Edgell"], ["poster", "https://i.pinimg.com/736x/fd/5e/66/fd5e662dce1a3a8cd192a5952fa64f02--classic-poster-classic-movies-posters.jpg"], ["rotten_tomatoes_score", "98%"], ["created_at", "2017-09-08 20:21:29.696726"], ["updated_at", "2017-09-08 20:21:29.696726"]]
+[1m[35m (2.0ms)[0m  [1m[35mCOMMIT[0m
+Completed 201 Created in 43ms (Views: 0.5ms | ActiveRecord: 15.9ms)
+
+
+Started POST "/movies" for 127.0.0.1 at 2017-09-08 16:22:00 -0400
+Processing by MoviesController#create as HTML
+Parameters: {"title"=>"Ghostbusters", "rating"=>"PG", "genre"=>"Action, Adventure, Comedy", "year_released"=>"1984", "plot"=>"Three former parapsychology professors set up shop as a unique ghost removal service.", "director"=>"Ivan Reitman", "actors"=>"Bill Murray, Dan Aykroyd, Sigourney Weaver, Harold Ramis", "poster"=>"https://images-na.ssl-images-amazon.com/images/M/MV5BMTkxMjYyNzgwMl5BMl5BanBnXkFtZTgwMTE3MjYyMTE@._V1_SX300.jpg", "rotten_tomatoes_score"=>"97%", "movie"=>{"title"=>"Ghostbusters", "rating"=>"PG", "genre"=>"Action, Adventure, Comedy", "year_released"=>"1984", "plot"=>"Three former parapsychology professors set up shop as a unique ghost removal service.", "director"=>"Ivan Reitman", "actors"=>"Bill Murray, Dan Aykroyd, Sigourney Weaver, Harold Ramis", "poster"=>"https://images-na.ssl-images-amazon.com/images/M/MV5BMTkxMjYyNzgwMl5BMl5BanBnXkFtZTgwMTE3MjYyMTE@._V1_SX300.jpg", "rotten_tomatoes_score"=>"97%"}}
+[1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+[1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "movies" ("title", "rating", "genre", "year_released", "plot", "director", "actors", "poster", "rotten_tomatoes_score", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING "id"[0m  [["title", "Ghostbusters"], ["rating", "PG"], ["genre", "Action, Adventure, Comedy"], ["year_released", 1984], ["plot", "Three former parapsychology professors set up shop as a unique ghost removal service."], ["director", "Ivan Reitman"], ["actors", "Bill Murray, Dan Aykroyd, Sigourney Weaver, Harold Ramis"], ["poster", "https://images-na.ssl-images-amazon.com/images/M/MV5BMTkxMjYyNzgwMl5BMl5BanBnXkFtZTgwMTE3MjYyMTE@._V1_SX300.jpg"], ["rotten_tomatoes_score", "97%"], ["created_at", "2017-09-08 20:22:00.799506"], ["updated_at", "2017-09-08 20:22:00.799506"]]
+[1m[35m (1.7ms)[0m  [1m[35mCOMMIT[0m
+Completed 201 Created in 7ms (Views: 0.8ms | ActiveRecord: 2.5ms)
+
+
+[1m[36mMovie Load (0.4ms)[0m  [1m[34mSELECT  "movies".* FROM "movies" WHERE "movies"."id" = $1 LIMIT $2[0m  [["id", 11], ["LIMIT", 1]]
+[1m[35m (10.1ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+[1m[35m (36.2ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+[1m[35m (0.4ms)[0m  [1m[34mSELECT pg_try_advisory_lock(6652800596385700680)[0m
+[1m[35m (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateMovies (20170908001042)
+[1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+[1m[35m (54.7ms)[0m  [1m[35mCREATE TABLE "movies" ("id" bigserial primary key, "title" character varying, "rating" character varying, "genre" character varying, "year_released" integer, "plot" text, "director" character varying, "actors" character varying, "poster" character varying, "rotten_tomatoes_score" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+[1m[35mSQL (1.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170908001042"]]
+[1m[35m (15.2ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateUsers (20170908001243)
+[1m[35m (16.1ms)[0m  [1m[35mBEGIN[0m
+[1m[35m (20.3ms)[0m  [1m[35mCREATE TABLE "users" ("id" bigserial primary key, "username" character varying, "first_name" character varying, "last_name" character varying, "age" integer, "gender" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+[1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170908001243"]]
+[1m[35m (2.7ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateReviews (20170908001753)
+[1m[35m (17.2ms)[0m  [1m[35mBEGIN[0m
+[1m[35m (8.1ms)[0m  [1m[35mCREATE TABLE "reviews" ("id" bigserial primary key, "user_id" bigint, "movie_id" bigint, "review_text" text, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, CONSTRAINT "fk_rails_74a66bd6c5"
+FOREIGN KEY ("user_id")
+REFERENCES "users" ("id")
+, CONSTRAINT "fk_rails_6ad75a4852"
+FOREIGN KEY ("movie_id")
+REFERENCES "movies" ("id")
+)[0m
+[1m[35m (1.7ms)[0m  [1m[35mCREATE  INDEX  "index_reviews_on_user_id" ON "reviews"  ("user_id")[0m
+[1m[35m (1.3ms)[0m  [1m[35mCREATE  INDEX  "index_reviews_on_movie_id" ON "reviews"  ("movie_id")[0m
+[1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170908001753"]]
+[1m[35m (2.7ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateFavorites (20170908002204)
+[1m[35m (16.4ms)[0m  [1m[35mBEGIN[0m
+[1m[35m (20.8ms)[0m  [1m[35mCREATE TABLE "favorites" ("id" bigserial primary key, "user_id" bigint, "movie_id" bigint, "recommended" boolean, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, CONSTRAINT "fk_rails_d15744e438"
+FOREIGN KEY ("user_id")
+REFERENCES "users" ("id")
+, CONSTRAINT "fk_rails_2f96619ba3"
+FOREIGN KEY ("movie_id")
+REFERENCES "movies" ("id")
+)[0m
+[1m[35m (1.9ms)[0m  [1m[35mCREATE  INDEX  "index_favorites_on_user_id" ON "favorites"  ("user_id")[0m
+[1m[35m (1.5ms)[0m  [1m[35mCREATE  INDEX  "index_favorites_on_movie_id" ON "favorites"  ("movie_id")[0m
+[1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170908002204"]]
+[1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+Migrating to ImdbAdd (20170909143746)
+[1m[35m (16.0ms)[0m  [1m[34mSELECT pg_advisory_unlock(6652800596385700680)[0m
+[1m[35m (0.4ms)[0m  [1m[34mSELECT pg_try_advisory_lock(6652800596385700680)[0m
+[1m[35m (1.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to ImdbAdd (20170909143746)
+[1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+[1m[35m (1.0ms)[0m  [1m[35mALTER TABLE "movies" ADD "imdb_id" character varying[0m
+[1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170909143746"]]
+[1m[35m (16.6ms)[0m  [1m[35mCOMMIT[0m
+[1m[36mActiveRecord::InternalMetadata Load (1.4ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+[1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+[1m[35mSQL (2.0ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2017-09-09 14:44:51.065797"], ["updated_at", "2017-09-09 14:44:51.065797"]]
+[1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+[1m[35m (0.5ms)[0m  [1m[34mSELECT pg_advisory_unlock(6652800596385700680)[0m
+[1m[35m (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
