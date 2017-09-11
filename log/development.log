@@ -967,6 +967,7 @@ puma (3.10.0) lib/puma/thread_pool.rb:120:in `block in spawn_thread'
 Started GET "/movies" for 127.0.0.1 at 2017-09-09 12:23:55 -0400
 Started GET "/users" for 127.0.0.1 at 2017-09-09 12:23:55 -0400
   [1m[35m (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+<<<<<<< HEAD
   
   [1m[35m (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
 ActiveRecord::PendingMigrationError (
@@ -987,6 +988,41 @@ Migrations are pending. To resolve this issue, run:
 ):
 activerecord (5.1.3) lib/active_record/migration.rb:576:in `check_pending!'
 activerecord (5.1.3) lib/active_record/migration.rb:553:in `call'
+=======
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_try_advisory_lock(6652800596385700680)[0m
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to AddPassword (20170911010956)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (17.4ms)[0m  [1m[35mALTER TABLE "users" ADD "password_digest" character varying[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170911010956"]]
+  [1m[35m (0.8ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.8ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT pg_advisory_unlock(6652800596385700680)[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (4.6ms)[0m  [1m[32mINSERT INTO "users" ("username", "created_at", "updated_at", "password_digest") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["username", "Josh"], ["created_at", "2017-09-11 01:18:00.434409"], ["updated_at", "2017-09-11 01:18:00.434409"], ["password_digest", "$2a$10$qtj/jOYH.SUwXSKXxdaxFecb6jVbgM4nVfAIiKA0nZ6XyKX28c.8a"]]
+  [1m[35m (0.8ms)[0m  [1m[35mCOMMIT[0m
+Started POST "/users/login" for 127.0.0.1 at 2017-09-10 21:18:35 -0400
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  
+AbstractController::ActionNotFound (The action 'login' could not be found for UsersController):
+  
+actionpack (5.1.3) lib/abstract_controller/base.rb:119:in `process'
+actionpack (5.1.3) lib/action_controller/metal.rb:189:in `dispatch'
+actionpack (5.1.3) lib/action_controller/metal.rb:253:in `dispatch'
+actionpack (5.1.3) lib/action_dispatch/routing/route_set.rb:49:in `dispatch'
+actionpack (5.1.3) lib/action_dispatch/routing/route_set.rb:31:in `serve'
+actionpack (5.1.3) lib/action_dispatch/journey/router.rb:46:in `block in serve'
+actionpack (5.1.3) lib/action_dispatch/journey/router.rb:33:in `each'
+actionpack (5.1.3) lib/action_dispatch/journey/router.rb:33:in `serve'
+actionpack (5.1.3) lib/action_dispatch/routing/route_set.rb:834:in `call'
+rack (2.0.3) lib/rack/etag.rb:25:in `call'
+rack (2.0.3) lib/rack/conditional_get.rb:38:in `call'
+rack (2.0.3) lib/rack/head.rb:12:in `call'
+activerecord (5.1.3) lib/active_record/migration.rb:556:in `call'
+>>>>>>> 065f7413b884fa65092847f59a2f1dbe594a8ac3
 actionpack (5.1.3) lib/action_dispatch/middleware/callbacks.rb:26:in `block in call'
 activesupport (5.1.3) lib/active_support/callbacks.rb:97:in `run_callbacks'
 actionpack (5.1.3) lib/action_dispatch/middleware/callbacks.rb:24:in `call'
@@ -1013,6 +1049,7 @@ puma (3.10.0) lib/puma/server.rb:605:in `handle_request'
 puma (3.10.0) lib/puma/server.rb:437:in `process_client'
 puma (3.10.0) lib/puma/server.rb:301:in `block in run'
 puma (3.10.0) lib/puma/thread_pool.rb:120:in `block in spawn_thread'
+<<<<<<< HEAD
   
 activerecord (5.1.3) lib/active_record/migration.rb:576:in `check_pending!'
 activerecord (5.1.3) lib/active_record/migration.rb:553:in `call'
@@ -1177,6 +1214,300 @@ activesupport (5.1.3) lib/active_support/callbacks.rb:97:in `run_callbacks'
 actionpack (5.1.3) lib/action_dispatch/middleware/callbacks.rb:24:in `call'
 actionpack (5.1.3) lib/action_dispatch/middleware/executor.rb:12:in `call'
 actionpack (5.1.3) lib/action_dispatch/middleware/debug_exceptions.rb:59:in `call'
+=======
+Started POST "/users/login" for 127.0.0.1 at 2017-09-10 21:19:08 -0400
+  [1m[35m (1.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by UsersController#login as */*
+  Parameters: {"user"=>{"username"=>"Josh", "password"=>"[FILTERED]"}}
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Josh"], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 206ms (ActiveRecord: 6.9ms)
+
+
+  
+NoMethodError (undefined method `create_token' for #<UsersController:0x007fb62c0b1168>):
+  
+app/controllers/users_controller.rb:11:in `login'
+Started POST "/users/login" for 127.0.0.1 at 2017-09-10 21:19:24 -0400
+Processing by UsersController#login as */*
+  Parameters: {"user"=>{"username"=>"Josh", "password"=>"[FILTERED]"}}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Josh"], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 212ms (ActiveRecord: 0.3ms)
+
+
+  
+NameError (undefined local variable or method `token' for #<UsersController:0x007fb62cb36278>):
+  
+app/controllers/users_controller.rb:12:in `login'
+Started POST "/users/login" for 127.0.0.1 at 2017-09-10 21:20:06 -0400
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by UsersController#login as */*
+  Parameters: {"user"=>{"username"=>"Josh", "password"=>"[FILTERED]"}}
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Josh"], ["LIMIT", 1]]
+Completed 200 OK in 119ms (Views: 1.0ms | ActiveRecord: 6.8ms)
+
+
+Started POST "/users/login" for 127.0.0.1 at 2017-09-10 21:46:06 -0400
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  
+ActionController::RoutingError (undefined method `/' for //:Regexp):
+  
+app/controllers/users_controller.rb:60:in `<class:UsersController>'
+app/controllers/users_controller.rb:1:in `<top (required)>'
+Started POST "/users/login" for 127.0.0.1 at 2017-09-10 21:46:29 -0400
+  [1m[35m (1.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by UsersController#login as */*
+  Parameters: {"user"=>{"username"=>"Josh", "password"=>"[FILTERED]"}}
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Josh"], ["LIMIT", 1]]
+Completed 200 OK in 121ms (Views: 0.9ms | ActiveRecord: 6.6ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2017-09-10 21:49:21 -0400
+Processing by UsersController#index as */*
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mReview Load (31.0ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."user_id" = $1[0m  [["user_id", 1]]
+  [1m[36mFavorite Load (23.7ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."user_id" = $1[0m  [["user_id", 1]]
+Completed 200 OK in 139ms (Views: 0.3ms | ActiveRecord: 59.6ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2017-09-10 21:51:22 -0400
+  
+SyntaxError (/Users/richardneely/Desktop/movie_app_api/app/controllers/application_controller.rb:51: syntax error, unexpected keyword_end, expecting end-of-input):
+  
+app/controllers/application_controller.rb:51: syntax error, unexpected keyword_end, expecting end-of-input
+app/controllers/users_controller.rb:1:in `<top (required)>'
+Started GET "/users" for 127.0.0.1 at 2017-09-10 21:51:41 -0400
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  
+SyntaxError (/Users/richardneely/Desktop/movie_app_api/app/controllers/application_controller.rb:51: syntax error, unexpected keyword_end, expecting end-of-input):
+  
+app/controllers/application_controller.rb:51: syntax error, unexpected keyword_end, expecting end-of-input
+app/controllers/users_controller.rb:1:in `<top (required)>'
+Started GET "/users" for 127.0.0.1 at 2017-09-10 21:53:04 -0400
+  [1m[35m (1.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by UsersController#index as */*
+Filter chain halted as :authenticate_token rendered or redirected
+Completed 200 OK in 1ms (Views: 0.3ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2017-09-10 21:53:39 -0400
+  
+SyntaxError (/Users/richardneely/Desktop/movie_app_api/app/controllers/application_controller.rb:51: syntax error, unexpected keyword_end, expecting end-of-input):
+  
+app/controllers/application_controller.rb:51: syntax error, unexpected keyword_end, expecting end-of-input
+app/controllers/users_controller.rb:1:in `<top (required)>'
+Started GET "/users" for 127.0.0.1 at 2017-09-10 21:54:09 -0400
+  [1m[35m (1.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by UsersController#index as */*
+Filter chain halted as :authenticate_token rendered or redirected
+Completed 200 OK in 1ms (Views: 0.3ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2017-09-10 21:54:51 -0400
+Processing by UsersController#index as */*
+Filter chain halted as :authenticate_token rendered or redirected
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2017-09-10 21:55:32 -0400
+Processing by UsersController#index as */*
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mReview Load (0.8ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."user_id" = $1[0m  [["user_id", 1]]
+  [1m[36mFavorite Load (0.6ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."user_id" = $1[0m  [["user_id", 1]]
+Completed 200 OK in 79ms (Views: 0.2ms | ActiveRecord: 14.4ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2017-09-10 21:57:00 -0400
+Processing by UsersController#index as */*
+Filter chain halted as :authenticate_token rendered or redirected
+Completed 200 OK in 1ms (Views: 0.3ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2017-09-10 21:57:14 -0400
+Processing by UsersController#index as */*
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mReview Load (0.5ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."user_id" = $1[0m  [["user_id", 1]]
+  [1m[36mFavorite Load (0.7ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."user_id" = $1[0m  [["user_id", 1]]
+Completed 200 OK in 74ms (Views: 0.2ms | ActiveRecord: 12.0ms)
+
+
+Started GET "/users/1" for 127.0.0.1 at 2017-09-10 21:58:47 -0400
+Processing by UsersController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Filter chain halted as :authenticate_token rendered or redirected
+Completed 200 OK in 23ms (Views: 0.3ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/users/1" for 127.0.0.1 at 2017-09-10 21:59:11 -0400
+Processing by UsersController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (1.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Filter chain halted as :authenticate_token rendered or redirected
+Completed 200 OK in 4ms (Views: 0.2ms | ActiveRecord: 1.6ms)
+
+
+Started GET "/users/1" for 127.0.0.1 at 2017-09-10 22:00:20 -0400
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by UsersController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Filter chain halted as :authenticate_token rendered or redirected
+Completed 200 OK in 49ms (Views: 0.4ms | ActiveRecord: 6.7ms)
+
+
+Started GET "/users/1" for 127.0.0.1 at 2017-09-10 22:00:41 -0400
+Processing by UsersController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Filter chain halted as :authenticate_token rendered or redirected
+Completed 200 OK in 22ms (Views: 0.2ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2017-09-10 22:01:10 -0400
+Processing by UsersController#index as */*
+  [1m[36mUser Load (1.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mReview Load (0.6ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."user_id" = $1[0m  [["user_id", 1]]
+  [1m[36mFavorite Load (0.5ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."user_id" = $1[0m  [["user_id", 1]]
+Completed 200 OK in 45ms (Views: 0.2ms | ActiveRecord: 9.3ms)
+
+
+Started GET "/users/1" for 127.0.0.1 at 2017-09-10 22:01:48 -0400
+Processing by UsersController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mReview Load (0.5ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."user_id" = $1[0m  [["user_id", 1]]
+  [1m[36mFavorite Load (0.4ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."user_id" = $1[0m  [["user_id", 1]]
+Completed 200 OK in 7ms (Views: 0.1ms | ActiveRecord: 1.2ms)
+
+
+Started GET "/users/1" for 127.0.0.1 at 2017-09-10 22:02:24 -0400
+Processing by UsersController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Completed 200 OK in 33ms (Views: 0.7ms | ActiveRecord: 1.1ms)
+
+
+Started GET "/users/1" for 127.0.0.1 at 2017-09-10 22:03:02 -0400
+Processing by UsersController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Completed 200 OK in 6ms (Views: 0.7ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/users/1" for 127.0.0.1 at 2017-09-10 22:04:03 -0400
+Processing by UsersController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mReview Load (0.3ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."user_id" = $1[0m  [["user_id", 1]]
+  [1m[36mFavorite Load (0.3ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."user_id" = $1[0m  [["user_id", 1]]
+Completed 200 OK in 58ms (Views: 0.1ms | ActiveRecord: 13.4ms)
+
+
+Started GET "/users/1" for 127.0.0.1 at 2017-09-10 22:05:02 -0400
+Processing by UsersController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (1.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mUser Load (1.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mReview Load (0.4ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."user_id" = $1[0m  [["user_id", 1]]
+  [1m[36mFavorite Load (0.5ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."user_id" = $1[0m  [["user_id", 1]]
+Completed 200 OK in 44ms (Views: 0.1ms | ActiveRecord: 3.7ms)
+
+
+Started GET "/movies" for 127.0.0.1 at 2017-09-10 22:21:45 -0400
+Started GET "/users" for 127.0.0.1 at 2017-09-10 22:21:45 -0400
+  [1m[35m (1.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (1.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by UsersController#index as HTML
+Processing by MoviesController#index as HTML
+Completed 500 Internal Server Error in 2ms (ActiveRecord: 0.0ms)
+
+
+  
+NoMethodError (undefined method `gsub' for nil:NilClass):
+  
+app/controllers/application_controller.rb:19:in `bearer_token'
+app/controllers/application_controller.rb:6:in `authenticate_token'
+  [1m[36mMovie Load (17.3ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+Completed 200 OK in 254ms (Views: 0.2ms | ActiveRecord: 21.6ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2017-09-10 22:23:23 -0400
+Started GET "/movies" for 127.0.0.1 at 2017-09-10 22:23:23 -0400
+Processing by UsersController#index as HTML
+Processing by MoviesController#index as HTML
+Completed 500 Internal Server Error in 4ms (ActiveRecord: 0.0ms)
+
+
+  
+NoMethodError (undefined method `gsub' for nil:NilClass):
+  
+app/controllers/application_controller.rb:19:in `bearer_token'
+app/controllers/application_controller.rb:6:in `authenticate_token'
+  [1m[36mMovie Load (1.9ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+Completed 200 OK in 73ms (Views: 0.2ms | ActiveRecord: 12.9ms)
+
+
+Started GET "/movies" for 127.0.0.1 at 2017-09-10 22:23:40 -0400
+Started GET "/users" for 127.0.0.1 at 2017-09-10 22:23:40 -0400
+  [1m[35m (1.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (1.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by MoviesController#index as HTML
+Processing by UsersController#index as HTML
+Completed 500 Internal Server Error in 2ms (ActiveRecord: 0.0ms)
+
+
+  
+NoMethodError (undefined method `gsub' for nil:NilClass):
+  
+app/controllers/application_controller.rb:19:in `bearer_token'
+app/controllers/application_controller.rb:6:in `authenticate_token'
+  [1m[36mMovie Load (1.2ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+Completed 200 OK in 222ms (Views: 0.3ms | ActiveRecord: 3.6ms)
+
+
+Started GET "/movies" for 127.0.0.1 at 2017-09-10 22:26:38 -0400
+Started GET "/users" for 127.0.0.1 at 2017-09-10 22:26:38 -0400
+  [1m[35m (1.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (1.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by MoviesController#index as HTML
+Processing by UsersController#index as HTML
+Completed 500 Internal Server Error in 2ms (ActiveRecord: 0.0ms)
+
+
+  
+NoMethodError (undefined method `gsub' for nil:NilClass):
+  
+app/controllers/application_controller.rb:19:in `bearer_token'
+app/controllers/application_controller.rb:6:in `authenticate_token'
+  [1m[36mMovie Load (1.0ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+Completed 200 OK in 219ms (Views: 0.2ms | ActiveRecord: 3.8ms)
+
+
+Started GET "/movies" for 127.0.0.1 at 2017-09-10 22:27:39 -0400
+Processing by MoviesController#index as HTML
+Started GET "/users" for 127.0.0.1 at 2017-09-10 22:27:39 -0400
+Processing by UsersController#index as HTML
+Completed 500 Internal Server Error in 1ms (ActiveRecord: 0.0ms)
+
+
+  
+NoMethodError (undefined method `gsub' for nil:NilClass):
+  
+app/controllers/application_controller.rb:19:in `bearer_token'
+app/controllers/application_controller.rb:6:in `authenticate_token'
+  [1m[36mMovie Load (1.9ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+Completed 200 OK in 72ms (Views: 0.2ms | ActiveRecord: 13.7ms)
+
+
+Started GET "/new" for 127.0.0.1 at 2017-09-10 22:28:05 -0400
+  
+ActionController::RoutingError (No route matches [GET] "/new"):
+  
+actionpack (5.1.3) lib/action_dispatch/middleware/debug_exceptions.rb:63:in `call'
+>>>>>>> 065f7413b884fa65092847f59a2f1dbe594a8ac3
 actionpack (5.1.3) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
 railties (5.1.3) lib/rails/rack/logger.rb:36:in `call_app'
 railties (5.1.3) lib/rails/rack/logger.rb:24:in `block in call'
@@ -1198,6 +1529,7 @@ puma (3.10.0) lib/puma/server.rb:605:in `handle_request'
 puma (3.10.0) lib/puma/server.rb:437:in `process_client'
 puma (3.10.0) lib/puma/server.rb:301:in `block in run'
 puma (3.10.0) lib/puma/thread_pool.rb:120:in `block in spawn_thread'
+<<<<<<< HEAD
 Started GET "/movies" for 127.0.0.1 at 2017-09-09 12:27:42 -0400
 Started GET "/users" for 127.0.0.1 at 2017-09-09 12:27:42 -0400
   [1m[35m (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
@@ -7388,5 +7720,2166 @@ Processing by MoviesController#index as HTML
   [1m[36mReview Load (0.2ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 16]]
   [1m[36mFavorite Load (0.3ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 16]]
 Completed 200 OK in 66ms (Views: 0.1ms | ActiveRecord: 10.2ms)
+=======
+Started GET "/users" for 127.0.0.1 at 2017-09-10 22:28:09 -0400
+Processing by UsersController#index as HTML
+Completed 500 Internal Server Error in 1ms (ActiveRecord: 0.0ms)
+
+
+  
+NoMethodError (undefined method `gsub' for nil:NilClass):
+  
+app/controllers/application_controller.rb:19:in `bearer_token'
+app/controllers/application_controller.rb:6:in `authenticate_token'
+Started GET "/users" for 127.0.0.1 at 2017-09-10 22:28:34 -0400
+  [1m[35m (1.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by UsersController#index as */*
+Filter chain halted as :authenticate_token rendered or redirected
+Completed 200 OK in 1ms (Views: 0.3ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/users/login" for 127.0.0.1 at 2017-09-10 22:28:55 -0400
+Processing by UsersController#login as */*
+  Parameters: {"user"=>{"username"=>"Josh", "password"=>"[FILTERED]"}}
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Josh"], ["LIMIT", 1]]
+Completed 200 OK in 142ms (Views: 0.9ms | ActiveRecord: 19.8ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2017-09-10 22:29:12 -0400
+Processing by UsersController#index as */*
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mReview Load (0.5ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."user_id" = $1[0m  [["user_id", 1]]
+  [1m[36mFavorite Load (0.4ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."user_id" = $1[0m  [["user_id", 1]]
+Completed 200 OK in 34ms (Views: 0.2ms | ActiveRecord: 5.4ms)
+
+
+Started GET "/movies" for 127.0.0.1 at 2017-09-10 22:29:26 -0400
+Processing by MoviesController#index as HTML
+Started GET "/users" for 127.0.0.1 at 2017-09-10 22:29:26 -0400
+Processing by UsersController#index as HTML
+Completed 500 Internal Server Error in 2ms (ActiveRecord: 0.0ms)
+
+
+  
+NoMethodError (undefined method `gsub' for nil:NilClass):
+  
+app/controllers/application_controller.rb:19:in `bearer_token'
+app/controllers/application_controller.rb:6:in `authenticate_token'
+  [1m[36mMovie Load (1.8ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+Completed 200 OK in 259ms (Views: 0.2ms | ActiveRecord: 3.9ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2017-09-10 22:34:08 -0400
+Started GET "/movies" for 127.0.0.1 at 2017-09-10 22:34:08 -0400
+Processing by UsersController#index as HTML
+Processing by MoviesController#index as HTML
+Completed 500 Internal Server Error in 2ms (ActiveRecord: 0.0ms)
+
+
+  
+NoMethodError (undefined method `gsub' for nil:NilClass):
+  
+app/controllers/application_controller.rb:19:in `bearer_token'
+app/controllers/application_controller.rb:6:in `authenticate_token'
+  [1m[36mMovie Load (61.8ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+Completed 200 OK in 67ms (Views: 0.2ms | ActiveRecord: 61.8ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2017-09-10 22:34:42 -0400
+Processing by UsersController#index as */*
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mReview Load (0.3ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."user_id" = $1[0m  [["user_id", 1]]
+  [1m[36mFavorite Load (0.4ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."user_id" = $1[0m  [["user_id", 1]]
+Completed 200 OK in 7ms (Views: 0.2ms | ActiveRecord: 1.4ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2017-09-10 22:38:13 -0400
+Started GET "/movies" for 127.0.0.1 at 2017-09-10 22:38:13 -0400
+Processing by UsersController#index as HTML
+Processing by MoviesController#index as HTML
+Completed 500 Internal Server Error in 2ms (ActiveRecord: 0.0ms)
+
+
+  
+NoMethodError (undefined method `gsub' for nil:NilClass):
+  [1m[36mMovie Load (0.5ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+  
+Completed 200 OK in 5ms (Views: 0.2ms | ActiveRecord: 0.5ms)
+
+
+app/controllers/application_controller.rb:19:in `bearer_token'
+app/controllers/application_controller.rb:6:in `authenticate_token'
+Started GET "/movies" for 127.0.0.1 at 2017-09-10 22:39:13 -0400
+Started GET "/users" for 127.0.0.1 at 2017-09-10 22:39:13 -0400
+Processing by MoviesController#index as HTML
+Processing by UsersController#index as HTML
+Completed 500 Internal Server Error in 2ms (ActiveRecord: 0.0ms)
+
+
+  
+  [1m[36mMovie Load (3.1ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+NoMethodError (undefined method `gsub' for nil:NilClass):
+Completed 200 OK in 5ms (Views: 0.1ms | ActiveRecord: 3.0ms)
+
+
+  
+app/controllers/application_controller.rb:19:in `bearer_token'
+app/controllers/application_controller.rb:6:in `authenticate_token'
+Started GET "/movies" for 127.0.0.1 at 2017-09-10 22:41:07 -0400
+Started GET "/users" for 127.0.0.1 at 2017-09-10 22:41:07 -0400
+  [1m[35m (1.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by MoviesController#index as HTML
+  [1m[35m (13.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by UsersController#index as HTML
+Completed 500 Internal Server Error in 2ms (ActiveRecord: 0.0ms)
+
+
+  
+  [1m[36mMovie Load (7.3ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+NoMethodError (undefined method `gsub' for nil:NilClass):
+  
+app/controllers/application_controller.rb:19:in `bearer_token'
+app/controllers/application_controller.rb:6:in `authenticate_token'
+Completed 200 OK in 73ms (Views: 0.2ms | ActiveRecord: 51.3ms)
+
+
+Started GET "/movies" for 127.0.0.1 at 2017-09-10 22:42:54 -0400
+Started GET "/users" for 127.0.0.1 at 2017-09-10 22:42:54 -0400
+  [1m[35m (1.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by MoviesController#index as HTML
+  [1m[35m (13.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by UsersController#index as HTML
+Filter chain halted as :authenticate_token rendered or redirected
+Completed 200 OK in 1ms (Views: 0.3ms | ActiveRecord: 0.0ms)
+
+
+  [1m[36mMovie Load (3.4ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+Completed 200 OK in 24ms (Views: 1.5ms | ActiveRecord: 5.8ms)
+
+
+Started GET "/movies" for 127.0.0.1 at 2017-09-10 22:44:55 -0400
+Processing by MoviesController#index as HTML
+Started GET "/users" for 127.0.0.1 at 2017-09-10 22:44:55 -0400
+Processing by UsersController#index as HTML
+  [1m[36mMovie Load (1.8ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+Completed 200 OK in 4ms (Views: 0.2ms | ActiveRecord: 1.8ms)
+
+
+Filter chain halted as :authenticate_token rendered or redirected
+Completed 200 OK in 2ms (Views: 0.2ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/movies" for 127.0.0.1 at 2017-09-10 22:45:25 -0400
+Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (0.5ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+Completed 200 OK in 3ms (Views: 0.2ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/movies" for 127.0.0.1 at 2017-09-10 22:45:55 -0400
+Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (0.4ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+Completed 200 OK in 2ms (Views: 0.2ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2017-09-10 22:46:46 -0400
+Started GET "/movies" for 127.0.0.1 at 2017-09-10 22:46:46 -0400
+Processing by UsersController#index as HTML
+Processing by MoviesController#index as HTML
+Filter chain halted as :authenticate_token rendered or redirected
+Completed 200 OK in 2ms (Views: 0.4ms | ActiveRecord: 0.0ms)
+
+
+  [1m[36mMovie Load (0.7ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+Completed 200 OK in 3ms (Views: 0.1ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/movies" for 127.0.0.1 at 2017-09-10 22:56:20 -0400
+Started GET "/users" for 127.0.0.1 at 2017-09-10 22:56:20 -0400
+  [1m[35m (1.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (1.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by UsersController#index as HTML
+Filter chain halted as :authenticate_token rendered or redirected
+Completed 200 OK in 1ms (Views: 0.5ms | ActiveRecord: 0.0ms)
+
+
+Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (1.1ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+Completed 200 OK in 24ms (Views: 0.2ms | ActiveRecord: 6.8ms)
+
+
+Started GET "/movies" for 127.0.0.1 at 2017-09-10 23:01:44 -0400
+Started GET "/users" for 127.0.0.1 at 2017-09-10 23:01:44 -0400
+  [1m[35m (1.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by UsersController#index as HTML
+  [1m[35m (14.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Completed 500 Internal Server Error in 2ms (ActiveRecord: 0.0ms)
+
+
+  
+NoMethodError (undefined method `gsub' for nil:NilClass):
+  
+app/controllers/application_controller.rb:19:in `bearer_token'
+app/controllers/application_controller.rb:6:in `authenticate_token'
+Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (1.1ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+Completed 200 OK in 25ms (Views: 5.1ms | ActiveRecord: 5.1ms)
+
+
+Started GET "/movies" for 127.0.0.1 at 2017-09-10 23:02:20 -0400
+Started GET "/users" for 127.0.0.1 at 2017-09-10 23:02:20 -0400
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by MoviesController#index as HTML
+  [1m[35m (13.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by UsersController#index as HTML
+Completed 500 Internal Server Error in 2ms (ActiveRecord: 0.0ms)
+
+
+  
+  [1m[36mMovie Load (2.9ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+NoMethodError (undefined method `gsub' for nil:NilClass):
+  
+app/controllers/application_controller.rb:19:in `bearer_token'
+app/controllers/application_controller.rb:6:in `authenticate_token'
+Completed 200 OK in 60ms (Views: 0.2ms | ActiveRecord: 43.6ms)
+
+
+Started GET "/movies" for 127.0.0.1 at 2017-09-11 10:21:08 -0400
+Started GET "/users" for 127.0.0.1 at 2017-09-11 10:21:08 -0400
+  [1m[35m (3.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (3.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by UsersController#index as HTML
+Processing by MoviesController#index as HTML
+Completed 500 Internal Server Error in 3ms (ActiveRecord: 0.0ms)
+
+
+  
+NoMethodError (undefined method `gsub' for nil:NilClass):
+  
+app/controllers/application_controller.rb:19:in `bearer_token'
+app/controllers/application_controller.rb:6:in `authenticate_token'
+  [1m[36mMovie Load (1.3ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+Completed 200 OK in 252ms (Views: 0.3ms | ActiveRecord: 4.2ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2017-09-11 10:23:06 -0400
+Processing by UsersController#index as HTML
+Completed 500 Internal Server Error in 2ms (ActiveRecord: 0.0ms)
+
+
+  
+NoMethodError (undefined method `gsub' for nil:NilClass):
+  
+app/controllers/application_controller.rb:19:in `bearer_token'
+app/controllers/application_controller.rb:6:in `authenticate_token'
+Started GET "/users" for 127.0.0.1 at 2017-09-11 10:23:11 -0400
+Processing by UsersController#index as HTML
+Completed 500 Internal Server Error in 2ms (ActiveRecord: 0.0ms)
+
+
+  
+NoMethodError (undefined method `gsub' for nil:NilClass):
+  
+app/controllers/application_controller.rb:19:in `bearer_token'
+app/controllers/application_controller.rb:6:in `authenticate_token'
+Started GET "/users" for 127.0.0.1 at 2017-09-11 11:40:51 -0400
+Started GET "/movies" for 127.0.0.1 at 2017-09-11 11:40:51 -0400
+  [1m[35m (1.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (2.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by MoviesController#index as HTML
+Processing by UsersController#index as HTML
+Completed 500 Internal Server Error in 2ms (ActiveRecord: 0.0ms)
+
+
+  
+NoMethodError (undefined method `gsub' for nil:NilClass):
+  
+app/controllers/application_controller.rb:19:in `bearer_token'
+app/controllers/application_controller.rb:6:in `authenticate_token'
+  [1m[36mMovie Load (1.4ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+Completed 200 OK in 273ms (Views: 0.2ms | ActiveRecord: 4.1ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2017-09-11 11:42:25 -0400
+Processing by UsersController#index as HTML
+Completed 500 Internal Server Error in 2ms (ActiveRecord: 0.0ms)
+
+
+  
+NoMethodError (undefined method `gsub' for nil:NilClass):
+  
+app/controllers/application_controller.rb:19:in `bearer_token'
+app/controllers/application_controller.rb:6:in `authenticate_token'
+Started GET "/users" for 127.0.0.1 at 2017-09-11 11:42:40 -0400
+Processing by UsersController#index as */*
+Filter chain halted as :authenticate_token rendered or redirected
+Completed 200 OK in 2ms (Views: 0.4ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/users/login" for 127.0.0.1 at 2017-09-11 11:42:50 -0400
+Processing by UsersController#login as */*
+  Parameters: {"user"=>{"username"=>"Josh", "password"=>"[FILTERED]"}}
+  [1m[36mUser Load (17.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Josh"], ["LIMIT", 1]]
+Completed 200 OK in 174ms (Views: 5.2ms | ActiveRecord: 26.7ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2017-09-11 11:43:06 -0400
+Processing by UsersController#index as */*
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mReview Load (2.6ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."user_id" = $1[0m  [["user_id", 1]]
+  [1m[36mFavorite Load (0.9ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."user_id" = $1[0m  [["user_id", 1]]
+Completed 200 OK in 63ms (Views: 0.2ms | ActiveRecord: 12.7ms)
+
+
+Started GET "/movies" for 127.0.0.1 at 2017-09-11 11:43:32 -0400
+Started GET "/users" for 127.0.0.1 at 2017-09-11 11:43:32 -0400
+Processing by MoviesController#index as HTML
+Processing by UsersController#index as HTML
+Completed 500 Internal Server Error in 3ms (ActiveRecord: 0.0ms)
+
+
+  [1m[36mMovie Load (2.3ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+  
+Completed 200 OK in 7ms (Views: 0.2ms | ActiveRecord: 2.3ms)
+
+
+NoMethodError (undefined method `gsub' for nil:NilClass):
+  
+app/controllers/application_controller.rb:19:in `bearer_token'
+app/controllers/application_controller.rb:6:in `authenticate_token'
+Started GET "/movies" for 127.0.0.1 at 2017-09-11 11:44:58 -0400
+Processing by MoviesController#index as HTML
+Started GET "/users" for 127.0.0.1 at 2017-09-11 11:45:08 -0400
+  [1m[36mMovie Load (1.0ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+Completed 200 OK in 19ms (Views: 0.2ms | ActiveRecord: 3.4ms)
+
+
+Processing by UsersController#index as HTML
+Completed 500 Internal Server Error in 3ms (ActiveRecord: 0.0ms)
+
+
+  
+NoMethodError (undefined method `gsub' for nil:NilClass):
+  
+app/controllers/application_controller.rb:19:in `bearer_token'
+app/controllers/application_controller.rb:6:in `authenticate_token'
+Started GET "/users" for 127.0.0.1 at 2017-09-11 11:48:05 -0400
+Started GET "/movies" for 127.0.0.1 at 2017-09-11 11:48:05 -0400
+  [1m[35m (1.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (1.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by UsersController#index as HTML
+Processing by MoviesController#index as HTML
+Completed 500 Internal Server Error in 3ms (ActiveRecord: 0.0ms)
+
+
+  
+NoMethodError (undefined method `gsub' for nil:NilClass):
+  
+app/controllers/application_controller.rb:19:in `bearer_token'
+app/controllers/application_controller.rb:6:in `authenticate_token'
+  [1m[36mMovie Load (1.6ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+Completed 200 OK in 326ms (Views: 0.3ms | ActiveRecord: 4.6ms)
+
+
+Started GET "/movies" for 127.0.0.1 at 2017-09-11 11:51:49 -0400
+Processing by MoviesController#index as HTML
+Started GET "/users" for 127.0.0.1 at 2017-09-11 11:51:49 -0400
+Processing by UsersController#index as HTML
+Completed 500 Internal Server Error in 2ms (ActiveRecord: 0.0ms)
+
+
+  
+NoMethodError (undefined method `gsub' for nil:NilClass):
+  
+app/controllers/application_controller.rb:19:in `bearer_token'
+app/controllers/application_controller.rb:6:in `authenticate_token'
+  [1m[36mMovie Load (2.6ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+Completed 200 OK in 82ms (Views: 0.2ms | ActiveRecord: 15.9ms)
+
+
+Started GET "/movies" for 127.0.0.1 at 2017-09-11 11:52:24 -0400
+Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (1.8ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+Completed 200 OK in 3ms (Views: 0.2ms | ActiveRecord: 1.8ms)
+
+
+Started GET "/movies" for 127.0.0.1 at 2017-09-11 11:55:00 -0400
+Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (0.8ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+Completed 200 OK in 2ms (Views: 0.1ms | ActiveRecord: 0.8ms)
+
+
+Started GET "/movies" for 127.0.0.1 at 2017-09-11 11:56:21 -0400
+Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (0.5ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+Completed 200 OK in 3ms (Views: 0.3ms | ActiveRecord: 0.5ms)
+
+
+Started POST "//users" for 127.0.0.1 at 2017-09-11 11:56:25 -0400
+Processing by UsersController#create as HTML
+  Parameters: {"user"=>{"username"=>"ghjghj", "password"=>"[FILTERED]"}}
+Unpermitted parameter: :password
+  [1m[35m (0.5ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.4ms)[0m  [1m[31mROLLBACK[0m
+Completed 422 Unprocessable Entity in 865ms (Views: 0.4ms | ActiveRecord: 10.6ms)
+
+
+Started POST "//users/login" for 127.0.0.1 at 2017-09-11 11:56:33 -0400
+Processing by UsersController#login as HTML
+  Parameters: {"user"=>{"username"=>"Josh", "password"=>"[FILTERED]"}}
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Josh"], ["LIMIT", 1]]
+Completed 200 OK in 86ms (Views: 1.0ms | ActiveRecord: 1.1ms)
+
+
+Started GET "/movies" for 127.0.0.1 at 2017-09-11 11:57:43 -0400
+Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (0.6ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+Completed 200 OK in 4ms (Views: 0.2ms | ActiveRecord: 0.6ms)
+
+
+Started POST "/users" for 127.0.0.1 at 2017-09-11 11:57:50 -0400
+Processing by UsersController#create as HTML
+  Parameters: {"user"=>{"username"=>"Rick", "password"=>"[FILTERED]"}}
+Unpermitted parameter: :password
+  [1m[35m (0.6ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.3ms)[0m  [1m[31mROLLBACK[0m
+Completed 422 Unprocessable Entity in 5ms (Views: 0.3ms | ActiveRecord: 0.9ms)
+
+
+Started GET "/movies" for 127.0.0.1 at 2017-09-11 11:59:59 -0400
+Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (0.7ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+Completed 200 OK in 3ms (Views: 0.4ms | ActiveRecord: 0.7ms)
+
+
+Started POST "/users" for 127.0.0.1 at 2017-09-11 12:00:05 -0400
+Processing by UsersController#create as HTML
+  Parameters: {"user"=>{"username"=>"Rick", "password"=>"[FILTERED]"}}
+Unpermitted parameter: :password
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.6ms)[0m  [1m[31mROLLBACK[0m
+Completed 422 Unprocessable Entity in 5ms (Views: 0.3ms | ActiveRecord: 0.9ms)
+
+
+Started GET "/movies" for 127.0.0.1 at 2017-09-11 12:01:43 -0400
+Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (1.1ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+Completed 200 OK in 3ms (Views: 0.2ms | ActiveRecord: 1.1ms)
+
+
+Started POST "/users" for 127.0.0.1 at 2017-09-11 12:01:51 -0400
+Processing by UsersController#create as HTML
+  Parameters: {"user"=>{"username"=>"Rick", "password_digest"=>"[FILTERED]"}}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.8ms)[0m  [1m[32mINSERT INTO "users" ("username", "created_at", "updated_at", "password_digest") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["username", "Rick"], ["created_at", "2017-09-11 16:01:51.885636"], ["updated_at", "2017-09-11 16:01:51.885636"], ["password_digest", "Neely"]]
+  [1m[35m (2.0ms)[0m  [1m[35mCOMMIT[0m
+Completed 201 Created in 8ms (Views: 0.6ms | ActiveRecord: 3.0ms)
+
+
+Started POST "//users/login" for 127.0.0.1 at 2017-09-11 12:02:06 -0400
+Processing by UsersController#login as HTML
+  Parameters: {"user"=>{"username"=>"Rick", "password_digest"=>"[FILTERED]"}}
+  [1m[36mUser Load (1.9ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Rick"], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 6ms (ActiveRecord: 2.2ms)
+
+
+  
+BCrypt::Errors::InvalidHash (invalid hash):
+  
+app/controllers/users_controller.rb:13:in `login'
+Started GET "/movies" for 127.0.0.1 at 2017-09-11 12:02:39 -0400
+Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (1.7ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+Completed 200 OK in 5ms (Views: 0.2ms | ActiveRecord: 1.7ms)
+
+
+Started POST "/users/login" for 127.0.0.1 at 2017-09-11 12:02:51 -0400
+Processing by UsersController#login as HTML
+  Parameters: {"user"=>{"username"=>"Rick", "password_digest"=>"[FILTERED]"}}
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Rick"], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 3ms (ActiveRecord: 0.6ms)
+
+
+  
+BCrypt::Errors::InvalidHash (invalid hash):
+  
+app/controllers/users_controller.rb:13:in `login'
+Started GET "/users/login:1" for 127.0.0.1 at 2017-09-11 12:06:01 -0400
+Processing by UsersController#show as */*
+  Parameters: {"id"=>"login:1"}
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 0], ["LIMIT", 1]]
+Completed 404 Not Found in 3ms (ActiveRecord: 0.6ms)
+
+
+  
+ActiveRecord::RecordNotFound (Couldn't find User with 'id'=login:1):
+  
+app/controllers/users_controller.rb:87:in `set_user'
+Started GET "/movies" for 127.0.0.1 at 2017-09-11 12:07:17 -0400
+Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (0.6ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+Completed 200 OK in 2ms (Views: 0.2ms | ActiveRecord: 0.6ms)
+
+
+Started POST "/users" for 127.0.0.1 at 2017-09-11 12:07:23 -0400
+Processing by UsersController#create as HTML
+  Parameters: {"user"=>{"username"=>"Rick", "password_digest"=>"[FILTERED]"}}
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "users" ("username", "created_at", "updated_at", "password_digest") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["username", "Rick"], ["created_at", "2017-09-11 16:07:23.659094"], ["updated_at", "2017-09-11 16:07:23.659094"], ["password_digest", "Neely"]]
+  [1m[35m (5.1ms)[0m  [1m[35mCOMMIT[0m
+Completed 201 Created in 11ms (Views: 0.7ms | ActiveRecord: 5.9ms)
+
+
+Started POST "/users/login" for 127.0.0.1 at 2017-09-11 12:07:40 -0400
+Processing by UsersController#login as HTML
+  Parameters: {"user"=>{"username"=>"Rick", "password_digest"=>"[FILTERED]"}}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Rick"], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 2ms (ActiveRecord: 0.4ms)
+
+
+  
+BCrypt::Errors::InvalidHash (invalid hash):
+  
+app/controllers/users_controller.rb:13:in `login'
+Started GET "/movies" for 127.0.0.1 at 2017-09-11 12:11:02 -0400
+Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (1.6ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+Completed 200 OK in 6ms (Views: 0.3ms | ActiveRecord: 1.6ms)
+
+
+Started POST "/users/login" for 127.0.0.1 at 2017-09-11 12:11:12 -0400
+Processing by UsersController#login as HTML
+  Parameters: {"user"=>{"username"=>"Rick", "password_digest"=>"[FILTERED]"}}
+  [1m[36mUser Load (3.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Rick"], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 6ms (ActiveRecord: 3.5ms)
+
+
+  
+BCrypt::Errors::InvalidHash (invalid hash):
+  
+app/controllers/users_controller.rb:13:in `login'
+Started GET "/movies" for 127.0.0.1 at 2017-09-11 12:12:02 -0400
+Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (1.5ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+Completed 200 OK in 6ms (Views: 0.3ms | ActiveRecord: 1.5ms)
+
+
+Started POST "/users/login" for 127.0.0.1 at 2017-09-11 12:12:07 -0400
+Processing by UsersController#login as HTML
+  Parameters: {"user"=>{"username"=>"Rick", "password_digest"=>"[FILTERED]"}}
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Rick"], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 4ms (ActiveRecord: 1.1ms)
+
+
+  
+BCrypt::Errors::InvalidHash (invalid hash):
+  
+app/controllers/users_controller.rb:13:in `login'
+Started GET "/users" for 127.0.0.1 at 2017-09-11 12:13:24 -0400
+Processing by UsersController#index as */*
+Filter chain halted as :authenticate_token rendered or redirected
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/users/login" for 127.0.0.1 at 2017-09-11 12:13:29 -0400
+Processing by UsersController#login as */*
+  Parameters: {"user"=>{"username"=>"Josh", "password"=>"[FILTERED]"}}
+  [1m[36mUser Load (1.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Josh"], ["LIMIT", 1]]
+Completed 200 OK in 84ms (Views: 0.9ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2017-09-11 12:13:41 -0400
+Processing by UsersController#index as */*
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mReview Load (0.7ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."user_id" = $1[0m  [["user_id", 1]]
+  [1m[36mFavorite Load (0.5ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."user_id" = $1[0m  [["user_id", 1]]
+  [1m[36mReview Load (0.4ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."user_id" = $1[0m  [["user_id", 2]]
+  [1m[36mFavorite Load (0.2ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."user_id" = $1[0m  [["user_id", 2]]
+  [1m[36mReview Load (0.5ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."user_id" = $1[0m  [["user_id", 3]]
+  [1m[36mFavorite Load (0.4ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."user_id" = $1[0m  [["user_id", 3]]
+Completed 200 OK in 71ms (Views: 0.2ms | ActiveRecord: 10.8ms)
+
+
+Started GET "/movies" for 127.0.0.1 at 2017-09-11 12:15:05 -0400
+Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (0.6ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+Completed 200 OK in 3ms (Views: 0.4ms | ActiveRecord: 0.6ms)
+
+
+Started POST "/users/login" for 127.0.0.1 at 2017-09-11 12:15:20 -0400
+Processing by UsersController#login as HTML
+  Parameters: {"user"=>{"username"=>"Rick", "password"=>"[FILTERED]"}}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Rick"], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 2ms (ActiveRecord: 0.4ms)
+
+
+  
+BCrypt::Errors::InvalidHash (invalid hash):
+  
+app/controllers/users_controller.rb:13:in `login'
+Started GET "/movies" for 127.0.0.1 at 2017-09-11 12:15:43 -0400
+Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (0.7ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+Completed 200 OK in 4ms (Views: 0.2ms | ActiveRecord: 0.7ms)
+
+
+Started POST "/users/login" for 127.0.0.1 at 2017-09-11 12:15:49 -0400
+Processing by UsersController#login as HTML
+  Parameters: {"user"=>{"username"=>"Rick", "password_digest"=>"[FILTERED]"}}
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Rick"], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 3ms (ActiveRecord: 0.6ms)
+
+
+  
+BCrypt::Errors::InvalidHash (invalid hash):
+  
+app/controllers/users_controller.rb:13:in `login'
+Started POST "/users" for 127.0.0.1 at 2017-09-11 12:18:21 -0400
+Processing by UsersController#create as */*
+  Parameters: {"user"=>{"username"=>"Rick", "password"=>"[FILTERED]"}}
+Unpermitted parameter: :password
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+Completed 422 Unprocessable Entity in 5ms (Views: 0.5ms | ActiveRecord: 0.5ms)
+
+
+Started POST "/users" for 127.0.0.1 at 2017-09-11 12:18:32 -0400
+Processing by UsersController#create as */*
+  Parameters: {"user"=>{"username"=>"Rick", "password_digest"=>"[FILTERED]"}}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.9ms)[0m  [1m[32mINSERT INTO "users" ("username", "created_at", "updated_at", "password_digest") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["username", "Rick"], ["created_at", "2017-09-11 16:18:32.369915"], ["updated_at", "2017-09-11 16:18:32.369915"], ["password_digest", "Neely"]]
+  [1m[35m (16.6ms)[0m  [1m[35mCOMMIT[0m
+Completed 201 Created in 23ms (Views: 0.7ms | ActiveRecord: 17.7ms)
+
+
+Started POST "/users/login" for 127.0.0.1 at 2017-09-11 12:19:18 -0400
+Processing by UsersController#login as */*
+  Parameters: {"user"=>{"username"=>"Josh", "password_digest"=>"[FILTERED]"}}
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Josh"], ["LIMIT", 1]]
+Completed 200 OK in 82ms (Views: 0.3ms | ActiveRecord: 0.6ms)
+
+
+Started POST "/users/login" for 127.0.0.1 at 2017-09-11 12:19:24 -0400
+Processing by UsersController#login as */*
+  Parameters: {"user"=>{"username"=>"Josh", "password"=>"[FILTERED]"}}
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Josh"], ["LIMIT", 1]]
+Completed 200 OK in 81ms (Views: 0.8ms | ActiveRecord: 0.8ms)
+
+
+Started GET "/movies" for 127.0.0.1 at 2017-09-11 12:21:25 -0400
+Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (0.4ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+Completed 200 OK in 2ms (Views: 0.2ms | ActiveRecord: 0.4ms)
+
+
+Started POST "/users" for 127.0.0.1 at 2017-09-11 12:21:34 -0400
+Processing by UsersController#create as HTML
+  Parameters: {"user"=>{"username"=>"Bryn", "password_digest"=>"[FILTERED]"}}
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (1.5ms)[0m  [1m[32mINSERT INTO "users" ("username", "created_at", "updated_at", "password_digest") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["username", "Bryn"], ["created_at", "2017-09-11 16:21:34.225743"], ["updated_at", "2017-09-11 16:21:34.225743"], ["password_digest", "Leahy"]]
+  [1m[35m (2.1ms)[0m  [1m[35mCOMMIT[0m
+Completed 201 Created in 9ms (Views: 0.8ms | ActiveRecord: 3.9ms)
+
+
+Started GET "/movies" for 127.0.0.1 at 2017-09-11 12:23:17 -0400
+Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (0.6ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+Completed 200 OK in 22ms (Views: 0.3ms | ActiveRecord: 3.3ms)
+
+
+Started POST "/users/login" for 127.0.0.1 at 2017-09-11 12:23:25 -0400
+Processing by UsersController#login as HTML
+  Parameters: {"user"=>{"username"=>"Rick", "password_digest"=>"[FILTERED]"}}
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Rick"], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 18ms (ActiveRecord: 0.6ms)
+
+
+  
+BCrypt::Errors::InvalidHash (invalid hash):
+  
+app/controllers/users_controller.rb:13:in `login'
+Started GET "/movies" for 127.0.0.1 at 2017-09-11 13:31:32 -0400
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (0.9ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+Completed 200 OK in 17ms (Views: 0.2ms | ActiveRecord: 2.6ms)
+
+
+Started GET "/movies" for 127.0.0.1 at 2017-09-11 13:34:32 -0400
+  [1m[35m (1.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (1.0ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+Completed 200 OK in 16ms (Views: 0.3ms | ActiveRecord: 3.4ms)
+
+
+Started POST "/users" for 127.0.0.1 at 2017-09-11 13:34:37 -0400
+Processing by UsersController#create as HTML
+  Parameters: {"user"=>{"username"=>"Bob", "password_digest"=>"[FILTERED]"}}
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (8.2ms)[0m  [1m[32mINSERT INTO "users" ("username", "created_at", "updated_at", "password_digest") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["username", "Bob"], ["created_at", "2017-09-11 17:34:37.964696"], ["updated_at", "2017-09-11 17:34:37.964696"], ["password_digest", "Neely"]]
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+Completed 201 Created in 55ms (Views: 0.8ms | ActiveRecord: 26.2ms)
+
+
+Started POST "/users/login" for 127.0.0.1 at 2017-09-11 13:34:47 -0400
+Processing by UsersController#login as HTML
+  Parameters: {"user"=>{"username"=>"Bob", "password_digest"=>"[FILTERED]"}}
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Bob"], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 9ms (ActiveRecord: 1.2ms)
+
+
+  
+BCrypt::Errors::InvalidHash (invalid hash):
+  
+app/controllers/users_controller.rb:13:in `login'
+Started GET "/movies" for 127.0.0.1 at 2017-09-11 13:44:25 -0400
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (0.9ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+Completed 200 OK in 15ms (Views: 0.2ms | ActiveRecord: 3.5ms)
+
+
+Started POST "/users" for 127.0.0.1 at 2017-09-11 13:44:33 -0400
+Processing by UsersController#create as HTML
+  Parameters: {"user"=>{"username"=>"Geri", "password_digest"=>"[FILTERED]"}}
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.8ms)[0m  [1m[32mINSERT INTO "users" ("username", "created_at", "updated_at", "password_digest") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["username", "Geri"], ["created_at", "2017-09-11 17:44:33.539952"], ["updated_at", "2017-09-11 17:44:33.539952"], ["password_digest", "Neely"]]
+  [1m[35m (5.3ms)[0m  [1m[35mCOMMIT[0m
+Completed 201 Created in 51ms (Views: 0.6ms | ActiveRecord: 25.2ms)
+
+
+Started GET "/movies" for 127.0.0.1 at 2017-09-11 13:44:40 -0400
+Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (0.9ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+Completed 200 OK in 3ms (Views: 0.2ms | ActiveRecord: 0.9ms)
+
+
+Started POST "/users/login" for 127.0.0.1 at 2017-09-11 13:44:47 -0400
+Processing by UsersController#login as HTML
+  Parameters: {"user"=>{"username"=>"Geri", "password_digest"=>"[FILTERED]"}}
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Geri"], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 8ms (ActiveRecord: 1.1ms)
+
+
+  
+BCrypt::Errors::InvalidHash (invalid hash):
+  
+app/controllers/users_controller.rb:13:in `login'
+Started POST "/users" for 127.0.0.1 at 2017-09-11 13:47:59 -0400
+Processing by UsersController#create as */*
+Completed 400 Bad Request in 0ms (ActiveRecord: 0.0ms)
+
+
+  
+ActionController::ParameterMissing (param is missing or the value is empty: user):
+  
+app/controllers/users_controller.rb:92:in `user_params'
+app/controllers/users_controller.rb:39:in `create'
+Started POST "/users/login" for 127.0.0.1 at 2017-09-11 13:48:09 -0400
+Processing by UsersController#login as */*
+  Parameters: {"user"=>{"username"=>"Josh", "password"=>"Edgell"}}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Josh"], ["LIMIT", 1]]
+Completed 200 OK in 84ms (Views: 2.8ms | ActiveRecord: 0.5ms)
+
+
+Started POST "/users/login" for 127.0.0.1 at 2017-09-11 13:48:22 -0400
+Processing by UsersController#login as */*
+  Parameters: {"user"=>{"username"=>"Josh", "password_digest"=>"[FILTERED]"}}
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Josh"], ["LIMIT", 1]]
+Completed 200 OK in 81ms (Views: 0.3ms | ActiveRecord: 1.2ms)
+
+
+Started POST "/users" for 127.0.0.1 at 2017-09-11 13:48:36 -0400
+Processing by UsersController#create as */*
+  Parameters: {"user"=>{"username"=>"Rick", "password_digest"=>"[FILTERED]"}}
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "users" ("username", "created_at", "updated_at", "password_digest") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["username", "Rick"], ["created_at", "2017-09-11 17:48:36.702286"], ["updated_at", "2017-09-11 17:48:36.702286"], ["password_digest", "Neely"]]
+  [1m[35m (5.0ms)[0m  [1m[35mCOMMIT[0m
+Completed 201 Created in 10ms (Views: 0.6ms | ActiveRecord: 5.7ms)
+
+
+Started POST "/users" for 127.0.0.1 at 2017-09-11 13:48:53 -0400
+Processing by UsersController#create as */*
+  Parameters: {"user"=>{"username"=>"Rick", "password"=>"Neely"}}
+Unpermitted parameter: :password
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.4ms)[0m  [1m[31mROLLBACK[0m
+Completed 422 Unprocessable Entity in 788ms (Views: 0.3ms | ActiveRecord: 0.7ms)
+
+
+Started POST "/users" for 127.0.0.1 at 2017-09-11 13:49:01 -0400
+Processing by UsersController#create as */*
+  Parameters: {"user"=>{"username"=>"Rick", "password_digest"=>"[FILTERED]"}}
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "users" ("username", "created_at", "updated_at", "password_digest") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["username", "Rick"], ["created_at", "2017-09-11 17:49:01.247384"], ["updated_at", "2017-09-11 17:49:01.247384"], ["password_digest", "Neely"]]
+  [1m[35m (5.5ms)[0m  [1m[35mCOMMIT[0m
+Completed 201 Created in 10ms (Views: 0.7ms | ActiveRecord: 6.3ms)
+
+
+Started POST "/users/login" for 127.0.0.1 at 2017-09-11 13:49:22 -0400
+Processing by UsersController#login as */*
+  Parameters: {"user"=>{"username"=>"Josh", "password"=>"Edgell"}}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Josh"], ["LIMIT", 1]]
+Completed 200 OK in 81ms (Views: 0.7ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/movies" for 127.0.0.1 at 2017-09-11 13:51:12 -0400
+Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (0.5ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+Completed 200 OK in 14ms (Views: 0.2ms | ActiveRecord: 0.5ms)
+
+
+Started POST "/users" for 127.0.0.1 at 2017-09-11 13:51:23 -0400
+Processing by UsersController#create as HTML
+  Parameters: {"user"=>{"username"=>"Maddy", "password_digest"=>"[FILTERED]"}}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.8ms)[0m  [1m[32mINSERT INTO "users" ("username", "created_at", "updated_at", "password_digest") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["username", "Maddy"], ["created_at", "2017-09-11 17:51:23.729196"], ["updated_at", "2017-09-11 17:51:23.729196"], ["password_digest", "Neely"]]
+  [1m[35m (5.4ms)[0m  [1m[35mCOMMIT[0m
+Completed 201 Created in 30ms (Views: 0.7ms | ActiveRecord: 11.6ms)
+
+
+Started GET "/movies" for 127.0.0.1 at 2017-09-11 13:51:32 -0400
+Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (0.4ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+Completed 200 OK in 2ms (Views: 0.2ms | ActiveRecord: 0.4ms)
+
+
+Started POST "/users/login" for 127.0.0.1 at 2017-09-11 13:51:41 -0400
+Processing by UsersController#login as HTML
+  Parameters: {"user"=>{"username"=>"Maddy", "password_digest"=>"[FILTERED]"}}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Maddy"], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 3ms (ActiveRecord: 0.4ms)
+
+
+  
+BCrypt::Errors::InvalidHash (invalid hash):
+  
+app/controllers/users_controller.rb:13:in `login'
+Started POST "/users/login" for 127.0.0.1 at 2017-09-11 14:03:36 -0400
+Processing by UsersController#login as */*
+  Parameters: {"user"=>{"username"=>"Josh", "password"=>"Edgell"}}
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Josh"], ["LIMIT", 1]]
+Completed 200 OK in 81ms (Views: 0.7ms | ActiveRecord: 0.6ms)
+
+
+Started POST "/users/login" for 127.0.0.1 at 2017-09-11 14:03:57 -0400
+Processing by UsersController#login as */*
+  Parameters: {"user"=>{"username"=>"Josh", "password"=>"Edgell"}}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Josh"], ["LIMIT", 1]]
+Completed 200 OK in 79ms (Views: 0.7ms | ActiveRecord: 0.3ms)
+
+
+Started POST "/users/login" for 127.0.0.1 at 2017-09-11 14:04:06 -0400
+Processing by UsersController#login as */*
+  Parameters: {"user"=>{"username"=>"Josh", "password"=>"Edgell"}}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Josh"], ["LIMIT", 1]]
+Completed 200 OK in 80ms (Views: 0.8ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/movies" for 127.0.0.1 at 2017-09-11 14:05:06 -0400
+Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (0.8ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+Completed 200 OK in 3ms (Views: 0.2ms | ActiveRecord: 0.8ms)
+
+
+Started POST "/users" for 127.0.0.1 at 2017-09-11 14:05:15 -0400
+Processing by UsersController#create as HTML
+  Parameters: {"user"=>{"username"=>"Beau", "password_digest"=>"[FILTERED]"}}
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.7ms)[0m  [1m[32mINSERT INTO "users" ("username", "created_at", "updated_at", "password_digest") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["username", "Beau"], ["created_at", "2017-09-11 18:05:15.873703"], ["updated_at", "2017-09-11 18:05:15.873703"], ["password_digest", "Leahy"]]
+  [1m[35m (2.1ms)[0m  [1m[35mCOMMIT[0m
+Completed 201 Created in 7ms (Views: 0.7ms | ActiveRecord: 3.0ms)
+
+
+Started GET "/movies" for 127.0.0.1 at 2017-09-11 14:05:22 -0400
+Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (0.7ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+Completed 200 OK in 3ms (Views: 0.2ms | ActiveRecord: 0.7ms)
+
+
+Started POST "/users/login" for 127.0.0.1 at 2017-09-11 14:05:29 -0400
+Processing by UsersController#login as HTML
+  Parameters: {"user"=>{"username"=>"Beau", "password"=>"Leahy"}}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Beau"], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 3ms (ActiveRecord: 0.5ms)
+
+
+  
+BCrypt::Errors::InvalidHash (invalid hash):
+  
+app/controllers/users_controller.rb:13:in `login'
+Started GET "/movies" for 127.0.0.1 at 2017-09-11 14:05:50 -0400
+Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (0.4ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+Completed 200 OK in 3ms (Views: 0.2ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/movies" for 127.0.0.1 at 2017-09-11 14:06:08 -0400
+Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (0.5ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+Completed 200 OK in 3ms (Views: 0.2ms | ActiveRecord: 0.5ms)
+
+
+Started POST "/users/login" for 127.0.0.1 at 2017-09-11 14:06:21 -0400
+Processing by UsersController#login as HTML
+  Parameters: {"user"=>{"username"=>"Josh", "password_digest"=>"[FILTERED]"}}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Josh"], ["LIMIT", 1]]
+Completed 200 OK in 80ms (Views: 0.3ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/movies" for 127.0.0.1 at 2017-09-11 14:07:01 -0400
+Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (0.8ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+Completed 200 OK in 3ms (Views: 0.2ms | ActiveRecord: 0.8ms)
+
+
+Started POST "/users/login" for 127.0.0.1 at 2017-09-11 14:07:09 -0400
+Processing by UsersController#login as HTML
+  Parameters: {"user"=>{"username"=>"Rick", "password_digest"=>"[FILTERED]"}}
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Rick"], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 3ms (ActiveRecord: 0.6ms)
+
+
+  
+BCrypt::Errors::InvalidHash (invalid hash):
+  
+app/controllers/users_controller.rb:13:in `login'
+Started POST "/users" for 127.0.0.1 at 2017-09-11 14:07:19 -0400
+Processing by UsersController#create as HTML
+  Parameters: {"user"=>{"username"=>"Rick", "password_digest"=>"[FILTERED]"}}
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "users" ("username", "created_at", "updated_at", "password_digest") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["username", "Rick"], ["created_at", "2017-09-11 18:07:19.438099"], ["updated_at", "2017-09-11 18:07:19.438099"], ["password_digest", "Neely"]]
+  [1m[35m (5.6ms)[0m  [1m[35mCOMMIT[0m
+Completed 201 Created in 11ms (Views: 0.6ms | ActiveRecord: 6.5ms)
+
+
+Started POST "/users/login" for 127.0.0.1 at 2017-09-11 14:07:23 -0400
+Processing by UsersController#login as HTML
+  Parameters: {"user"=>{"username"=>"Rick", "password_digest"=>"[FILTERED]"}}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Rick"], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 2ms (ActiveRecord: 0.2ms)
+
+
+  
+BCrypt::Errors::InvalidHash (invalid hash):
+  
+app/controllers/users_controller.rb:13:in `login'
+Started POST "/users" for 127.0.0.1 at 2017-09-11 14:07:44 -0400
+Processing by UsersController#create as HTML
+  Parameters: {"user"=>{"username"=>"Rob", "password_digest"=>"[FILTERED]"}}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "users" ("username", "created_at", "updated_at", "password_digest") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["username", "Rob"], ["created_at", "2017-09-11 18:07:44.749957"], ["updated_at", "2017-09-11 18:07:44.749957"], ["password_digest", "Neely"]]
+  [1m[35m (1.9ms)[0m  [1m[35mCOMMIT[0m
+Completed 201 Created in 7ms (Views: 0.7ms | ActiveRecord: 2.8ms)
+
+
+Started GET "/movies" for 127.0.0.1 at 2017-09-11 14:07:52 -0400
+Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (0.4ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+Completed 200 OK in 2ms (Views: 0.2ms | ActiveRecord: 0.4ms)
+
+
+Started POST "/users/login" for 127.0.0.1 at 2017-09-11 14:08:08 -0400
+Processing by UsersController#login as HTML
+  Parameters: {"user"=>{"username"=>"Rob", "password_digest"=>"[FILTERED]"}}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Rob"], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 2ms (ActiveRecord: 0.3ms)
+
+
+  
+BCrypt::Errors::InvalidHash (invalid hash):
+  
+app/controllers/users_controller.rb:13:in `login'
+Started GET "/movies" for 127.0.0.1 at 2017-09-11 14:08:27 -0400
+Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (0.5ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+Completed 200 OK in 3ms (Views: 0.2ms | ActiveRecord: 0.5ms)
+
+
+Started POST "/users/login" for 127.0.0.1 at 2017-09-11 14:08:34 -0400
+Processing by UsersController#login as HTML
+  Parameters: {"user"=>{"username"=>"Josh", "password_digest"=>"[FILTERED]"}}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Josh"], ["LIMIT", 1]]
+Completed 200 OK in 79ms (Views: 0.3ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/users/1" for 127.0.0.1 at 2017-09-11 14:08:55 -0400
+Processing by UsersController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Filter chain halted as :authenticate_token rendered or redirected
+Completed 200 OK in 4ms (Views: 0.3ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/movies" for 127.0.0.1 at 2017-09-11 14:21:13 -0400
+Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (0.3ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+Completed 200 OK in 14ms (Views: 0.2ms | ActiveRecord: 2.3ms)
+
+
+Started GET "/movies" for 127.0.0.1 at 2017-09-11 14:21:21 -0400
+Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (0.6ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+Completed 200 OK in 3ms (Views: 0.1ms | ActiveRecord: 0.6ms)
+
+
+Started POST "/users/login" for 127.0.0.1 at 2017-09-11 14:21:29 -0400
+Processing by UsersController#login as HTML
+  Parameters: {"user"=>{"username"=>"Rick", "password_digest"=>"[FILTERED]"}}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Rick"], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 22ms (ActiveRecord: 5.3ms)
+
+
+  
+BCrypt::Errors::InvalidHash (invalid hash):
+  
+app/controllers/users_controller.rb:13:in `login'
+Started GET "/movies" for 127.0.0.1 at 2017-09-11 14:21:31 -0400
+Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (0.8ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+Completed 200 OK in 3ms (Views: 0.2ms | ActiveRecord: 0.8ms)
+
+
+Started GET "/movies" for 127.0.0.1 at 2017-09-11 14:21:39 -0400
+Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (0.5ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+Completed 200 OK in 3ms (Views: 0.2ms | ActiveRecord: 0.5ms)
+
+
+Started POST "/users/login" for 127.0.0.1 at 2017-09-11 14:21:45 -0400
+Processing by UsersController#login as HTML
+  Parameters: {"user"=>{"username"=>"Rick", "password_digest"=>"[FILTERED]"}}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Rick"], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 2ms (ActiveRecord: 0.3ms)
+
+
+  
+BCrypt::Errors::InvalidHash (invalid hash):
+  
+app/controllers/users_controller.rb:13:in `login'
+Started GET "/movies" for 127.0.0.1 at 2017-09-11 14:31:25 -0400
+Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (0.4ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+Completed 200 OK in 14ms (Views: 0.2ms | ActiveRecord: 2.4ms)
+
+
+Started POST "/users/login" for 127.0.0.1 at 2017-09-11 14:31:34 -0400
+Processing by UsersController#login as HTML
+  Parameters: {"user"=>{"username"=>"Rick", "password_digest"=>"[FILTERED]"}}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Rick"], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 15ms (ActiveRecord: 0.3ms)
+
+
+  
+BCrypt::Errors::InvalidHash (invalid hash):
+  
+app/controllers/users_controller.rb:13:in `login'
+Started GET "/movies" for 127.0.0.1 at 2017-09-11 14:31:55 -0400
+Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (0.4ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+Completed 200 OK in 22ms (Views: 0.2ms | ActiveRecord: 3.2ms)
+
+
+Started POST "/users/login" for 127.0.0.1 at 2017-09-11 14:32:03 -0400
+Processing by UsersController#login as HTML
+  Parameters: {"user"=>{"username"=>"Rick", "password_digest"=>"[FILTERED]"}}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Rick"], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 15ms (ActiveRecord: 0.4ms)
+
+
+  
+BCrypt::Errors::InvalidHash (invalid hash):
+  
+app/controllers/users_controller.rb:13:in `login'
+Started POST "/users/login" for 127.0.0.1 at 2017-09-11 14:43:18 -0400
+Processing by UsersController#login as */*
+  Parameters: {"user"=>{"username"=>"Rick", "password"=>"Neely"}}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Rick"], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 35ms (ActiveRecord: 5.2ms)
+
+
+  
+BCrypt::Errors::InvalidHash (invalid hash):
+  
+app/controllers/users_controller.rb:13:in `login'
+Started POST "/users/login" for 127.0.0.1 at 2017-09-11 14:43:57 -0400
+Processing by UsersController#login as */*
+  Parameters: {"user"=>{"username"=>"Rick", "password"=>"Neely"}}
+  [1m[36mUser Load (1.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Rick"], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 26ms (ActiveRecord: 1.3ms)
+
+
+  
+BCrypt::Errors::InvalidHash (invalid hash):
+  
+app/controllers/users_controller.rb:13:in `login'
+Started POST "/users/login" for 127.0.0.1 at 2017-09-11 14:44:09 -0400
+Processing by UsersController#login as */*
+  Parameters: {"user"=>{"username"=>"Rick", "password"=>"Neely"}}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Rick"], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 31ms (ActiveRecord: 0.3ms)
+
+
+  
+BCrypt::Errors::InvalidHash (invalid hash):
+  
+app/controllers/users_controller.rb:13:in `login'
+Started GET "/movies" for 127.0.0.1 at 2017-09-11 14:48:16 -0400
+Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (0.4ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+Completed 200 OK in 13ms (Views: 0.2ms | ActiveRecord: 2.5ms)
+
+
+Started POST "/users/login" for 127.0.0.1 at 2017-09-11 14:48:31 -0400
+Processing by UsersController#login as HTML
+  Parameters: {"user"=>{"username"=>"Rick", "password_digest"=>"[FILTERED]"}}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Rick"], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 143ms (ActiveRecord: 5.0ms)
+
+
+  
+NameError (undefined local variable or method `console' for #<UsersController:0x007ffbbec73de8>):
+  
+app/controllers/users_controller.rb:14:in `login'
+Started POST "/users/login" for 127.0.0.1 at 2017-09-11 14:48:41 -0400
+Processing by UsersController#login as HTML
+  Parameters: {"user"=>{"username"=>"Josh", "password_digest"=>"[FILTERED]"}}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Josh"], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 150ms (ActiveRecord: 0.3ms)
+
+
+  
+NameError (undefined local variable or method `console' for #<UsersController:0x007ffbbf3d0cf8>):
+  
+app/controllers/users_controller.rb:14:in `login'
+Started GET "/movies" for 127.0.0.1 at 2017-09-11 14:48:45 -0400
+Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (1.9ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+Completed 200 OK in 5ms (Views: 0.2ms | ActiveRecord: 1.9ms)
+
+
+Started GET "/movies" for 127.0.0.1 at 2017-09-11 14:49:22 -0400
+Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (0.5ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+Completed 200 OK in 20ms (Views: 0.9ms | ActiveRecord: 2.9ms)
+
+
+Started GET "/movies" for 127.0.0.1 at 2017-09-11 14:49:29 -0400
+Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (0.5ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+Completed 200 OK in 2ms (Views: 0.2ms | ActiveRecord: 0.5ms)
+
+
+Started POST "/users/login" for 127.0.0.1 at 2017-09-11 14:49:35 -0400
+Processing by UsersController#login as HTML
+  Parameters: {"user"=>{"username"=>"Josh", "password_digest"=>"[FILTERED]"}}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Josh"], ["LIMIT", 1]]
+Completed 200 OK in 99ms (Views: 0.3ms | ActiveRecord: 5.2ms)
+
+
+Started POST "/users/login" for 127.0.0.1 at 2017-09-11 14:49:45 -0400
+Processing by UsersController#login as HTML
+  Parameters: {"user"=>{"username"=>"Rick", "password_digest"=>"[FILTERED]"}}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Rick"], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 2ms (ActiveRecord: 0.3ms)
+
+
+  
+BCrypt::Errors::InvalidHash (invalid hash):
+  
+app/controllers/users_controller.rb:13:in `login'
+Started POST "/users/login" for 127.0.0.1 at 2017-09-11 14:51:09 -0400
+Processing by UsersController#login as */*
+  Parameters: {"user"=>{"username"=>"Rick", "password_digest"=>"[FILTERED]"}}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Rick"], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 2ms (ActiveRecord: 0.3ms)
+
+
+  
+BCrypt::Errors::InvalidHash (invalid hash):
+  
+app/controllers/users_controller.rb:13:in `login'
+Started POST "/users/login" for 127.0.0.1 at 2017-09-11 14:51:41 -0400
+Processing by UsersController#login as */*
+  Parameters: {"user"=>{"username"=>"Josh", "password"=>"Edgell"}}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Josh"], ["LIMIT", 1]]
+Completed 200 OK in 80ms (Views: 0.8ms | ActiveRecord: 0.2ms)
+
+
+Started POST "/users/login" for 127.0.0.1 at 2017-09-11 14:52:05 -0400
+Processing by UsersController#login as */*
+  Parameters: {"user"=>{"username"=>"Josh", "password"=>"Edgell"}}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Josh"], ["LIMIT", 1]]
+Completed 200 OK in 80ms (Views: 0.7ms | ActiveRecord: 0.2ms)
+
+
+Started POST "/users/login" for 127.0.0.1 at 2017-09-11 14:52:06 -0400
+Processing by UsersController#login as */*
+  Parameters: {"user"=>{"username"=>"Josh", "password"=>"Edgell"}}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Josh"], ["LIMIT", 1]]
+Completed 200 OK in 80ms (Views: 0.7ms | ActiveRecord: 0.2ms)
+
+
+Started POST "/users/login" for 127.0.0.1 at 2017-09-11 14:52:07 -0400
+Processing by UsersController#login as */*
+  Parameters: {"user"=>{"username"=>"Josh", "password"=>"Edgell"}}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Josh"], ["LIMIT", 1]]
+Completed 200 OK in 81ms (Views: 0.7ms | ActiveRecord: 0.4ms)
+
+
+Started POST "/users" for 127.0.0.1 at 2017-09-11 14:52:52 -0400
+Processing by UsersController#create as */*
+  Parameters: {"user"=>{"username"=>"Rick", "password_digest"=>"[FILTERED]"}}
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "users" ("username", "created_at", "updated_at", "password_digest") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["username", "Rick"], ["created_at", "2017-09-11 18:52:52.884334"], ["updated_at", "2017-09-11 18:52:52.884334"], ["password_digest", "Neely"]]
+  [1m[35m (1.6ms)[0m  [1m[35mCOMMIT[0m
+Completed 201 Created in 7ms (Views: 0.5ms | ActiveRecord: 2.3ms)
+
+
+Started GET "/movies" for 127.0.0.1 at 2017-09-11 14:53:11 -0400
+Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (0.3ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+Completed 200 OK in 2ms (Views: 0.1ms | ActiveRecord: 0.3ms)
+
+
+Started POST "/users" for 127.0.0.1 at 2017-09-11 14:53:21 -0400
+Processing by UsersController#create as HTML
+  Parameters: {"user"=>{"username"=>"Bryn", "password_digest"=>"[FILTERED]"}}
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (4.1ms)[0m  [1m[32mINSERT INTO "users" ("username", "created_at", "updated_at", "password_digest") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["username", "Bryn"], ["created_at", "2017-09-11 18:53:21.533294"], ["updated_at", "2017-09-11 18:53:21.533294"], ["password_digest", "Leahy"]]
+  [1m[35m (0.7ms)[0m  [1m[35mCOMMIT[0m
+Completed 201 Created in 9ms (Views: 0.7ms | ActiveRecord: 4.9ms)
+
+
+Started POST "/users" for 127.0.0.1 at 2017-09-11 14:53:24 -0400
+Processing by UsersController#create as */*
+  Parameters: {"user"=>{"username"=>"Rick", "password_digest"=>"[FILTERED]"}}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.7ms)[0m  [1m[32mINSERT INTO "users" ("username", "created_at", "updated_at", "password_digest") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["username", "Rick"], ["created_at", "2017-09-11 18:53:24.865206"], ["updated_at", "2017-09-11 18:53:24.865206"], ["password_digest", "Neely"]]
+  [1m[35m (5.2ms)[0m  [1m[35mCOMMIT[0m
+Completed 201 Created in 11ms (Views: 0.6ms | ActiveRecord: 6.1ms)
+
+
+Started POST "/users" for 127.0.0.1 at 2017-09-11 14:53:32 -0400
+Processing by UsersController#create as */*
+Completed 400 Bad Request in 0ms (ActiveRecord: 0.0ms)
+
+
+  
+ActionController::ParameterMissing (param is missing or the value is empty: user):
+  
+app/controllers/users_controller.rb:92:in `user_params'
+app/controllers/users_controller.rb:39:in `create'
+Started POST "/users" for 127.0.0.1 at 2017-09-11 14:53:51 -0400
+Processing by UsersController#create as */*
+Completed 400 Bad Request in 0ms (ActiveRecord: 0.0ms)
+
+
+  
+ActionController::ParameterMissing (param is missing or the value is empty: user):
+  
+app/controllers/users_controller.rb:92:in `user_params'
+app/controllers/users_controller.rb:39:in `create'
+Started POST "/" for 127.0.0.1 at 2017-09-11 14:54:09 -0400
+  
+ActionController::RoutingError (No route matches [POST] "/"):
+  
+actionpack (5.1.3) lib/action_dispatch/middleware/debug_exceptions.rb:63:in `call'
+actionpack (5.1.3) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.1.3) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.1.3) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.1.3) lib/active_support/tagged_logging.rb:69:in `block in tagged'
+activesupport (5.1.3) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.1.3) lib/active_support/tagged_logging.rb:69:in `tagged'
+railties (5.1.3) lib/rails/rack/logger.rb:24:in `call'
+actionpack (5.1.3) lib/action_dispatch/middleware/remote_ip.rb:79:in `call'
+actionpack (5.1.3) lib/action_dispatch/middleware/request_id.rb:25:in `call'
+rack (2.0.3) lib/rack/runtime.rb:22:in `call'
+activesupport (5.1.3) lib/active_support/cache/strategy/local_cache_middleware.rb:27:in `call'
+actionpack (5.1.3) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.1.3) lib/action_dispatch/middleware/static.rb:125:in `call'
+rack (2.0.3) lib/rack/sendfile.rb:111:in `call'
+rack-cors (1.0.1) lib/rack/cors.rb:93:in `call'
+railties (5.1.3) lib/rails/engine.rb:522:in `call'
+puma (3.10.0) lib/puma/configuration.rb:225:in `call'
+puma (3.10.0) lib/puma/server.rb:605:in `handle_request'
+puma (3.10.0) lib/puma/server.rb:437:in `process_client'
+puma (3.10.0) lib/puma/server.rb:301:in `block in run'
+puma (3.10.0) lib/puma/thread_pool.rb:120:in `block in spawn_thread'
+Started GET "/" for 127.0.0.1 at 2017-09-11 14:54:14 -0400
+Processing by Rails::WelcomeController#index as */*
+  Rendering /Users/richardneely/.rbenv/versions/2.4.1/lib/ruby/gems/2.4.0/gems/railties-5.1.3/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /Users/richardneely/.rbenv/versions/2.4.1/lib/ruby/gems/2.4.0/gems/railties-5.1.3/lib/rails/templates/rails/welcome/index.html.erb (2.7ms)
+Completed 200 OK in 65ms (Views: 33.7ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2017-09-11 14:54:28 -0400
+Processing by UsersController#index as */*
+Filter chain halted as :authenticate_token rendered or redirected
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2017-09-11 14:54:42 -0400
+Processing by UsersController#index as */*
+Filter chain halted as :authenticate_token rendered or redirected
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/users/1" for 127.0.0.1 at 2017-09-11 14:54:52 -0400
+Processing by UsersController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Filter chain halted as :authenticate_token rendered or redirected
+Completed 200 OK in 3ms (Views: 0.2ms | ActiveRecord: 0.5ms)
+
+
+Started POST "/users/" for 127.0.0.1 at 2017-09-11 14:55:12 -0400
+Processing by UsersController#create as */*
+Completed 400 Bad Request in 0ms (ActiveRecord: 0.0ms)
+
+
+  
+ActionController::ParameterMissing (param is missing or the value is empty: user):
+  
+app/controllers/users_controller.rb:92:in `user_params'
+app/controllers/users_controller.rb:39:in `create'
+Started GET "/users/" for 127.0.0.1 at 2017-09-11 14:55:22 -0400
+Processing by UsersController#index as */*
+Filter chain halted as :authenticate_token rendered or redirected
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/users/login" for 127.0.0.1 at 2017-09-11 14:55:31 -0400
+Processing by UsersController#show as */*
+  Parameters: {"id"=>"login"}
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 0], ["LIMIT", 1]]
+Completed 404 Not Found in 3ms (ActiveRecord: 0.6ms)
+
+
+  
+ActiveRecord::RecordNotFound (Couldn't find User with 'id'=login):
+  
+app/controllers/users_controller.rb:87:in `set_user'
+Started GET "/users" for 127.0.0.1 at 2017-09-11 14:55:43 -0400
+Processing by UsersController#index as */*
+Completed 500 Internal Server Error in 1ms (ActiveRecord: 0.0ms)
+
+
+  
+NoMethodError (undefined method `gsub' for nil:NilClass):
+  
+app/controllers/application_controller.rb:19:in `bearer_token'
+app/controllers/application_controller.rb:6:in `authenticate_token'
+Started GET "/movies" for 127.0.0.1 at 2017-09-11 15:39:25 -0400
+  [1m[35m (1.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (1.0ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+Completed 200 OK in 16ms (Views: 0.2ms | ActiveRecord: 2.8ms)
+
+
+Started POST "/users/login" for 127.0.0.1 at 2017-09-11 15:39:36 -0400
+Processing by UsersController#login as HTML
+  Parameters: {"user"=>{"username"=>"Josh", "password_digest"=>"[FILTERED]"}}
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Josh"], ["LIMIT", 1]]
+Completed 200 OK in 124ms (Views: 0.4ms | ActiveRecord: 19.5ms)
+
+
+Started POST "/users/login" for 127.0.0.1 at 2017-09-11 15:39:47 -0400
+Processing by UsersController#login as HTML
+  Parameters: {"user"=>{"username"=>"Rick", "password_digest"=>"[FILTERED]"}}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Rick"], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 3ms (ActiveRecord: 0.4ms)
+
+
+  
+BCrypt::Errors::InvalidHash (invalid hash):
+  
+app/controllers/users_controller.rb:13:in `login'
+Started POST "/users" for 127.0.0.1 at 2017-09-11 15:40:06 -0400
+Processing by UsersController#create as HTML
+  Parameters: {"user"=>{"username"=>"Test", "password_digest"=>"[FILTERED]"}}
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.7ms)[0m  [1m[32mINSERT INTO "users" ("username", "created_at", "updated_at", "password_digest") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["username", "Test"], ["created_at", "2017-09-11 19:40:06.675041"], ["updated_at", "2017-09-11 19:40:06.675041"], ["password_digest", "test"]]
+  [1m[35m (4.4ms)[0m  [1m[35mCOMMIT[0m
+Completed 201 Created in 10ms (Views: 0.8ms | ActiveRecord: 5.4ms)
+
+
+Started GET "/movies" for 127.0.0.1 at 2017-09-11 15:40:10 -0400
+Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (1.0ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+Completed 200 OK in 4ms (Views: 0.2ms | ActiveRecord: 1.0ms)
+
+
+Started POST "/users/login" for 127.0.0.1 at 2017-09-11 15:40:16 -0400
+Processing by UsersController#login as HTML
+  Parameters: {"user"=>{"username"=>"Test", "password_digest"=>"[FILTERED]"}}
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Test"], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 4ms (ActiveRecord: 1.4ms)
+
+
+  
+BCrypt::Errors::InvalidHash (invalid hash):
+  
+app/controllers/users_controller.rb:13:in `login'
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (1.2ms)[0m  [1m[32mINSERT INTO "users" ("username", "created_at", "updated_at", "password_digest") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["username", "Rick"], ["created_at", "2017-09-11 19:45:08.174150"], ["updated_at", "2017-09-11 19:45:08.174150"], ["password_digest", "$2a$10$d00PodoMwmvJe3mWq8ja4OX4Hb9.tVF/ZvZzWcaG/ehBgRxut9BKS"]]
+  [1m[35m (0.9ms)[0m  [1m[35mCOMMIT[0m
+Started GET "/movies" for 127.0.0.1 at 2017-09-11 15:50:41 -0400
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (0.9ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+Completed 200 OK in 14ms (Views: 0.2ms | ActiveRecord: 2.8ms)
+
+
+Started POST "/users/login" for 127.0.0.1 at 2017-09-11 15:50:53 -0400
+Processing by UsersController#login as HTML
+  Parameters: {"user"=>{"username"=>"Rick", "password_digest"=>"[FILTERED]"}}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Rick"], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 43ms (ActiveRecord: 16.6ms)
+
+
+  
+BCrypt::Errors::InvalidHash (invalid hash):
+  
+app/controllers/users_controller.rb:13:in `login'
+Started POST "/users/login" for 127.0.0.1 at 2017-09-11 15:51:02 -0400
+Processing by UsersController#login as HTML
+  Parameters: {"user"=>{"username"=>"Josh", "password_digest"=>"[FILTERED]"}}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Josh"], ["LIMIT", 1]]
+Completed 200 OK in 77ms (Views: 0.3ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/movies" for 127.0.0.1 at 2017-09-11 15:51:15 -0400
+Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (1.0ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+Completed 200 OK in 3ms (Views: 0.2ms | ActiveRecord: 1.0ms)
+
+
+Started POST "/users/login" for 127.0.0.1 at 2017-09-11 15:51:23 -0400
+Processing by UsersController#login as HTML
+  Parameters: {"user"=>{"username"=>"Rick", "password_digest"=>"[FILTERED]"}}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Rick"], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 2ms (ActiveRecord: 0.5ms)
+
+
+  
+BCrypt::Errors::InvalidHash (invalid hash):
+  
+app/controllers/users_controller.rb:13:in `login'
+Started POST "/users/login" for 127.0.0.1 at 2017-09-11 15:51:29 -0400
+Processing by UsersController#login as HTML
+  Parameters: {"user"=>{"username"=>"Rick", "password_digest"=>"[FILTERED]"}}
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Rick"], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 3ms (ActiveRecord: 1.0ms)
+
+
+  
+BCrypt::Errors::InvalidHash (invalid hash):
+  
+app/controllers/users_controller.rb:13:in `login'
+Started POST "/users/login" for 127.0.0.1 at 2017-09-11 15:52:20 -0400
+Processing by UsersController#login as HTML
+  Parameters: {"user"=>{"username"=>"Josh", "password_digest"=>"[FILTERED]"}}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Josh"], ["LIMIT", 1]]
+Completed 200 OK in 77ms (Views: 0.3ms | ActiveRecord: 0.4ms)
+
+
+Started POST "/users/login" for 127.0.0.1 at 2017-09-11 15:53:02 -0400
+Processing by UsersController#login as */*
+  Parameters: {"user"=>{"username"=>"Rick", "password"=>"Neely"}}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Rick"], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 2ms (ActiveRecord: 0.4ms)
+
+
+  
+BCrypt::Errors::InvalidHash (invalid hash):
+  
+app/controllers/users_controller.rb:13:in `login'
+Started GET "/movies" for 127.0.0.1 at 2017-09-11 15:53:43 -0400
+  [1m[35m (1.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (0.9ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+Completed 200 OK in 16ms (Views: 0.2ms | ActiveRecord: 2.8ms)
+
+
+Started POST "/users/login" for 127.0.0.1 at 2017-09-11 15:53:51 -0400
+Processing by UsersController#login as HTML
+  Parameters: {"user"=>{"username"=>"Josh", "password_digest"=>"[FILTERED]"}}
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Josh"], ["LIMIT", 1]]
+Completed 200 OK in 140ms (Views: 0.4ms | ActiveRecord: 18.4ms)
+
+
+Started POST "/users/login" for 127.0.0.1 at 2017-09-11 15:54:03 -0400
+Processing by UsersController#login as HTML
+  Parameters: {"user"=>{"username"=>"Rick", "password_digest"=>"[FILTERED]"}}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Rick"], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 3ms (ActiveRecord: 0.4ms)
+
+
+  
+BCrypt::Errors::InvalidHash (invalid hash):
+  
+app/controllers/users_controller.rb:13:in `login'
+Started POST "/users/login" for 127.0.0.1 at 2017-09-11 15:55:47 -0400
+Processing by UsersController#login as */*
+  Parameters: {"user"=>{"username"=>"Josh", "password"=>"Edgell"}}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Josh"], ["LIMIT", 1]]
+Completed 200 OK in 78ms (Views: 0.8ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/movies" for 127.0.0.1 at 2017-09-11 16:55:39 -0400
+  [1m[35m (2.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (21.0ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+Completed 200 OK in 42ms (Views: 0.2ms | ActiveRecord: 23.3ms)
+
+
+Started GET "/movies" for 127.0.0.1 at 2017-09-11 16:55:57 -0400
+Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (1.1ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+Completed 200 OK in 23ms (Views: 0.2ms | ActiveRecord: 9.7ms)
+
+
+Started POST "/users/login" for 127.0.0.1 at 2017-09-11 16:56:05 -0400
+Processing by UsersController#login as HTML
+  Parameters: {"user"=>{"username"=>"Josh", "password_digest"=>"[FILTERED]"}}
+  [1m[36mUser Load (16.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Josh"], ["LIMIT", 1]]
+Completed 200 OK in 139ms (Views: 0.3ms | ActiveRecord: 26.0ms)
+
+
+Started POST "/users/login" for 127.0.0.1 at 2017-09-11 16:56:16 -0400
+Processing by UsersController#login as HTML
+  Parameters: {"user"=>{"username"=>"Rick", "password_digest"=>"[FILTERED]"}}
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Rick"], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 5ms (ActiveRecord: 0.8ms)
+
+
+  
+BCrypt::Errors::InvalidHash (invalid hash):
+  
+app/controllers/users_controller.rb:13:in `login'
+Started POST "/users/login" for 127.0.0.1 at 2017-09-11 16:57:59 -0400
+Processing by UsersController#login as */*
+  Parameters: {"user"=>{"username"=>"Josh", "password"=>"Edgell"}}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Josh"], ["LIMIT", 1]]
+Completed 200 OK in 103ms (Views: 0.8ms | ActiveRecord: 4.7ms)
+
+
+Started POST "/users/login" for 127.0.0.1 at 2017-09-11 16:58:15 -0400
+Processing by UsersController#login as */*
+  Parameters: {"user"=>{"username"=>"Rick", "password"=>"Neely"}}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Rick"], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 2ms (ActiveRecord: 0.3ms)
+
+
+  
+BCrypt::Errors::InvalidHash (invalid hash):
+  
+app/controllers/users_controller.rb:13:in `login'
+Started GET "/movies" for 127.0.0.1 at 2017-09-11 17:06:21 -0400
+Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (0.7ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+Completed 200 OK in 16ms (Views: 0.2ms | ActiveRecord: 2.5ms)
+
+
+Started POST "/users/login" for 127.0.0.1 at 2017-09-11 17:06:33 -0400
+Processing by UsersController#login as HTML
+  Parameters: {"user"=>{"username"=>"Josh", "password_digest"=>"[FILTERED]"}}
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Josh"], ["LIMIT", 1]]
+Completed 200 OK in 88ms (Views: 0.3ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/movies" for 127.0.0.1 at 2017-09-11 17:06:40 -0400
+Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (0.6ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+Completed 200 OK in 3ms (Views: 0.2ms | ActiveRecord: 0.6ms)
+
+
+Started POST "/users/login" for 127.0.0.1 at 2017-09-11 17:06:46 -0400
+Processing by UsersController#login as HTML
+  Parameters: {"user"=>{"username"=>"Rick", "password_digest"=>"[FILTERED]"}}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Rick"], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 3ms (ActiveRecord: 0.5ms)
+
+
+  
+BCrypt::Errors::InvalidHash (invalid hash):
+  
+app/controllers/users_controller.rb:13:in `login'
+Started GET "/movies" for 127.0.0.1 at 2017-09-11 17:13:00 -0400
+Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (0.6ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+Completed 200 OK in 3ms (Views: 0.1ms | ActiveRecord: 0.6ms)
+
+
+Started POST "/users/login" for 127.0.0.1 at 2017-09-11 17:13:06 -0400
+Processing by UsersController#login as HTML
+  Parameters: {"user"=>{"username"=>"Josh", "password_digest"=>"[FILTERED]"}}
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Josh"], ["LIMIT", 1]]
+Completed 200 OK in 84ms (Views: 0.3ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/movies" for 127.0.0.1 at 2017-09-11 17:13:59 -0400
+Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (0.5ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+Completed 200 OK in 2ms (Views: 0.2ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2017-09-11 17:15:04 -0400
+  [1m[35m (1.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by UsersController#index as HTML
+Completed 500 Internal Server Error in 1ms (ActiveRecord: 0.0ms)
+
+
+  
+NoMethodError (undefined method `gsub' for nil:NilClass):
+  
+app/controllers/application_controller.rb:19:in `bearer_token'
+app/controllers/application_controller.rb:6:in `authenticate_token'
+Started GET "/favicon.ico" for 127.0.0.1 at 2017-09-11 17:15:05 -0400
+  
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+actionpack (5.1.3) lib/action_dispatch/middleware/debug_exceptions.rb:63:in `call'
+actionpack (5.1.3) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.1.3) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.1.3) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.1.3) lib/active_support/tagged_logging.rb:69:in `block in tagged'
+activesupport (5.1.3) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.1.3) lib/active_support/tagged_logging.rb:69:in `tagged'
+railties (5.1.3) lib/rails/rack/logger.rb:24:in `call'
+actionpack (5.1.3) lib/action_dispatch/middleware/remote_ip.rb:79:in `call'
+actionpack (5.1.3) lib/action_dispatch/middleware/request_id.rb:25:in `call'
+rack (2.0.3) lib/rack/runtime.rb:22:in `call'
+activesupport (5.1.3) lib/active_support/cache/strategy/local_cache_middleware.rb:27:in `call'
+actionpack (5.1.3) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.1.3) lib/action_dispatch/middleware/static.rb:125:in `call'
+rack (2.0.3) lib/rack/sendfile.rb:111:in `call'
+rack-cors (1.0.1) lib/rack/cors.rb:93:in `call'
+railties (5.1.3) lib/rails/engine.rb:522:in `call'
+puma (3.10.0) lib/puma/configuration.rb:225:in `call'
+puma (3.10.0) lib/puma/server.rb:605:in `handle_request'
+puma (3.10.0) lib/puma/server.rb:437:in `process_client'
+puma (3.10.0) lib/puma/server.rb:301:in `block in run'
+puma (3.10.0) lib/puma/thread_pool.rb:120:in `block in spawn_thread'
+Started GET "/movies" for 127.0.0.1 at 2017-09-11 17:19:08 -0400
+  [1m[35m (1.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (1.0ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+Completed 200 OK in 20ms (Views: 0.2ms | ActiveRecord: 3.4ms)
+
+
+Started POST "/users/login" for 127.0.0.1 at 2017-09-11 17:19:16 -0400
+Processing by UsersController#login as HTML
+  Parameters: {"user"=>{"username"=>"Josh", "password_digest"=>"[FILTERED]"}}
+  [1m[36mUser Load (1.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Josh"], ["LIMIT", 1]]
+Completed 200 OK in 147ms (Views: 0.5ms | ActiveRecord: 26.0ms)
+
+
+Started GET "/movies" for 127.0.0.1 at 2017-09-11 17:21:48 -0400
+Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (1.0ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+Completed 200 OK in 4ms (Views: 0.2ms | ActiveRecord: 1.0ms)
+
+
+Started POST "/users/login" for 127.0.0.1 at 2017-09-11 17:21:58 -0400
+Processing by UsersController#login as HTML
+  Parameters: {"user"=>{"username"=>"Rick", "password_digest"=>"[FILTERED]"}}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Rick"], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 2ms (ActiveRecord: 0.4ms)
+
+
+  
+BCrypt::Errors::InvalidHash (invalid hash):
+  
+app/controllers/users_controller.rb:13:in `login'
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (17.6ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (136.8ms)[0m  [1m[35mDROP DATABASE IF EXISTS "movie_app_api_development"[0m
+  [1m[35m (131.5ms)[0m  [1m[35mDROP DATABASE IF EXISTS "movie_app_api_test"[0m
+  [1m[35m (9.0ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (3.3ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT pg_try_advisory_lock(6652800596385700680)[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateMovies (20170908001042)
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (37.4ms)[0m  [1m[35mCREATE TABLE "movies" ("id" bigserial primary key, "title" character varying, "rating" character varying, "genre" character varying, "year_released" integer, "plot" text, "director" character varying, "actors" character varying, "poster" character varying, "rotten_tomatoes_score" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35mSQL (0.7ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170908001042"]]
+  [1m[35m (0.9ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateUsers (20170908001243)
+  [1m[35m (16.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (20.0ms)[0m  [1m[35mCREATE TABLE "users" ("id" bigserial primary key, "username" character varying, "first_name" character varying, "last_name" character varying, "age" integer, "gender" character varying, "password_digest" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35mSQL (1.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170908001243"]]
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateReviews (20170908001753)
+  [1m[35m (16.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (24.7ms)[0m  [1m[35mCREATE TABLE "reviews" ("id" bigserial primary key, "user_id" bigint, "movie_id" bigint, "review_text" text, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, CONSTRAINT "fk_rails_74a66bd6c5"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+, CONSTRAINT "fk_rails_6ad75a4852"
+FOREIGN KEY ("movie_id")
+  REFERENCES "movies" ("id")
+)[0m
+  [1m[35m (1.7ms)[0m  [1m[35mCREATE  INDEX  "index_reviews_on_user_id" ON "reviews"  ("user_id")[0m
+  [1m[35m (1.3ms)[0m  [1m[35mCREATE  INDEX  "index_reviews_on_movie_id" ON "reviews"  ("movie_id")[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170908001753"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateFavorites (20170908002204)
+  [1m[35m (15.9ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (20.1ms)[0m  [1m[35mCREATE TABLE "favorites" ("id" bigserial primary key, "user_id" bigint, "movie_id" bigint, "recommended" boolean, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, CONSTRAINT "fk_rails_d15744e438"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+, CONSTRAINT "fk_rails_2f96619ba3"
+FOREIGN KEY ("movie_id")
+  REFERENCES "movies" ("id")
+)[0m
+  [1m[35m (2.0ms)[0m  [1m[35mCREATE  INDEX  "index_favorites_on_user_id" ON "favorites"  ("user_id")[0m
+  [1m[35m (1.4ms)[0m  [1m[35mCREATE  INDEX  "index_favorites_on_movie_id" ON "favorites"  ("movie_id")[0m
+  [1m[35mSQL (0.8ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170908002204"]]
+  [1m[35m (1.3ms)[0m  [1m[35mCOMMIT[0m
+Migrating to ImdbAdd (20170909143746)
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.7ms)[0m  [1m[35mALTER TABLE "movies" ADD "imdb_id" character varying[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170909143746"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+Migrating to AddPassword (20170911010956)
+  [1m[35m (1.6ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.9ms)[0m  [1m[35mALTER TABLE "users" ADD "password_digest" character varying[0m
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT pg_advisory_unlock(6652800596385700680)[0m
+  [1m[35m (1.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (1.0ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_try_advisory_lock(6652800596385700680)[0m
+  [1m[35m (1.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.5ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (1.0ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2017-09-11 21:27:56.369380"], ["updated_at", "2017-09-11 21:27:56.369380"]]
+  [1m[35m (6.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT pg_advisory_unlock(6652800596385700680)[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.8ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (1.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (130.4ms)[0m  [1m[35mDROP DATABASE IF EXISTS "movie_app_api_development"[0m
+  [1m[35m (128.7ms)[0m  [1m[35mDROP DATABASE IF EXISTS "movie_app_api_test"[0m
+  [1m[35m (7.0ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (3.3ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT pg_try_advisory_lock(6652800596385700680)[0m
+  [1m[35m (1.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateMovies (20170908001042)
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (5.0ms)[0m  [1m[35mCREATE TABLE "movies" ("id" bigserial primary key, "title" character varying, "rating" character varying, "genre" character varying, "year_released" integer, "plot" text, "director" character varying, "actors" character varying, "poster" character varying, "rotten_tomatoes_score" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170908001042"]]
+  [1m[35m (0.7ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateUsers (20170908001243)
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (4.0ms)[0m  [1m[35mCREATE TABLE "users" ("id" bigserial primary key, "username" character varying, "first_name" character varying, "last_name" character varying, "age" integer, "gender" character varying, "password_digest" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170908001243"]]
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateReviews (20170908001753)
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (6.8ms)[0m  [1m[35mCREATE TABLE "reviews" ("id" bigserial primary key, "user_id" bigint, "movie_id" bigint, "review_text" text, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, CONSTRAINT "fk_rails_74a66bd6c5"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+, CONSTRAINT "fk_rails_6ad75a4852"
+FOREIGN KEY ("movie_id")
+  REFERENCES "movies" ("id")
+)[0m
+  [1m[35m (1.7ms)[0m  [1m[35mCREATE  INDEX  "index_reviews_on_user_id" ON "reviews"  ("user_id")[0m
+  [1m[35m (2.0ms)[0m  [1m[35mCREATE  INDEX  "index_reviews_on_movie_id" ON "reviews"  ("movie_id")[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170908001753"]]
+  [1m[35m (0.8ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateFavorites (20170908002204)
+  [1m[35m (0.6ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (4.6ms)[0m  [1m[35mCREATE TABLE "favorites" ("id" bigserial primary key, "user_id" bigint, "movie_id" bigint, "recommended" boolean, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, CONSTRAINT "fk_rails_d15744e438"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+, CONSTRAINT "fk_rails_2f96619ba3"
+FOREIGN KEY ("movie_id")
+  REFERENCES "movies" ("id")
+)[0m
+  [1m[35m (1.7ms)[0m  [1m[35mCREATE  INDEX  "index_favorites_on_user_id" ON "favorites"  ("user_id")[0m
+  [1m[35m (1.2ms)[0m  [1m[35mCREATE  INDEX  "index_favorites_on_movie_id" ON "favorites"  ("movie_id")[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170908002204"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+Migrating to ImdbAdd (20170909143746)
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.5ms)[0m  [1m[35mALTER TABLE "movies" ADD "imdb_id" character varying[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170909143746"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.5ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (1.6ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2017-09-11 21:29:17.369246"], ["updated_at", "2017-09-11 21:29:17.369246"]]
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT pg_advisory_unlock(6652800596385700680)[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started GET "/movies" for 127.0.0.1 at 2017-09-11 17:29:47 -0400
+  [1m[35m (1.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (1.7ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+Completed 200 OK in 25ms (Views: 0.3ms | ActiveRecord: 5.5ms)
+
+
+Started POST "/users" for 127.0.0.1 at 2017-09-11 17:29:55 -0400
+Processing by UsersController#create as HTML
+  Parameters: {"user"=>{"username"=>"Josh", "password_digest"=>"[FILTERED]"}}
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (1.1ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["username", "Josh"], ["password_digest", "Edgell"], ["created_at", "2017-09-11 21:29:55.565405"], ["updated_at", "2017-09-11 21:29:55.565405"]]
+  [1m[35m (5.8ms)[0m  [1m[35mCOMMIT[0m
+Completed 201 Created in 62ms (Views: 1.5ms | ActiveRecord: 32.1ms)
+
+
+Started GET "/movies" for 127.0.0.1 at 2017-09-11 17:30:07 -0400
+Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (1.3ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+Completed 200 OK in 4ms (Views: 0.2ms | ActiveRecord: 1.3ms)
+
+
+Started POST "/users/login" for 127.0.0.1 at 2017-09-11 17:30:20 -0400
+Processing by UsersController#login as HTML
+  Parameters: {"user"=>{"username"=>"Josh", "password_digest"=>"[FILTERED]"}}
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Josh"], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 9ms (ActiveRecord: 1.7ms)
+
+
+  
+BCrypt::Errors::InvalidHash (invalid hash):
+  
+app/controllers/users_controller.rb:13:in `login'
+Started GET "/movies" for 127.0.0.1 at 2017-09-11 17:37:19 -0400
+  [1m[35m (1.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (2.2ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+Completed 200 OK in 27ms (Views: 0.3ms | ActiveRecord: 8.5ms)
+
+
+Started GET "/movies" for 127.0.0.1 at 2017-09-11 17:37:20 -0400
+Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (1.0ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+Completed 200 OK in 24ms (Views: 0.2ms | ActiveRecord: 11.9ms)
+
+
+Started GET "/movies" for 127.0.0.1 at 2017-09-11 17:37:24 -0400
+Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (0.4ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+Completed 200 OK in 2ms (Views: 0.2ms | ActiveRecord: 0.4ms)
+
+
+Started POST "/users/login" for 127.0.0.1 at 2017-09-11 17:37:32 -0400
+Processing by UsersController#login as HTML
+  Parameters: {"user"=>{"username"=>"Rick", "password_digest"=>"[FILTERED]"}}
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Rick"], ["LIMIT", 1]]
+Completed 200 OK in 13ms (Views: 0.3ms | ActiveRecord: 6.0ms)
+
+
+Started GET "/movies" for 127.0.0.1 at 2017-09-11 17:37:56 -0400
+Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (0.7ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+Completed 200 OK in 4ms (Views: 0.3ms | ActiveRecord: 0.7ms)
+
+
+Started POST "/users" for 127.0.0.1 at 2017-09-11 17:38:03 -0400
+Processing by UsersController#create as HTML
+  Parameters: {"user"=>{"username"=>"Bryn", "password_digest"=>"[FILTERED]"}}
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (1.1ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["username", "Bryn"], ["password_digest", "Leahy"], ["created_at", "2017-09-11 21:38:03.912579"], ["updated_at", "2017-09-11 21:38:03.912579"]]
+  [1m[35m (5.3ms)[0m  [1m[35mCOMMIT[0m
+Completed 201 Created in 36ms (Views: 2.9ms | ActiveRecord: 11.4ms)
+
+
+Started GET "/movies" for 127.0.0.1 at 2017-09-11 17:38:14 -0400
+Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (0.6ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+Completed 200 OK in 3ms (Views: 0.2ms | ActiveRecord: 0.6ms)
+
+
+Started POST "/users/login" for 127.0.0.1 at 2017-09-11 17:38:22 -0400
+Processing by UsersController#login as HTML
+  Parameters: {"user"=>{"username"=>"Bryn", "password_digest"=>"[FILTERED]"}}
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Bryn"], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 6ms (ActiveRecord: 1.1ms)
+
+
+  
+BCrypt::Errors::InvalidHash (invalid hash):
+  
+app/controllers/users_controller.rb:13:in `login'
+Started GET "/movies" for 127.0.0.1 at 2017-09-11 17:41:10 -0400
+Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (0.6ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+Completed 200 OK in 3ms (Views: 0.2ms | ActiveRecord: 0.6ms)
+
+
+Started POST "/users" for 127.0.0.1 at 2017-09-11 17:41:23 -0400
+Processing by UsersController#create as HTML
+  Parameters: {"user"=>{"username"=>"Karolin", "password_digest"=>"[FILTERED]"}}
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["username", "Karolin"], ["password_digest", "Rafalski"], ["created_at", "2017-09-11 21:41:23.840491"], ["updated_at", "2017-09-11 21:41:23.840491"]]
+  [1m[35m (5.2ms)[0m  [1m[35mCOMMIT[0m
+Completed 201 Created in 11ms (Views: 0.6ms | ActiveRecord: 6.1ms)
+
+
+Started GET "/movies" for 127.0.0.1 at 2017-09-11 17:41:29 -0400
+Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (0.6ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+Completed 200 OK in 3ms (Views: 0.2ms | ActiveRecord: 0.6ms)
+
+
+Started POST "/users/login" for 127.0.0.1 at 2017-09-11 17:41:38 -0400
+Processing by UsersController#login as HTML
+  Parameters: {"user"=>{"username"=>"Karolin"}}
+  [1m[36mUser Load (1.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Karolin"], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 4ms (ActiveRecord: 1.0ms)
+
+
+  
+BCrypt::Errors::InvalidHash (invalid hash):
+  
+app/controllers/users_controller.rb:13:in `login'
+Started POST "/users/login" for 127.0.0.1 at 2017-09-11 17:42:01 -0400
+Processing by UsersController#login as HTML
+  Parameters: {"user"=>{"username"=>"Rick"}}
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Rick"], ["LIMIT", 1]]
+Completed 200 OK in 4ms (Views: 0.5ms | ActiveRecord: 0.7ms)
+
+
+Started POST "/users" for 127.0.0.1 at 2017-09-11 17:42:43 -0400
+Processing by UsersController#create as HTML
+  Parameters: {"user"=>{"username"=>"Lisa", "password_digest"=>"[FILTERED]"}}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.7ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["username", "Lisa"], ["password_digest", "Edgell"], ["created_at", "2017-09-11 21:42:43.526204"], ["updated_at", "2017-09-11 21:42:43.526204"]]
+  [1m[35m (5.4ms)[0m  [1m[35mCOMMIT[0m
+Completed 201 Created in 11ms (Views: 1.1ms | ActiveRecord: 6.3ms)
+
+
+Started GET "/movies" for 127.0.0.1 at 2017-09-11 17:42:47 -0400
+Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (0.5ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+Completed 200 OK in 2ms (Views: 0.2ms | ActiveRecord: 0.5ms)
+
+
+Started POST "/users/login" for 127.0.0.1 at 2017-09-11 17:42:56 -0400
+Processing by UsersController#login as HTML
+  Parameters: {"user"=>{"username"=>"Lisa"}}
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Lisa"], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 3ms (ActiveRecord: 0.6ms)
+
+
+  
+BCrypt::Errors::InvalidHash (invalid hash):
+  
+app/controllers/users_controller.rb:13:in `login'
+Started GET "/movies" for 127.0.0.1 at 2017-09-11 17:45:22 -0400
+  [1m[35m (2.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (2.1ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+Completed 200 OK in 30ms (Views: 0.3ms | ActiveRecord: 6.3ms)
+
+
+Started POST "/users/login" for 127.0.0.1 at 2017-09-11 17:45:27 -0400
+Processing by UsersController#login as HTML
+  Parameters: {"user"=>{"username"=>"Rick"}}
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Rick"], ["LIMIT", 1]]
+Completed 200 OK in 37ms (Views: 0.3ms | ActiveRecord: 20.2ms)
+
+
+Started GET "/movies" for 127.0.0.1 at 2017-09-11 17:56:59 -0400
+  [1m[35m (1.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (1.0ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+Completed 200 OK in 18ms (Views: 0.2ms | ActiveRecord: 3.8ms)
+
+
+Started POST "/users" for 127.0.0.1 at 2017-09-11 17:57:10 -0400
+Processing by UsersController#create as HTML
+  Parameters: {"user"=>{"username"=>"Thom", "password"=>"Page"}}
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.8ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["username", "Thom"], ["password_digest", "$2a$10$0oo9gqJ5CA32CX5XRkJSOOR3J/jUeXlZipBeM4HcVbJc.UnqcF422"], ["created_at", "2017-09-11 21:57:10.818068"], ["updated_at", "2017-09-11 21:57:10.818068"]]
+  [1m[35m (5.4ms)[0m  [1m[35mCOMMIT[0m
+Completed 201 Created in 144ms (Views: 0.8ms | ActiveRecord: 31.7ms)
+
+
+Started GET "/movies" for 127.0.0.1 at 2017-09-11 17:57:52 -0400
+Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (1.7ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+Completed 200 OK in 5ms (Views: 0.2ms | ActiveRecord: 1.7ms)
+
+
+Started POST "/users/login" for 127.0.0.1 at 2017-09-11 17:58:00 -0400
+Processing by UsersController#login as HTML
+  Parameters: {"user"=>{"username"=>"Thom", "password"=>"Page"}}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Thom"], ["LIMIT", 1]]
+Completed 200 OK in 87ms (Views: 0.9ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/movies" for 127.0.0.1 at 2017-09-11 17:58:46 -0400
+Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (0.6ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+Completed 200 OK in 2ms (Views: 0.2ms | ActiveRecord: 0.6ms)
+
+
+Started POST "/users/login" for 127.0.0.1 at 2017-09-11 17:58:53 -0400
+Processing by UsersController#login as HTML
+  Parameters: {"user"=>{"username"=>"Karolin", "password"=>"Rafalski"}}
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Karolin"], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 4ms (ActiveRecord: 1.2ms)
+
+
+  
+BCrypt::Errors::InvalidHash (invalid hash):
+  
+app/controllers/users_controller.rb:13:in `login'
+  [1m[35m (1.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (2.8ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (137.9ms)[0m  [1m[35mDROP DATABASE IF EXISTS "movie_app_api_development"[0m
+  [1m[35m (130.0ms)[0m  [1m[35mDROP DATABASE IF EXISTS "movie_app_api_test"[0m
+  [1m[35m (6.8ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (5.0ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_try_advisory_lock(6652800596385700680)[0m
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateMovies (20170908001042)
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (7.3ms)[0m  [1m[35mCREATE TABLE "movies" ("id" bigserial primary key, "title" character varying, "rating" character varying, "genre" character varying, "year_released" integer, "plot" text, "director" character varying, "actors" character varying, "poster" character varying, "rotten_tomatoes_score" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170908001042"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateUsers (20170908001243)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (3.7ms)[0m  [1m[35mCREATE TABLE "users" ("id" bigserial primary key, "username" character varying, "first_name" character varying, "last_name" character varying, "age" integer, "gender" character varying, "password_digest" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170908001243"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateReviews (20170908001753)
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (6.9ms)[0m  [1m[35mCREATE TABLE "reviews" ("id" bigserial primary key, "user_id" bigint, "movie_id" bigint, "review_text" text, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, CONSTRAINT "fk_rails_74a66bd6c5"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+, CONSTRAINT "fk_rails_6ad75a4852"
+FOREIGN KEY ("movie_id")
+  REFERENCES "movies" ("id")
+)[0m
+  [1m[35m (2.5ms)[0m  [1m[35mCREATE  INDEX  "index_reviews_on_user_id" ON "reviews"  ("user_id")[0m
+  [1m[35m (4.0ms)[0m  [1m[35mCREATE  INDEX  "index_reviews_on_movie_id" ON "reviews"  ("movie_id")[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170908001753"]]
+  [1m[35m (0.8ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateFavorites (20170908002204)
+  [1m[35m (0.5ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (4.0ms)[0m  [1m[35mCREATE TABLE "favorites" ("id" bigserial primary key, "user_id" bigint, "movie_id" bigint, "recommended" boolean, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, CONSTRAINT "fk_rails_d15744e438"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+, CONSTRAINT "fk_rails_2f96619ba3"
+FOREIGN KEY ("movie_id")
+  REFERENCES "movies" ("id")
+)[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE  INDEX  "index_favorites_on_user_id" ON "favorites"  ("user_id")[0m
+  [1m[35m (1.2ms)[0m  [1m[35mCREATE  INDEX  "index_favorites_on_movie_id" ON "favorites"  ("movie_id")[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170908002204"]]
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+Migrating to ImdbAdd (20170909143746)
+  [1m[35m (0.5ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.4ms)[0m  [1m[35mALTER TABLE "movies" ADD "imdb_id" character varying[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170909143746"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.6ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.8ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2017-09-11 22:00:13.121284"], ["updated_at", "2017-09-11 22:00:13.121284"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_advisory_unlock(6652800596385700680)[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started GET "/movies" for 127.0.0.1 at 2017-09-11 18:00:29 -0400
+  [1m[35m (1.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (1.4ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+Completed 200 OK in 19ms (Views: 0.3ms | ActiveRecord: 4.2ms)
+
+
+Started POST "/users" for 127.0.0.1 at 2017-09-11 18:00:39 -0400
+Processing by UsersController#create as HTML
+  Parameters: {"user"=>{"username"=>"Josh", "password"=>"Edgell"}}
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (1.6ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["username", "Josh"], ["password_digest", "$2a$10$HQ.h0GC9J/OX1ltX0eLIDus/kK4K5jqlT4KrQKqscJeYu1Q7cE.OK"], ["created_at", "2017-09-11 22:00:39.869017"], ["updated_at", "2017-09-11 22:00:39.869017"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+Completed 201 Created in 140ms (Views: 1.0ms | ActiveRecord: 26.8ms)
+
+
+Started GET "/movies" for 127.0.0.1 at 2017-09-11 18:00:51 -0400
+Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (0.9ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+Completed 200 OK in 3ms (Views: 0.2ms | ActiveRecord: 0.9ms)
+
+
+Started POST "/users/login" for 127.0.0.1 at 2017-09-11 18:00:57 -0400
+Processing by UsersController#login as HTML
+  Parameters: {"user"=>{"username"=>"Josh", "password"=>"Edgell"}}
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Josh"], ["LIMIT", 1]]
+Completed 200 OK in 89ms (Views: 1.4ms | ActiveRecord: 1.2ms)
+
+
+Started GET "/movies" for 127.0.0.1 at 2017-09-11 18:01:00 -0400
+Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (0.7ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+Completed 200 OK in 3ms (Views: 0.2ms | ActiveRecord: 0.7ms)
+
+
+Started POST "/users" for 127.0.0.1 at 2017-09-11 18:01:08 -0400
+Processing by UsersController#create as HTML
+  Parameters: {"user"=>{"username"=>"Thom", "password"=>"Page"}}
+  [1m[35m (0.5ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (1.2ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["username", "Thom"], ["password_digest", "$2a$10$Xdbh4463KuaSawMs4mw1n.IQVYmaNLEB/8Zg/xI68OOhJHt6Y7QgK"], ["created_at", "2017-09-11 22:01:08.585094"], ["updated_at", "2017-09-11 22:01:08.585094"]]
+  [1m[35m (1.1ms)[0m  [1m[35mCOMMIT[0m
+Completed 201 Created in 88ms (Views: 0.6ms | ActiveRecord: 2.8ms)
+
+
+Started GET "/movies" for 127.0.0.1 at 2017-09-11 18:01:10 -0400
+Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (0.6ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+Completed 200 OK in 3ms (Views: 0.2ms | ActiveRecord: 0.6ms)
+
+
+Started POST "/users/login" for 127.0.0.1 at 2017-09-11 18:01:15 -0400
+Processing by UsersController#login as HTML
+  Parameters: {"user"=>{"username"=>"Thom", "password"=>"Page"}}
+  [1m[36mUser Load (1.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Thom"], ["LIMIT", 1]]
+Completed 200 OK in 89ms (Views: 0.8ms | ActiveRecord: 1.2ms)
+
+
+Started GET "/movies" for 127.0.0.1 at 2017-09-11 18:01:17 -0400
+Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (0.7ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+Completed 200 OK in 3ms (Views: 0.2ms | ActiveRecord: 0.7ms)
+
+
+Started POST "/users" for 127.0.0.1 at 2017-09-11 18:01:25 -0400
+Processing by UsersController#create as HTML
+  Parameters: {"user"=>{"username"=>"Karolin", "password"=>"Rafalski"}}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.7ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["username", "Karolin"], ["password_digest", "$2a$10$VZjBROOdfAMMhtrmHssWauYa2ouPymQ/6qxxARwUSXKnf/P9De.y."], ["created_at", "2017-09-11 22:01:25.273164"], ["updated_at", "2017-09-11 22:01:25.273164"]]
+  [1m[35m (2.1ms)[0m  [1m[35mCOMMIT[0m
+Completed 201 Created in 89ms (Views: 0.7ms | ActiveRecord: 3.0ms)
+
+
+Started GET "/movies" for 127.0.0.1 at 2017-09-11 18:01:26 -0400
+Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (0.7ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+Completed 200 OK in 3ms (Views: 0.3ms | ActiveRecord: 0.7ms)
+
+
+Started POST "/users/login" for 127.0.0.1 at 2017-09-11 18:01:38 -0400
+Processing by UsersController#login as HTML
+  Parameters: {"user"=>{"username"=>"Karolin", "password"=>"Rafalski"}}
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Karolin"], ["LIMIT", 1]]
+Completed 200 OK in 83ms (Views: 0.7ms | ActiveRecord: 0.7ms)
+>>>>>>> 065f7413b884fa65092847f59a2f1dbe594a8ac3
 
 
