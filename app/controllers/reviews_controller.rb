@@ -44,8 +44,8 @@ class ReviewsController < ApplicationController
       @review = Review.find(params[:id])
     end
 
-  #   # Only allow a trusted parameter "white list" through.
-  #   def review_params
-  #     params.require(:review).permit(:user_id, :movie_id, :review_text)
-  #   end
+    # Only allow a trusted parameter "white list" through.
+    def review_params
+      params.require(:review).permit(:user_id, :movie_id, :review_text)
+    end
 end
