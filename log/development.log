@@ -1,0 +1,491 @@
+  [1m[35m (1.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (150.2ms)[0m  [1m[35mDROP DATABASE IF EXISTS "movie_app_api_development"[0m
+  [1m[35m (189.7ms)[0m  [1m[35mDROP DATABASE IF EXISTS "movie_app_api_test"[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (140.9ms)[0m  [1m[35mDROP DATABASE IF EXISTS "movie_app_api_development"[0m
+  [1m[35m (190.0ms)[0m  [1m[35mDROP DATABASE IF EXISTS "movie_app_api_test"[0m
+  [1m[35m (4.0ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (2.7ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(6652800596385700680)[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateMovies (20170908001042)
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (3.1ms)[0m  [1m[35mCREATE TABLE "movies" ("id" bigserial primary key, "title" character varying, "rating" character varying, "genre" character varying, "year_released" integer, "plot" text, "director" character varying, "actors" character varying, "poster" character varying, "rotten_tomatoes_score" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170908001042"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateUsers (20170908001243)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (2.8ms)[0m  [1m[35mCREATE TABLE "users" ("id" bigserial primary key, "username" character varying, "first_name" character varying, "last_name" character varying, "age" integer, "gender" character varying, "password_digest" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170908001243"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateReviews (20170908001753)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (4.1ms)[0m  [1m[35mCREATE TABLE "reviews" ("id" bigserial primary key, "user_id" bigint, "movie_id" bigint, "review_text" text, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, CONSTRAINT "fk_rails_74a66bd6c5"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+, CONSTRAINT "fk_rails_6ad75a4852"
+FOREIGN KEY ("movie_id")
+  REFERENCES "movies" ("id")
+)[0m
+  [1m[35m (1.0ms)[0m  [1m[35mCREATE  INDEX  "index_reviews_on_user_id" ON "reviews"  ("user_id")[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE  INDEX  "index_reviews_on_movie_id" ON "reviews"  ("movie_id")[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170908001753"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateFavorites (20170908002204)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (2.7ms)[0m  [1m[35mCREATE TABLE "favorites" ("id" bigserial primary key, "user_id" bigint, "movie_id" bigint, "recommended" boolean, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, CONSTRAINT "fk_rails_d15744e438"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+, CONSTRAINT "fk_rails_2f96619ba3"
+FOREIGN KEY ("movie_id")
+  REFERENCES "movies" ("id")
+)[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE  INDEX  "index_favorites_on_user_id" ON "favorites"  ("user_id")[0m
+  [1m[35m (1.3ms)[0m  [1m[35mCREATE  INDEX  "index_favorites_on_movie_id" ON "favorites"  ("movie_id")[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170908002204"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+Migrating to ImdbAdd (20170909143746)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.3ms)[0m  [1m[35mALTER TABLE "movies" ADD "imdb_id" character varying[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170909143746"]]
+  [1m[35m (1.1ms)[0m  [1m[35mCOMMIT[0m
+Migrating to RenameUserIdColumn (20170910173227)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.3ms)[0m  [1m[35mALTER TABLE "movies" RENAME COLUMN "imdb_id" TO "userid"[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170910173227"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+Migrating to RenameUserColumnInMovies (20170910173446)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.7ms)[0m  [1m[35mALTER TABLE "movies" RENAME COLUMN "userid" TO "imdbid"[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170910173446"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2017-09-11 23:43:12.748316"], ["updated_at", "2017-09-11 23:43:12.748316"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(6652800596385700680)[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started GET "/movies" for 127.0.0.1 at 2017-09-11 19:47:05 -0400
+  [1m[35m (1.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (0.8ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+Completed 200 OK in 13ms (Views: 0.2ms | ActiveRecord: 2.0ms)
+
+
+Started POST "/movies" for 127.0.0.1 at 2017-09-11 19:47:15 -0400
+Processing by MoviesController#create as HTML
+  Parameters: {"title"=>"Star Wars: Episode IV - A New Hope", "rating"=>"PG", "genre"=>"Action, Adventure, Fantasy", "year_released"=>"1977", "director"=>"George Lucas", "actors"=>"Mark Hamill, Harrison Ford, Carrie Fisher, Peter Cushing", "poster"=>"https://images-na.ssl-images-amazon.com/images/M/MV5BYTUwNTdiMzMtNThmNS00ODUzLThlMDMtMTM5Y2JkNWJjOGQ2XkEyXkFqcGdeQXVyNzQ1ODk3MTQ@._V1_SX300.jpg", "plot"=>"Luke Skywalker joins forces with a Jedi Knight, a cocky pilot, a Wookiee, and two droids to save the galaxy from the Empire's world-destroying battle-station, while also attempting to rescue Princess Leia from the evil Darth Vader.", "rotten_tomatoes_score"=>"93%", "imdbid"=>"tt0076759", "movie"=>{"title"=>"Star Wars: Episode IV - A New Hope", "rating"=>"PG", "genre"=>"Action, Adventure, Fantasy", "year_released"=>"1977", "plot"=>"Luke Skywalker joins forces with a Jedi Knight, a cocky pilot, a Wookiee, and two droids to save the galaxy from the Empire's world-destroying battle-station, while also attempting to rescue Princess Leia from the evil Darth Vader.", "director"=>"George Lucas", "actors"=>"Mark Hamill, Harrison Ford, Carrie Fisher, Peter Cushing", "poster"=>"https://images-na.ssl-images-amazon.com/images/M/MV5BYTUwNTdiMzMtNThmNS00ODUzLThlMDMtMTM5Y2JkNWJjOGQ2XkEyXkFqcGdeQXVyNzQ1ODk3MTQ@._V1_SX300.jpg", "rotten_tomatoes_score"=>"93%", "imdbid"=>"tt0076759"}}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (1.5ms)[0m  [1m[32mINSERT INTO "movies" ("title", "rating", "genre", "year_released", "plot", "director", "actors", "poster", "rotten_tomatoes_score", "created_at", "updated_at", "imdbid") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING "id"[0m  [["title", "Star Wars: Episode IV - A New Hope"], ["rating", "PG"], ["genre", "Action, Adventure, Fantasy"], ["year_released", 1977], ["plot", "Luke Skywalker joins forces with a Jedi Knight, a cocky pilot, a Wookiee, and two droids to save the galaxy from the Empire's world-destroying battle-station, while also attempting to rescue Princess Leia from the evil Darth Vader."], ["director", "George Lucas"], ["actors", "Mark Hamill, Harrison Ford, Carrie Fisher, Peter Cushing"], ["poster", "https://images-na.ssl-images-amazon.com/images/M/MV5BYTUwNTdiMzMtNThmNS00ODUzLThlMDMtMTM5Y2JkNWJjOGQ2XkEyXkFqcGdeQXVyNzQ1ODk3MTQ@._V1_SX300.jpg"], ["rotten_tomatoes_score", "93%"], ["created_at", "2017-09-11 23:47:15.817586"], ["updated_at", "2017-09-11 23:47:15.817586"], ["imdbid", "tt0076759"]]
+  [1m[35m (2.2ms)[0m  [1m[35mCOMMIT[0m
+Completed 201 Created in 27ms (Views: 0.8ms | ActiveRecord: 15.5ms)
+
+
+Started GET "/movies" for 127.0.0.1 at 2017-09-11 19:47:15 -0400
+Processing by MoviesController#index as HTML
+Started POST "/reviews" for 127.0.0.1 at 2017-09-11 19:47:15 -0400
+  [1m[36mMovie Load (11.5ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+  [1m[36mReview Load (0.6ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 1]]
+  [1m[36mFavorite Load (0.5ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 1]]
+Completed 200 OK in 71ms (Views: 0.5ms | ActiveRecord: 19.8ms)
+
+
+Processing by ReviewsController#create as HTML
+  Parameters: {"user_id"=>1, "movie_id"=>1, "review_text"=>"", "review"=>{"user_id"=>1, "movie_id"=>1, "review_text"=>""}}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mMovie Load (0.4ms)[0m  [1m[34mSELECT  "movies".* FROM "movies" WHERE "movies"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+Completed 422 Unprocessable Entity in 590ms (Views: 0.2ms | ActiveRecord: 36.7ms)
+
+
+Started POST "/movies" for 127.0.0.1 at 2017-09-11 19:47:23 -0400
+Processing by MoviesController#create as HTML
+  Parameters: {"title"=>"Star Wars: Episode V - The Empire Strikes Back", "rating"=>"PG", "genre"=>"Action, Adventure, Fantasy", "year_released"=>"1980", "director"=>"Irvin Kershner", "actors"=>"Mark Hamill, Harrison Ford, Carrie Fisher, Billy Dee Williams", "poster"=>"https://images-na.ssl-images-amazon.com/images/M/MV5BYmViY2M2MTYtY2MzOS00YjQ1LWIzYmEtOTBiNjhlMGM0NjZjXkEyXkFqcGdeQXVyNDYyMDk5MTU@._V1_SX300.jpg", "plot"=>"After the rebels are overpowered by the Empire on their newly established base, Luke Skywalker begins Jedi training with Master Yoda. His friends accept shelter from a questionable ally as Darth Vader hunts them in a plan to capture Luke.", "rotten_tomatoes_score"=>"94%", "imdbid"=>"tt0080684", "id"=>1, "movie"=>{"id"=>1, "title"=>"Star Wars: Episode V - The Empire Strikes Back", "rating"=>"PG", "genre"=>"Action, Adventure, Fantasy", "year_released"=>"1980", "plot"=>"After the rebels are overpowered by the Empire on their newly established base, Luke Skywalker begins Jedi training with Master Yoda. His friends accept shelter from a questionable ally as Darth Vader hunts them in a plan to capture Luke.", "director"=>"Irvin Kershner", "actors"=>"Mark Hamill, Harrison Ford, Carrie Fisher, Billy Dee Williams", "poster"=>"https://images-na.ssl-images-amazon.com/images/M/MV5BYmViY2M2MTYtY2MzOS00YjQ1LWIzYmEtOTBiNjhlMGM0NjZjXkEyXkFqcGdeQXVyNDYyMDk5MTU@._V1_SX300.jpg", "rotten_tomatoes_score"=>"94%", "imdbid"=>"tt0080684"}}
+Unpermitted parameter: :id
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "movies" ("title", "rating", "genre", "year_released", "plot", "director", "actors", "poster", "rotten_tomatoes_score", "created_at", "updated_at", "imdbid") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING "id"[0m  [["title", "Star Wars: Episode V - The Empire Strikes Back"], ["rating", "PG"], ["genre", "Action, Adventure, Fantasy"], ["year_released", 1980], ["plot", "After the rebels are overpowered by the Empire on their newly established base, Luke Skywalker begins Jedi training with Master Yoda. His friends accept shelter from a questionable ally as Darth Vader hunts them in a plan to capture Luke."], ["director", "Irvin Kershner"], ["actors", "Mark Hamill, Harrison Ford, Carrie Fisher, Billy Dee Williams"], ["poster", "https://images-na.ssl-images-amazon.com/images/M/MV5BYmViY2M2MTYtY2MzOS00YjQ1LWIzYmEtOTBiNjhlMGM0NjZjXkEyXkFqcGdeQXVyNDYyMDk5MTU@._V1_SX300.jpg"], ["rotten_tomatoes_score", "94%"], ["created_at", "2017-09-11 23:47:23.657378"], ["updated_at", "2017-09-11 23:47:23.657378"], ["imdbid", "tt0080684"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+Completed 201 Created in 8ms (Views: 0.5ms | ActiveRecord: 1.1ms)
+
+
+Started POST "/reviews" for 127.0.0.1 at 2017-09-11 19:47:23 -0400
+Processing by ReviewsController#create as HTML
+  Parameters: {"user_id"=>1, "movie_id"=>2, "review_text"=>"", "review"=>{"user_id"=>1, "movie_id"=>2, "review_text"=>""}}
+Started GET "/movies" for 127.0.0.1 at 2017-09-11 19:47:23 -0400
+Processing by MoviesController#index as HTML
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mMovie Load (2.1ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+  [1m[36mUser Load (2.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mReview Load (2.9ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 1]]
+  [1m[36mMovie Load (2.2ms)[0m  [1m[34mSELECT  "movies".* FROM "movies" WHERE "movies"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mFavorite Load (9.3ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 1]]
+  [1m[35m (5.3ms)[0m  [1m[31mROLLBACK[0m
+Completed 422 Unprocessable Entity in 33ms (Views: 0.2ms | ActiveRecord: 10.3ms)
+
+
+  [1m[36mReview Load (1.9ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 2]]
+  [1m[36mFavorite Load (2.3ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 2]]
+Completed 200 OK in 35ms (Views: 0.1ms | ActiveRecord: 18.3ms)
+
+
+Started POST "/movies" for 127.0.0.1 at 2017-09-11 19:47:30 -0400
+Processing by MoviesController#create as HTML
+  Parameters: {"title"=>"Star Wars: Episode VI - Return of the Jedi", "rating"=>"PG", "genre"=>"Action, Adventure, Fantasy", "year_released"=>"1983", "director"=>"Richard Marquand", "actors"=>"Mark Hamill, Harrison Ford, Carrie Fisher, Billy Dee Williams", "poster"=>"https://images-na.ssl-images-amazon.com/images/M/MV5BODllZjg2YjUtNWEzNy00ZGY2LTgyZmQtYTkxNDYyOWM3OTUyXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg", "plot"=>"After a daring mission to rescue Han Solo from Jabba the Hutt, the rebels dispatch to Endor to destroy a more powerful Death Star. Meanwhile, Luke struggles to help Vader back from the dark side without falling into the Emperor's trap.", "rotten_tomatoes_score"=>"80%", "imdbid"=>"tt0086190", "id"=>2, "movie"=>{"id"=>2, "title"=>"Star Wars: Episode VI - Return of the Jedi", "rating"=>"PG", "genre"=>"Action, Adventure, Fantasy", "year_released"=>"1983", "plot"=>"After a daring mission to rescue Han Solo from Jabba the Hutt, the rebels dispatch to Endor to destroy a more powerful Death Star. Meanwhile, Luke struggles to help Vader back from the dark side without falling into the Emperor's trap.", "director"=>"Richard Marquand", "actors"=>"Mark Hamill, Harrison Ford, Carrie Fisher, Billy Dee Williams", "poster"=>"https://images-na.ssl-images-amazon.com/images/M/MV5BODllZjg2YjUtNWEzNy00ZGY2LTgyZmQtYTkxNDYyOWM3OTUyXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg", "rotten_tomatoes_score"=>"80%", "imdbid"=>"tt0086190"}}
+Unpermitted parameter: :id
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "movies" ("title", "rating", "genre", "year_released", "plot", "director", "actors", "poster", "rotten_tomatoes_score", "created_at", "updated_at", "imdbid") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING "id"[0m  [["title", "Star Wars: Episode VI - Return of the Jedi"], ["rating", "PG"], ["genre", "Action, Adventure, Fantasy"], ["year_released", 1983], ["plot", "After a daring mission to rescue Han Solo from Jabba the Hutt, the rebels dispatch to Endor to destroy a more powerful Death Star. Meanwhile, Luke struggles to help Vader back from the dark side without falling into the Emperor's trap."], ["director", "Richard Marquand"], ["actors", "Mark Hamill, Harrison Ford, Carrie Fisher, Billy Dee Williams"], ["poster", "https://images-na.ssl-images-amazon.com/images/M/MV5BODllZjg2YjUtNWEzNy00ZGY2LTgyZmQtYTkxNDYyOWM3OTUyXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg"], ["rotten_tomatoes_score", "80%"], ["created_at", "2017-09-11 23:47:30.221929"], ["updated_at", "2017-09-11 23:47:30.221929"], ["imdbid", "tt0086190"]]
+  [1m[35m (1.7ms)[0m  [1m[35mCOMMIT[0m
+Completed 201 Created in 7ms (Views: 0.8ms | ActiveRecord: 2.6ms)
+
+
+Started POST "/reviews" for 127.0.0.1 at 2017-09-11 19:47:30 -0400
+Processing by ReviewsController#create as HTML
+  Parameters: {"user_id"=>1, "movie_id"=>3, "review_text"=>"", "review"=>{"user_id"=>1, "movie_id"=>3, "review_text"=>""}}
+Started GET "/movies" for 127.0.0.1 at 2017-09-11 19:47:30 -0400
+Processing by MoviesController#index as HTML
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mMovie Load (1.8ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+  [1m[36mUser Load (1.8ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mReview Load (2.0ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 1]]
+  [1m[36mMovie Load (1.9ms)[0m  [1m[34mSELECT  "movies".* FROM "movies" WHERE "movies"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mFavorite Load (1.2ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 1]]
+  [1m[36mReview Load (0.9ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 2]]
+  [1m[36mFavorite Load (1.0ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 2]]
+  [1m[35m (12.4ms)[0m  [1m[31mROLLBACK[0m
+Completed 422 Unprocessable Entity in 29ms (Views: 0.3ms | ActiveRecord: 16.5ms)
+
+
+  [1m[36mReview Load (23.2ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 3]]
+  [1m[36mFavorite Load (0.2ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 3]]
+Completed 200 OK in 48ms (Views: 0.2ms | ActiveRecord: 30.4ms)
+
+
+Started POST "/movies" for 127.0.0.1 at 2017-09-11 19:47:37 -0400
+Processing by MoviesController#create as HTML
+  Parameters: {"title"=>"Star Wars: The Force Awakens", "rating"=>"PG-13", "genre"=>"Action, Adventure, Fantasy", "year_released"=>"2015", "director"=>"J.J. Abrams", "actors"=>"Harrison Ford, Mark Hamill, Carrie Fisher, Adam Driver", "poster"=>"https://images-na.ssl-images-amazon.com/images/M/MV5BOTAzODEzNDAzMl5BMl5BanBnXkFtZTgwMDU1MTgzNzE@._V1_SX300.jpg", "plot"=>"Three decades after the Empire's defeat, a new threat arises in the militant First Order. Stormtrooper defector Finn and spare parts scavenger Rey are caught up in the Resistance's search for the missing Luke Skywalker.", "rotten_tomatoes_score"=>"92%", "imdbid"=>"tt2488496", "id"=>3, "movie"=>{"id"=>3, "title"=>"Star Wars: The Force Awakens", "rating"=>"PG-13", "genre"=>"Action, Adventure, Fantasy", "year_released"=>"2015", "plot"=>"Three decades after the Empire's defeat, a new threat arises in the militant First Order. Stormtrooper defector Finn and spare parts scavenger Rey are caught up in the Resistance's search for the missing Luke Skywalker.", "director"=>"J.J. Abrams", "actors"=>"Harrison Ford, Mark Hamill, Carrie Fisher, Adam Driver", "poster"=>"https://images-na.ssl-images-amazon.com/images/M/MV5BOTAzODEzNDAzMl5BMl5BanBnXkFtZTgwMDU1MTgzNzE@._V1_SX300.jpg", "rotten_tomatoes_score"=>"92%", "imdbid"=>"tt2488496"}}
+Unpermitted parameter: :id
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "movies" ("title", "rating", "genre", "year_released", "plot", "director", "actors", "poster", "rotten_tomatoes_score", "created_at", "updated_at", "imdbid") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING "id"[0m  [["title", "Star Wars: The Force Awakens"], ["rating", "PG-13"], ["genre", "Action, Adventure, Fantasy"], ["year_released", 2015], ["plot", "Three decades after the Empire's defeat, a new threat arises in the militant First Order. Stormtrooper defector Finn and spare parts scavenger Rey are caught up in the Resistance's search for the missing Luke Skywalker."], ["director", "J.J. Abrams"], ["actors", "Harrison Ford, Mark Hamill, Carrie Fisher, Adam Driver"], ["poster", "https://images-na.ssl-images-amazon.com/images/M/MV5BOTAzODEzNDAzMl5BMl5BanBnXkFtZTgwMDU1MTgzNzE@._V1_SX300.jpg"], ["rotten_tomatoes_score", "92%"], ["created_at", "2017-09-11 23:47:37.622950"], ["updated_at", "2017-09-11 23:47:37.622950"], ["imdbid", "tt2488496"]]
+  [1m[35m (1.6ms)[0m  [1m[35mCOMMIT[0m
+Completed 201 Created in 6ms (Views: 0.5ms | ActiveRecord: 2.2ms)
+
+
+Started POST "/reviews" for 127.0.0.1 at 2017-09-11 19:47:37 -0400
+Processing by ReviewsController#create as HTML
+  Parameters: {"user_id"=>1, "movie_id"=>4, "review_text"=>"", "review"=>{"user_id"=>1, "movie_id"=>4, "review_text"=>""}}
+Started GET "/movies" for 127.0.0.1 at 2017-09-11 19:47:37 -0400
+Processing by MoviesController#index as HTML
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mMovie Load (1.9ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mReview Load (2.5ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 1]]
+  [1m[36mMovie Load (1.6ms)[0m  [1m[34mSELECT  "movies".* FROM "movies" WHERE "movies"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mFavorite Load (2.4ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 1]]
+  [1m[36mReview Load (2.0ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 2]]
+  [1m[36mFavorite Load (1.2ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 2]]
+  [1m[36mReview Load (0.2ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 3]]
+  [1m[35m (11.3ms)[0m  [1m[31mROLLBACK[0m
+Completed 422 Unprocessable Entity in 29ms (Views: 0.2ms | ActiveRecord: 13.3ms)
+
+
+  [1m[36mFavorite Load (0.8ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 3]]
+  [1m[36mReview Load (0.2ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 4]]
+  [1m[36mFavorite Load (1.0ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 4]]
+Completed 200 OK in 42ms (Views: 0.2ms | ActiveRecord: 12.3ms)
+
+
+Started POST "/movies" for 127.0.0.1 at 2017-09-11 19:47:45 -0400
+Processing by MoviesController#create as HTML
+  Parameters: {"title"=>"Star Wars: Episode I - The Phantom Menace", "rating"=>"PG", "genre"=>"Action, Adventure, Fantasy", "year_released"=>"1999", "director"=>"George Lucas", "actors"=>"Liam Neeson, Ewan McGregor, Natalie Portman, Jake Lloyd", "poster"=>"https://images-na.ssl-images-amazon.com/images/M/MV5BM2FmZGIwMzAtZTBkMS00M2JiLTk2MDctM2FlNTQ2OWYwZDZkXkEyXkFqcGdeQXVyNDYyMDk5MTU@._V1_SX300.jpg", "plot"=>"Two Jedi Knights escape a hostile blockade to find allies and come across a young boy who may bring balance to the Force, but the long dormant Sith resurface to claim their old glory.", "rotten_tomatoes_score"=>"55%", "imdbid"=>"tt0120915", "id"=>4, "movie"=>{"id"=>4, "title"=>"Star Wars: Episode I - The Phantom Menace", "rating"=>"PG", "genre"=>"Action, Adventure, Fantasy", "year_released"=>"1999", "plot"=>"Two Jedi Knights escape a hostile blockade to find allies and come across a young boy who may bring balance to the Force, but the long dormant Sith resurface to claim their old glory.", "director"=>"George Lucas", "actors"=>"Liam Neeson, Ewan McGregor, Natalie Portman, Jake Lloyd", "poster"=>"https://images-na.ssl-images-amazon.com/images/M/MV5BM2FmZGIwMzAtZTBkMS00M2JiLTk2MDctM2FlNTQ2OWYwZDZkXkEyXkFqcGdeQXVyNDYyMDk5MTU@._V1_SX300.jpg", "rotten_tomatoes_score"=>"55%", "imdbid"=>"tt0120915"}}
+Unpermitted parameter: :id
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "movies" ("title", "rating", "genre", "year_released", "plot", "director", "actors", "poster", "rotten_tomatoes_score", "created_at", "updated_at", "imdbid") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING "id"[0m  [["title", "Star Wars: Episode I - The Phantom Menace"], ["rating", "PG"], ["genre", "Action, Adventure, Fantasy"], ["year_released", 1999], ["plot", "Two Jedi Knights escape a hostile blockade to find allies and come across a young boy who may bring balance to the Force, but the long dormant Sith resurface to claim their old glory."], ["director", "George Lucas"], ["actors", "Liam Neeson, Ewan McGregor, Natalie Portman, Jake Lloyd"], ["poster", "https://images-na.ssl-images-amazon.com/images/M/MV5BM2FmZGIwMzAtZTBkMS00M2JiLTk2MDctM2FlNTQ2OWYwZDZkXkEyXkFqcGdeQXVyNDYyMDk5MTU@._V1_SX300.jpg"], ["rotten_tomatoes_score", "55%"], ["created_at", "2017-09-11 23:47:45.822304"], ["updated_at", "2017-09-11 23:47:45.822304"], ["imdbid", "tt0120915"]]
+  [1m[35m (1.7ms)[0m  [1m[35mCOMMIT[0m
+Completed 201 Created in 6ms (Views: 0.6ms | ActiveRecord: 2.1ms)
+
+
+Started POST "/reviews" for 127.0.0.1 at 2017-09-11 19:47:45 -0400
+Processing by ReviewsController#create as HTML
+  Parameters: {"user_id"=>1, "movie_id"=>5, "review_text"=>"", "review"=>{"user_id"=>1, "movie_id"=>5, "review_text"=>""}}
+Started GET "/movies" for 127.0.0.1 at 2017-09-11 19:47:45 -0400
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+Processing by MoviesController#index as HTML
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mMovie Load (0.9ms)[0m  [1m[34mSELECT  "movies".* FROM "movies" WHERE "movies"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  [1m[35m (6.6ms)[0m  [1m[31mROLLBACK[0m
+Completed 422 Unprocessable Entity in 21ms (Views: 0.3ms | ActiveRecord: 8.8ms)
+
+
+  [1m[36mMovie Load (0.3ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+  [1m[36mReview Load (0.2ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 1]]
+  [1m[36mFavorite Load (0.2ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 1]]
+  [1m[36mReview Load (1.4ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 2]]
+  [1m[36mFavorite Load (0.2ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 2]]
+  [1m[36mReview Load (0.2ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 3]]
+  [1m[36mFavorite Load (0.2ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 3]]
+  [1m[36mReview Load (0.6ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 4]]
+  [1m[36mFavorite Load (1.2ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 4]]
+  [1m[36mReview Load (0.6ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 5]]
+  [1m[36mFavorite Load (0.2ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 5]]
+Completed 200 OK in 46ms (Views: 0.2ms | ActiveRecord: 5.4ms)
+
+
+Started GET "/movies" for 127.0.0.1 at 2017-09-11 19:48:09 -0400
+Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (0.3ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+  [1m[36mReview Load (0.4ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 1]]
+  [1m[36mFavorite Load (1.6ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 1]]
+  [1m[36mReview Load (0.3ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 2]]
+  [1m[36mFavorite Load (0.3ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 2]]
+  [1m[36mReview Load (1.0ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 3]]
+  [1m[36mFavorite Load (0.2ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 3]]
+  [1m[36mReview Load (1.2ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 4]]
+  [1m[36mFavorite Load (0.6ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 4]]
+  [1m[36mReview Load (0.3ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 5]]
+  [1m[36mFavorite Load (0.4ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 5]]
+Completed 200 OK in 29ms (Views: 0.2ms | ActiveRecord: 7.0ms)
+
+
+Started POST "/movies" for 127.0.0.1 at 2017-09-11 19:48:23 -0400
+Processing by MoviesController#create as HTML
+  Parameters: {"title"=>"Star Wars: Episode III - Revenge of the Sith", "rating"=>"PG-13", "genre"=>"Action, Adventure, Fantasy", "year_released"=>"2005", "director"=>"George Lucas", "actors"=>"Ewan McGregor, Natalie Portman, Hayden Christensen, Ian McDiarmid", "poster"=>"https://images-na.ssl-images-amazon.com/images/M/MV5BNTc4MTc3NTQ5OF5BMl5BanBnXkFtZTcwOTg0NjI4NA@@._V1_SX300.jpg", "plot"=>"Three years into the Clone Wars, the Jedi rescue Palpatine from Count Dooku. As Obi-Wan pursues a new threat, Anakin acts as a double agent between the Jedi Council and Palpatine and is lured into a sinister plan to rule the galaxy.", "rotten_tomatoes_score"=>"79%", "imdbid"=>"tt0121766", "movie"=>{"title"=>"Star Wars: Episode III - Revenge of the Sith", "rating"=>"PG-13", "genre"=>"Action, Adventure, Fantasy", "year_released"=>"2005", "plot"=>"Three years into the Clone Wars, the Jedi rescue Palpatine from Count Dooku. As Obi-Wan pursues a new threat, Anakin acts as a double agent between the Jedi Council and Palpatine and is lured into a sinister plan to rule the galaxy.", "director"=>"George Lucas", "actors"=>"Ewan McGregor, Natalie Portman, Hayden Christensen, Ian McDiarmid", "poster"=>"https://images-na.ssl-images-amazon.com/images/M/MV5BNTc4MTc3NTQ5OF5BMl5BanBnXkFtZTcwOTg0NjI4NA@@._V1_SX300.jpg", "rotten_tomatoes_score"=>"79%", "imdbid"=>"tt0121766"}}
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (1.0ms)[0m  [1m[32mINSERT INTO "movies" ("title", "rating", "genre", "year_released", "plot", "director", "actors", "poster", "rotten_tomatoes_score", "created_at", "updated_at", "imdbid") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING "id"[0m  [["title", "Star Wars: Episode III - Revenge of the Sith"], ["rating", "PG-13"], ["genre", "Action, Adventure, Fantasy"], ["year_released", 2005], ["plot", "Three years into the Clone Wars, the Jedi rescue Palpatine from Count Dooku. As Obi-Wan pursues a new threat, Anakin acts as a double agent between the Jedi Council and Palpatine and is lured into a sinister plan to rule the galaxy."], ["director", "George Lucas"], ["actors", "Ewan McGregor, Natalie Portman, Hayden Christensen, Ian McDiarmid"], ["poster", "https://images-na.ssl-images-amazon.com/images/M/MV5BNTc4MTc3NTQ5OF5BMl5BanBnXkFtZTcwOTg0NjI4NA@@._V1_SX300.jpg"], ["rotten_tomatoes_score", "79%"], ["created_at", "2017-09-11 23:48:23.331747"], ["updated_at", "2017-09-11 23:48:23.331747"], ["imdbid", "tt0121766"]]
+  [1m[35m (1.8ms)[0m  [1m[35mCOMMIT[0m
+Completed 201 Created in 8ms (Views: 0.5ms | ActiveRecord: 3.1ms)
+
+
+Started POST "/reviews" for 127.0.0.1 at 2017-09-11 19:48:23 -0400
+Started GET "/movies" for 127.0.0.1 at 2017-09-11 19:48:23 -0400
+Processing by ReviewsController#create as HTML
+  Parameters: {"user_id"=>1, "movie_id"=>6, "review_text"=>"", "review"=>{"user_id"=>1, "movie_id"=>6, "review_text"=>""}}
+Processing by MoviesController#index as HTML
+  [1m[35m (1.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mMovie Load (1.2ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+  [1m[36mReview Load (1.1ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 1]]
+  [1m[36mFavorite Load (0.4ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 1]]
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mReview Load (1.9ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 2]]
+  [1m[36mMovie Load (1.4ms)[0m  [1m[34mSELECT  "movies".* FROM "movies" WHERE "movies"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  [1m[36mFavorite Load (1.2ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 2]]
+  [1m[36mReview Load (0.2ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 3]]
+  [1m[36mFavorite Load (0.2ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 3]]
+  [1m[35m (4.0ms)[0m  [1m[31mROLLBACK[0m
+Completed 422 Unprocessable Entity in 28ms (Views: 0.2ms | ActiveRecord: 7.2ms)
+
+
+  [1m[36mReview Load (0.9ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 4]]
+  [1m[36mFavorite Load (0.4ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 4]]
+  [1m[36mReview Load (0.3ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 5]]
+  [1m[36mFavorite Load (2.5ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 5]]
+  [1m[36mReview Load (0.6ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 6]]
+  [1m[36mFavorite Load (0.2ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 6]]
+Completed 200 OK in 44ms (Views: 0.2ms | ActiveRecord: 11.0ms)
+
+
+Started GET "/movies" for 127.0.0.1 at 2017-09-11 19:50:07 -0400
+Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (0.7ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+  [1m[36mReview Load (0.4ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 1]]
+  [1m[36mFavorite Load (0.4ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 1]]
+  [1m[36mReview Load (0.4ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 2]]
+  [1m[36mFavorite Load (0.4ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 2]]
+  [1m[36mReview Load (0.4ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 3]]
+  [1m[36mFavorite Load (0.4ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 3]]
+  [1m[36mReview Load (0.8ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 4]]
+  [1m[36mFavorite Load (0.3ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 4]]
+  [1m[36mReview Load (0.4ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 5]]
+  [1m[36mFavorite Load (0.3ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 5]]
+  [1m[36mReview Load (0.4ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 6]]
+  [1m[36mFavorite Load (0.3ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 6]]
+Completed 200 OK in 29ms (Views: 0.2ms | ActiveRecord: 5.6ms)
+
+
+Started POST "/movies" for 127.0.0.1 at 2017-09-11 19:50:22 -0400
+Processing by MoviesController#create as HTML
+  Parameters: {"title"=>"Rogue One", "rating"=>"PG-13", "genre"=>"Action, Adventure, Sci-Fi", "year_released"=>"2016", "director"=>"Gareth Edwards", "actors"=>"Felicity Jones, Diego Luna, Alan Tudyk, Donnie Yen", "poster"=>"https://images-na.ssl-images-amazon.com/images/M/MV5BMjEwMzMxODIzOV5BMl5BanBnXkFtZTgwNzg3OTAzMDI@._V1_SX300.jpg", "plot"=>"The Rebel Alliance makes a risky move to steal the plans for the Death Star, setting up the epic saga to follow.", "rotten_tomatoes_score"=>"85%", "imdbid"=>"tt3748528", "movie"=>{"title"=>"Rogue One", "rating"=>"PG-13", "genre"=>"Action, Adventure, Sci-Fi", "year_released"=>"2016", "plot"=>"The Rebel Alliance makes a risky move to steal the plans for the Death Star, setting up the epic saga to follow.", "director"=>"Gareth Edwards", "actors"=>"Felicity Jones, Diego Luna, Alan Tudyk, Donnie Yen", "poster"=>"https://images-na.ssl-images-amazon.com/images/M/MV5BMjEwMzMxODIzOV5BMl5BanBnXkFtZTgwNzg3OTAzMDI@._V1_SX300.jpg", "rotten_tomatoes_score"=>"85%", "imdbid"=>"tt3748528"}}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "movies" ("title", "rating", "genre", "year_released", "plot", "director", "actors", "poster", "rotten_tomatoes_score", "created_at", "updated_at", "imdbid") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING "id"[0m  [["title", "Rogue One"], ["rating", "PG-13"], ["genre", "Action, Adventure, Sci-Fi"], ["year_released", 2016], ["plot", "The Rebel Alliance makes a risky move to steal the plans for the Death Star, setting up the epic saga to follow."], ["director", "Gareth Edwards"], ["actors", "Felicity Jones, Diego Luna, Alan Tudyk, Donnie Yen"], ["poster", "https://images-na.ssl-images-amazon.com/images/M/MV5BMjEwMzMxODIzOV5BMl5BanBnXkFtZTgwNzg3OTAzMDI@._V1_SX300.jpg"], ["rotten_tomatoes_score", "85%"], ["created_at", "2017-09-11 23:50:22.330899"], ["updated_at", "2017-09-11 23:50:22.330899"], ["imdbid", "tt3748528"]]
+  [1m[35m (1.7ms)[0m  [1m[35mCOMMIT[0m
+Completed 201 Created in 9ms (Views: 0.6ms | ActiveRecord: 2.5ms)
+
+
+Started POST "/reviews" for 127.0.0.1 at 2017-09-11 19:50:22 -0400
+Processing by ReviewsController#create as HTML
+  Parameters: {"user_id"=>1, "movie_id"=>7, "review_text"=>"", "review"=>{"user_id"=>1, "movie_id"=>7, "review_text"=>""}}
+Started GET "/movies" for 127.0.0.1 at 2017-09-11 19:50:22 -0400
+Processing by MoviesController#index as HTML
+  [1m[35m (1.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mMovie Load (0.8ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+  [1m[36mUser Load (1.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mReview Load (0.2ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 1]]
+  [1m[36mFavorite Load (0.2ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 1]]
+  [1m[36mMovie Load (1.4ms)[0m  [1m[34mSELECT  "movies".* FROM "movies" WHERE "movies"."id" = $1 LIMIT $2[0m  [["id", 7], ["LIMIT", 1]]
+  [1m[36mReview Load (0.6ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 2]]
+  [1m[35m (0.3ms)[0m  [1m[31mROLLBACK[0m
+Completed 422 Unprocessable Entity in 14ms (Views: 0.2ms | ActiveRecord: 4.4ms)
+
+
+  [1m[36mFavorite Load (0.6ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 2]]
+  [1m[36mReview Load (0.4ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 3]]
+  [1m[36mFavorite Load (3.2ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 3]]
+  [1m[36mReview Load (0.2ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 4]]
+  [1m[36mFavorite Load (0.2ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 4]]
+  [1m[36mReview Load (1.6ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 5]]
+  [1m[36mFavorite Load (0.2ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 5]]
+  [1m[36mReview Load (0.3ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 6]]
+  [1m[36mFavorite Load (0.3ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 6]]
+  [1m[36mReview Load (0.4ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 7]]
+  [1m[36mFavorite Load (1.8ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 7]]
+Completed 200 OK in 41ms (Views: 0.5ms | ActiveRecord: 10.9ms)
+
+
+Started GET "/movies" for 127.0.0.1 at 2017-09-11 19:50:42 -0400
+Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (0.4ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+  [1m[36mReview Load (0.2ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 1]]
+  [1m[36mFavorite Load (0.2ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 1]]
+  [1m[36mReview Load (0.3ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 2]]
+  [1m[36mFavorite Load (0.2ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 2]]
+  [1m[36mReview Load (0.3ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 3]]
+  [1m[36mFavorite Load (0.3ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 3]]
+  [1m[36mReview Load (0.2ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 4]]
+  [1m[36mFavorite Load (0.2ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 4]]
+  [1m[36mReview Load (0.3ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 5]]
+  [1m[36mFavorite Load (0.3ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 5]]
+  [1m[36mReview Load (0.2ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 6]]
+  [1m[36mFavorite Load (0.2ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 6]]
+  [1m[36mReview Load (0.2ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 7]]
+  [1m[36mFavorite Load (0.2ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 7]]
+Completed 200 OK in 26ms (Views: 0.2ms | ActiveRecord: 3.8ms)
+
+
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (200.8ms)[0m  [1m[35mDROP DATABASE IF EXISTS "movie_app_api_development"[0m
+  [1m[35m (195.3ms)[0m  [1m[35mDROP DATABASE IF EXISTS "movie_app_api_test"[0m
+  [1m[35m (4.5ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (2.6ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(6652800596385700680)[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateMovies (20170908001042)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (3.2ms)[0m  [1m[35mCREATE TABLE "movies" ("id" bigserial primary key, "title" character varying, "rating" character varying, "genre" character varying, "year_released" integer, "plot" text, "director" character varying, "actors" character varying, "poster" character varying, "rotten_tomatoes_score" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170908001042"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateUsers (20170908001243)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (2.9ms)[0m  [1m[35mCREATE TABLE "users" ("id" bigserial primary key, "username" character varying, "first_name" character varying, "last_name" character varying, "age" integer, "gender" character varying, "password_digest" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170908001243"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateReviews (20170908001753)
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (3.8ms)[0m  [1m[35mCREATE TABLE "reviews" ("id" bigserial primary key, "user_id" bigint, "movie_id" bigint, "review_text" text, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, CONSTRAINT "fk_rails_74a66bd6c5"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+, CONSTRAINT "fk_rails_6ad75a4852"
+FOREIGN KEY ("movie_id")
+  REFERENCES "movies" ("id")
+)[0m
+  [1m[35m (1.0ms)[0m  [1m[35mCREATE  INDEX  "index_reviews_on_user_id" ON "reviews"  ("user_id")[0m
+  [1m[35m (1.0ms)[0m  [1m[35mCREATE  INDEX  "index_reviews_on_movie_id" ON "reviews"  ("movie_id")[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170908001753"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateFavorites (20170908002204)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (2.5ms)[0m  [1m[35mCREATE TABLE "favorites" ("id" bigserial primary key, "user_id" bigint, "movie_id" bigint, "recommended" boolean, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, CONSTRAINT "fk_rails_d15744e438"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+, CONSTRAINT "fk_rails_2f96619ba3"
+FOREIGN KEY ("movie_id")
+  REFERENCES "movies" ("id")
+)[0m
+  [1m[35m (1.5ms)[0m  [1m[35mCREATE  INDEX  "index_favorites_on_user_id" ON "favorites"  ("user_id")[0m
+  [1m[35m (1.0ms)[0m  [1m[35mCREATE  INDEX  "index_favorites_on_movie_id" ON "favorites"  ("movie_id")[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170908002204"]]
+  [1m[35m (1.2ms)[0m  [1m[35mCOMMIT[0m
+Migrating to ImdbAdd (20170909143746)
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.3ms)[0m  [1m[35mALTER TABLE "movies" ADD "imdb_id" character varying[0m
+  [1m[35mSQL (0.7ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170909143746"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+Migrating to RenameUserIdColumn (20170910173227)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.3ms)[0m  [1m[35mALTER TABLE "movies" RENAME COLUMN "imdb_id" TO "userid"[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170910173227"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+Migrating to RenameUserColumnInMovies (20170910173446)
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "movies" RENAME COLUMN "userid" TO "imdbid"[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170910173446"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2017-09-12 00:01:59.334234"], ["updated_at", "2017-09-12 00:01:59.334234"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(6652800596385700680)[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.7ms)[0m  [1m[32mINSERT INTO "movies" ("title", "rating", "genre", "plot", "director", "actors", "poster", "rotten_tomatoes_score", "created_at", "updated_at", "imdbid") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING "id"[0m  [["title", "Star Wars: Episode IV - A New Hope"], ["rating", "PG"], ["genre", "Action, Adventure, Fantasy"], ["plot", "Luke Skywalker joins forces with a Jedi Knight, a cocky pilot, a Wookiee, and two droids to save the galaxy from the Empire's world-destroying battle-station, while also attempting to rescue Princess Leia from the evil Darth Vader."], ["director", "George Lucas"], ["actors", "Mark Hamill, Harrison Ford, Carrie Fisher, Peter Cushing"], ["poster", "https://images-na.ssl-images-amazon.com/images/M/MV5BYTUwNTdiMzMtNThmNS00ODUzLThlMDMtMTM5Y2JkNWJjOGQ2XkEyXkFqcGdeQXVyNzQ1ODk3MTQ@._V1_SX300.jpg"], ["rotten_tomatoes_score", "93%"], ["created_at", "2017-09-12 00:02:04.034563"], ["updated_at", "2017-09-12 00:02:04.034563"], ["imdbid", "tt0076759"]]
+  [1m[35m (1.9ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "movies" ("title", "rating", "genre", "plot", "director", "actors", "poster", "rotten_tomatoes_score", "created_at", "updated_at", "imdbid") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING "id"[0m  [["title", "Star Wars: Episode V - The Empire Strikes Back"], ["rating", "PG"], ["genre", "Action, Adventure, Fantasy"], ["plot", "After the rebels are overpowered by the Empire on their newly established base, Luke Skywalker begins Jedi training with Master Yoda. His friends accept shelter from a questionable ally as Darth Vader hunts them in a plan to capture Luke."], ["director", "Irvin Kershner"], ["actors", "Mark Hamill, Harrison Ford, Carrie Fisher, Billy Dee Williams"], ["poster", "https://images-na.ssl-images-amazon.com/images/M/MV5BYmViY2M2MTYtY2MzOS00YjQ1LWIzYmEtOTBiNjhlMGM0NjZjXkEyXkFqcGdeQXVyNDYyMDk5MTU@._V1_SX300.jpg"], ["rotten_tomatoes_score", "94%"], ["created_at", "2017-09-12 00:02:04.039483"], ["updated_at", "2017-09-12 00:02:04.039483"], ["imdbid", "tt0080684"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "movies" ("title", "rating", "genre", "plot", "director", "actors", "poster", "rotten_tomatoes_score", "created_at", "updated_at", "imdbid") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING "id"[0m  [["title", "Star Wars: Episode VI - Return of the Jedi"], ["rating", "PG"], ["genre", "Action, Adventure, Fantasy"], ["plot", "After a daring mission to rescue Han Solo from Jabba the Hutt, the rebels dispatch to Endor to destroy a more powerful Death Star. Meanwhile, Luke struggles to help Vader back from the dark side without falling into the Emperor's trap."], ["director", "Richard Marquand"], ["actors", "Mark Hamill, Harrison Ford, Carrie Fisher, Billy Dee Williams"], ["poster", "https://images-na.ssl-images-amazon.com/images/M/MV5BODllZjg2YjUtNWEzNy00ZGY2LTgyZmQtYTkxNDYyOWM3OTUyXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg"], ["rotten_tomatoes_score", "80%"], ["created_at", "2017-09-12 00:02:04.042005"], ["updated_at", "2017-09-12 00:02:04.042005"], ["imdbid", "tt0086190"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "movies" ("title", "rating", "genre", "plot", "director", "actors", "poster", "rotten_tomatoes_score", "created_at", "updated_at", "imdbid") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING "id"[0m  [["title", "Star Wars: The Force Awakens"], ["rating", "PG-13"], ["genre", "Action, Adventure, Fantasy"], ["plot", "Three decades after the Empire's defeat, a new threat arises in the militant First Order. Stormtrooper defector Finn and spare parts scavenger Rey are caught up in the Resistance's search for the missing Luke Skywalker."], ["director", "J.J. Abrams"], ["actors", "Harrison Ford, Mark Hamill, Carrie Fisher, Adam Driver"], ["poster", "https://images-na.ssl-images-amazon.com/images/M/MV5BOTAzODEzNDAzMl5BMl5BanBnXkFtZTgwMDU1MTgzNzE@._V1_SX300.jpg"], ["rotten_tomatoes_score", "92%"], ["created_at", "2017-09-12 00:02:04.044082"], ["updated_at", "2017-09-12 00:02:04.044082"], ["imdbid", "tt2488496"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "movies" ("title", "rating", "genre", "plot", "director", "actors", "poster", "rotten_tomatoes_score", "created_at", "updated_at", "imdbid") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING "id"[0m  [["title", "Rogue One"], ["rating", "PG-13"], ["genre", "Action, Adventure, Sci-Fi"], ["plot", "The Rebel Alliance makes a risky move to steal the plans for the Death Star, setting up the epic saga to follow."], ["director", "Gareth Edwards"], ["actors", "Felicity Jones, Diego Luna, Alan Tudyk, Donnie Yen"], ["poster", "https://images-na.ssl-images-amazon.com/images/M/MV5BMjEwMzMxODIzOV5BMl5BanBnXkFtZTgwNzg3OTAzMDI@._V1_SX300.jpg"], ["rotten_tomatoes_score", "85%"], ["created_at", "2017-09-12 00:02:04.046139"], ["updated_at", "2017-09-12 00:02:04.046139"], ["imdbid", "tt3748528"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+Started GET "/movies" for 127.0.0.1 at 2017-09-11 20:02:15 -0400
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (0.6ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+  [1m[36mReview Load (0.4ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 1]]
+  [1m[36mFavorite Load (0.3ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 1]]
+  [1m[36mReview Load (0.2ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 2]]
+  [1m[36mFavorite Load (0.3ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 2]]
+  [1m[36mReview Load (0.3ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 3]]
+  [1m[36mFavorite Load (0.3ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 3]]
+  [1m[36mReview Load (0.3ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 4]]
+  [1m[36mFavorite Load (0.3ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 4]]
+  [1m[36mReview Load (0.3ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 5]]
+  [1m[36mFavorite Load (0.2ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 5]]
+Completed 200 OK in 60ms (Views: 0.2ms | ActiveRecord: 9.9ms)
+
+
+Started GET "/movies" for 127.0.0.1 at 2017-09-11 20:02:43 -0400
+Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (0.9ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+  [1m[36mReview Load (0.4ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 1]]
+  [1m[36mFavorite Load (0.4ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 1]]
+  [1m[36mReview Load (0.3ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 2]]
+  [1m[36mFavorite Load (0.3ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 2]]
+  [1m[36mReview Load (0.4ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 3]]
+  [1m[36mFavorite Load (1.1ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 3]]
+  [1m[36mReview Load (1.4ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 4]]
+  [1m[36mFavorite Load (3.3ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 4]]
+  [1m[36mReview Load (0.4ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" WHERE "reviews"."movie_id" = $1[0m  [["movie_id", 5]]
+  [1m[36mFavorite Load (0.4ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."movie_id" = $1[0m  [["movie_id", 5]]
+Completed 200 OK in 50ms (Views: 0.1ms | ActiveRecord: 15.9ms)
+
+
