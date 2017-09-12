@@ -10,7 +10,7 @@ class UsersController < ApplicationController
   def login
     user = User.find_by(username: params[:user][:username])
 
-    if user && user.authenticate(params[:user][:password_digest])
+    if user && user.authenticate(params[:user][:password])
       token = create_token(user.id, user.username)
       render json: {status: 200, token: token, user: user}
     else
@@ -89,6 +89,6 @@ end
 
     # Only allow a trusted parameter "white list" through.
     def user_params
-      params.require(:user).permit(:username, :first_name, :password_digest, :last_name, :age, :gender)
+      params.require(:user).permit(:username, :first_name, :password, :password_digest, :last_name, :age, :gender)
     end
 end
